@@ -67,7 +67,7 @@
 						</goals>
 						<configuration>
 							<overwrite>true</overwrite>
-							<outputDirectory>${basedir}/../server/target/classes/public</outputDirectory>
+							<outputDirectory>${project.build.directory}/classes/META-INF/resources/webjars/${artifactId}/${project.version}</outputDirectory>
 							<resources>
 								<resource>
 									<directory>build</directory>
