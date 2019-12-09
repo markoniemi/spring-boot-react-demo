@@ -8,7 +8,7 @@
 		<artifactId>spring-boot-react-demo</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>server</artifactId>
+	<artifactId>backend</artifactId>
 
 	<properties>
 		<java.version>1.8</java.version>

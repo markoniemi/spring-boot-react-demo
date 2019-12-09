@@ -9,7 +9,7 @@
 	<name>spring-boot-react-demo</name>
 	<packaging>pom</packaging>
 	<modules>
-		<module>server</module>
+		<module>backend</module>
 		<module>frontend</module>
 	</modules>
 </project>
