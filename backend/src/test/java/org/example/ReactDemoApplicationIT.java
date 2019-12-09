@@ -23,7 +23,7 @@ public class ReactDemoApplicationIT {
     @Test
     public void helloWorld() throws InterruptedException {
         webDriver.get("http://localhost:8080");
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         Assert.assertTrue(webDriver.findElement(By.className("App-title")).getText().contains("world"));
     }
 }
