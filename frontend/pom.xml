@@ -21,6 +21,7 @@
 						<goals>
 							<goal>install-node-and-npm</goal>
 						</goals>
+                        <phase>initialize</phase>
 						<configuration>
 							<nodeVersion>v10.15.2</nodeVersion>
 							<npmVersion>6.4.1</npmVersion>
@@ -28,6 +29,7 @@
 					</execution>
 					<execution>
 						<id>npm install</id>
+                        <phase>initialize</phase>
 						<goals>
 							<goal>npm</goal>
 						</goals>
@@ -37,6 +39,7 @@
 					</execution>
 					<execution>
 						<id>npm run build</id>
+                        <phase>compile</phase>
 						<goals>
 							<goal>npm</goal>
 						</goals>
@@ -52,7 +55,7 @@
 				<executions>
 					<execution>
 						<id>copy-resources</id>
-						<phase>package</phase>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>

@@ -24,6 +24,7 @@ public class ReactDemoApplicationIT {
     public void helloWorld() throws InterruptedException {
         webDriver.get("http://localhost:8080");
         Thread.sleep(5000);
+        System.out.println(webDriver.getPageSource());
         Assert.assertTrue(webDriver.findElement(By.className("App-title")).getText().contains("world"));
     }
 }
