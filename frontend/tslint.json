@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-eslint-rules"
+  ],
+  "rules": {
+    "no-implicit-dependencies": [true, "dev"],
+    "member-ordering": "fields-first",
+    "object-literal-sort-keys": false
+  }
+}
