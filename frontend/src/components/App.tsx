@@ -1,7 +1,8 @@
+/* eslint-disable */
 import React, { Component } from 'react';
-import logo from '../logo.svg';
+//import logo from '../logo.svg';
 import '../App.css';
-import StudentList from './StudentList.jsx';
+import StudentList from './StudentList';
 import Hello from "./Hello";
 
 const studentList = [{id:1,name:'John Doe',grade:1,school:'React Redux School'},{id:2,name:'Jane Doe',grade:2,school:'React Redux School'}

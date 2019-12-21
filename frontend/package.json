@@ -4,22 +4,21 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "react-scripts": "2.1.1"
+    "react-dom": "^16.8.1"
   },
   "devDependencies": {
     "@types/node": "^10.12.18",
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
     "typescript": "^3.2.4",
-    "react-scripts-ts": "3.1.0",
+    "react-scripts": "3.3.0",
     "tslint-eslint-rules": "5.4.0"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:8080",
   "browserslist": [
@@ -27,5 +26,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
+  ],
+  "eslintIgnore": [
+    "src/**"
   ]
 }
