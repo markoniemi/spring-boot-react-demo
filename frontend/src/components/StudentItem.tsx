@@ -1,12 +1,17 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import { Component } from 'react';
+import React from "react";
 
 
-export default class StudentItem extends Component {
+export default class StudentItem extends Component<any, any> {
+  private nameInput: any;
+  private gradeInput: any;
+  private schoolInput: any;
+
   constructor(props)
   {
     super(props);
-    this.state ={isEdit:false}
+    this.state ={isEdit:false};
     this.editStudent = this.editStudent.bind(this);
     this.editStudentSubmit = this.editStudentSubmit.bind(this);
     this.deleteStudent = this.deleteStudent.bind(this);

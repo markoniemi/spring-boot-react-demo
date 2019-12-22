@@ -11,7 +11,7 @@ const studentList = [{id:1,name:'John Doe',grade:1,school:'React Redux School'},
 if (localStorage.getItem("students") === null)
   localStorage.setItem('students', JSON.stringify(studentList));
 
-class App extends Component {
+class App extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {

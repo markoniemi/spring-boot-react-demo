@@ -3,30 +3,19 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "esnext",
+    "module": "commonjs",
     "target": "ES6",
-    "jsx": "preserve",
+    "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node",
     "typeRoots": [
       "node_modules/@types"
     ],
-    "esModuleInterop": true,
-    "skipLibCheck": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ]
+    "esModuleInterop": true
   },
   "include": [
     "./src/**/*",
-    "./test/**/*"
+    "./test/**/*",
+    "./server/**/*"
   ]
 }

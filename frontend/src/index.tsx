@@ -1,9 +1,21 @@
-/* eslint-disable */
+import "bootstrap/dist/css/bootstrap.css";
+import * as Debug from "debug";
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import App from "./components/App";
-import {ReactDOM} from "react";
+import "./main.css";
 
-ReactDOM.render(
-        <App />,
-    document.getElementById('root') as HTMLElement
-);
+const render = (): void => {
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("root"),
+    );
+};
+
+render();
+
+if (module.hot) {
+    module.hot.accept("./components/App", () => {
+        render();
+    });
+}

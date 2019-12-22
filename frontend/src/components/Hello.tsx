@@ -1,11 +1,12 @@
 /* eslint-disable */
-import React, {Component} from 'react';
-import logo from '../logo.svg';
+import {Component} from 'react';
+import React from 'react';
+//import logo from '../logo.svg';
 import '../App.css';
 
-class Hello extends Component {
+class Hello extends Component<any, any> {
 
-    state = {};
+    state = {message: ""};
 
     componentDidMount() {
         setInterval(this.hello, 250);
