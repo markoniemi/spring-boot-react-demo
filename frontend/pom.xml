@@ -75,10 +75,6 @@
 							<outputDirectory>${project.build.directory}/classes/META-INF/resources/webjars/${artifactId}/${project.version}</outputDirectory>
 							<resources>
 								<resource>
-									<directory>public</directory>
-									<filtering>false</filtering>
-								</resource>
-								<resource>
 									<directory>build</directory>
 									<filtering>false</filtering>
 								</resource>

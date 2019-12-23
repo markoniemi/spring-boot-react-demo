@@ -2,23 +2,7 @@ import React, {Component} from "react";
 import "../App.css";
 import StudentList from "./StudentList";
 import Hello from "./Hello";
-
-const studentList = [{id: 1, name: "John Doe", grade: 1, school: "React Redux School"}, {
-    id: 2,
-    name: "Jane Doe",
-    grade: 2,
-    school: "React Redux School"
-}
-    , {id: 3, name: "Terry Adams", grade: 3, school: "React Redux School"}, {
-        id: 4,
-        name: "Jenny Smith",
-        grade: 4,
-        school: "React Redux School"
-    }];
-
-if (localStorage.getItem("students") === null) {
-    localStorage.setItem("students", JSON.stringify(studentList));
-}
+import StudentApi from "../api/StudentApi";
 
 class App extends Component<any, any> {
     constructor(props) {
@@ -31,9 +15,7 @@ class App extends Component<any, any> {
         this.addNewStudent = this.addNewStudent.bind(this);
     }
 
-    public componentWillMount() {
-        let studentList = JSON.parse(localStorage.getItem("students"));
-
+    private setStudentsToState(studentList) {
         this.setState((prevState, props) => (
                 {
                     studentList: studentList
@@ -42,46 +24,29 @@ class App extends Component<any, any> {
         );
     }
 
-  public addNewStudent() {
-        this.setState((prevState, props) => ({
-
-            studentList: [...prevState.studentList, {
-                id: Math.max(...prevState.studentList.map(function (o) {
-                    return o.id
-                })) + 1, name: "", grade: 1, school: ""
-            }]
-
-        }));
+    public componentWillMount() {
+        this.setStudentsToState(StudentApi.getStudents());
     }
 
-  public deleteStudent(id) {
-        let r = window.confirm("Do you want to delete this item");
-        if (r === true) {
-            let filteredStudentList = this.state.studentList.filter(x => x.id !== id);
+    public addNewStudent() {
+        StudentApi.create();
+        this.setStudentsToState(StudentApi.getStudents());
+    }
 
-            this.setState((prevState, props) => ({
-                studentList: filteredStudentList
-            }));
-            localStorage.setItem("students", JSON.stringify(filteredStudentList));
+    public deleteStudent(id) {
+        let response = window.confirm("Do you want to delete this item");
+        if (response === true) {
+            StudentApi.delete(id);
+            this.setStudentsToState(StudentApi.getStudents());
         }
     }
 
-  public editStudentSubmit(id, name, grade, school) {
-        let studentListCopy = this.state.studentList.map((student) => {
-            if (student.id === id) {
-                student.name = name;
-                student.grade = grade;
-                student.school = school;
-            }
-            return student;
-        });
-        this.setState((prevState, props) => ({
-            studentList: studentListCopy
-        }));
-        localStorage.setItem("students", JSON.stringify(studentListCopy));
+    public editStudentSubmit(id, name, grade, school) {
+        StudentApi.update({id: id, name: name, grate: grade, school: school});
+        this.setStudentsToState(StudentApi.getStudents());
     }
 
-  public render() {
+    public render() {
         return (
             <div>
                 <div className="container-fluid">
