@@ -25,6 +25,6 @@ public class ReactDemoApplicationIT {
         webDriver.get("http://localhost:8080");
         Thread.sleep(5000);
         System.out.println(webDriver.getPageSource());
-        Assert.assertTrue(webDriver.findElement(By.className("App-title")).getText().contains("world"));
+        Assert.assertTrue(webDriver.findElement(By.id("message")).getText().contains("world"));
     }
 }

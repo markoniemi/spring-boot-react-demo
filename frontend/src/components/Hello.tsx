@@ -25,7 +25,7 @@ class Hello extends Component<any, any> {
 
     render() {
         return (
-            <p>{this.state.message}</p>
+            <p id="message">{this.state.message}</p>
         );
     }
 }
