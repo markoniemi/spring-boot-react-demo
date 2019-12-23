@@ -1,19 +1,11 @@
 class StudentApi {
     private static studentList = JSON.parse(localStorage.getItem("students"));
 
-    private static initialize() {
-        const studentList = [{id: 1, name: "John Doe", grade: 1, school: "React Redux School"}, {
-            id: 2,
-            name: "Jane Doe",
-            grade: 2,
-            school: "React Redux School",
-        }, {id: 3, name: "Terry Adams", grade: 3, school: "React Redux School"}, {
-            id: 4,
-            name: "Jenny Smith",
-            grade: 4,
-            school: "React Redux School",
-        }];
-
+    public static initialize() {
+        const studentList = [{id: 1, name: "John Doe", grade: 1, school: "React Redux School"},
+            {id: 2, name: "Jane Doe", grade: 2, school: "React Redux School"},
+            {id: 3, name: "Terry Adams", grade: 3, school: "React Redux School"},
+            {id: 4, name: "Jenny Smith", grade: 4, school: "React Redux School"}];
         if (localStorage.getItem("students") === null) {
             localStorage.setItem("students", JSON.stringify(studentList));
         }
@@ -24,13 +16,15 @@ class StudentApi {
     }
 
     public static create() {
-        let newStudentList = [...(StudentApi.studentList), {
-            id: Math.max(...(StudentApi.studentList).map(function (o) {
-                return o.id
-            })) + 1, name: "", grade: 1, school: ""
+        let newStudentList = [...StudentApi.studentList, {
+            id: StudentApi.createId(), name: "", grade: 1, school: "",
         }];
         StudentApi.studentList = newStudentList;
         localStorage.setItem("students", JSON.stringify(newStudentList));
+    }
+
+    private static createId() {
+        return Math.max(...StudentApi.studentList.map((o) => o.id)) + 1;
     }
 
     public static update(editedStudent) {

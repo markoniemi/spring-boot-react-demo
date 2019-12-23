@@ -16,12 +16,7 @@ class App extends Component<any, any> {
     }
 
     private setStudentsToState(studentList) {
-        this.setState((prevState, props) => (
-                {
-                    studentList: studentList
-                }
-            )
-        );
+        this.setState((prevState, props) => ({studentList: studentList}));
     }
 
     public componentWillMount() {
@@ -34,15 +29,14 @@ class App extends Component<any, any> {
     }
 
     public deleteStudent(id) {
-        let response = window.confirm("Do you want to delete this item");
-        if (response === true) {
+        if (window.confirm("Do you want to delete this item") === true) {
             StudentApi.delete(id);
             this.setStudentsToState(StudentApi.getStudents());
         }
     }
 
     public editStudentSubmit(id, name, grade, school) {
-        StudentApi.update({id: id, name: name, grate: grade, school: school});
+        StudentApi.update({id: id, name: name, grade: grade, school: school});
         this.setStudentsToState(StudentApi.getStudents());
     }
 
@@ -67,9 +61,11 @@ class App extends Component<any, any> {
                                             <th>Delete</th>
                                         </tr>
                                         </thead>
-                                        <StudentList deleteStudent={this.deleteStudent}
-                                                     studentList={this.state.studentList}
-                                                     editStudentSubmit={this.editStudentSubmit}/>
+                                        <StudentList
+                                            deleteStudent={this.deleteStudent}
+                                            studentList={this.state.studentList}
+                                            editStudentSubmit={this.editStudentSubmit}
+                                        />
                                     </table>
                                     <button className="btn btn-dark pull-left" onClick={this.addNewStudent}>Add New
                                     </button>
