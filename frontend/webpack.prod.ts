@@ -1,20 +1,19 @@
 import * as path from "path";
 import * as webpack from "webpack";
-//import * as HtmlWebPackPlugin from "html-webpack-plugin";
-import HtmlWebPackPlugin = require("html-webpack-plugin");
+import CopyWebpackPlugin = require("copy-webpack-plugin");
+//import HtmlWebPackPlugin = require("html-webpack-plugin");
 
-const htmlPlugin = new HtmlWebPackPlugin({
-//    template: "./src/index.html",
-    template: "./public/index.html",
-    filename: "./index.html"
-});
+// const htmlPlugin = new HtmlWebPackPlugin({
+//     template: "./public/index.html",
+//     filename: "./index.html"
+// });
 
 const config: webpack.Configuration = {
     mode: "production",
     entry: "./src/index.tsx",
     output: {
         path: path.resolve(__dirname, "build"),
-        filename: "bundle.js"
+        filename: "app.js"
     },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
@@ -34,7 +33,12 @@ const config: webpack.Configuration = {
 //            { test: /\.tsx?$/, loader: "awesome-typescript-loader" }
         ]
     },
-    plugins: [htmlPlugin]
+//    plugins: [htmlPlugin]
+    plugins: [
+        new CopyWebpackPlugin([
+            {from:'public',to:'build'}
+        ])
+    ]
 };
 
 export default config;
