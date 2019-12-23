@@ -36,7 +36,7 @@ const config: webpack.Configuration = {
 //    plugins: [htmlPlugin]
     plugins: [
         new CopyWebpackPlugin([
-            {from:'public',to:'build'}
+            {from:'public',to:'.'}
         ])
     ]
 };
