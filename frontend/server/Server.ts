@@ -18,7 +18,8 @@ export default class Server {
       contentBase: "./public",
       hot: true,
       proxy: {
-        "/api/*": `http://${backendHost}:${backendPort}`,
+//        "/api/*": `http://${backendHost}:${backendPort}`,
+        "/api/*": `http://localhost:8080`,
       },
       publicPath: "",
     };
