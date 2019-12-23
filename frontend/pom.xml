@@ -45,8 +45,8 @@
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-                            <skip>true</skip>
-							<arguments>run build</arguments>
+<!--                             <skip>true</skip> -->
+							<arguments>run build-test</arguments>
 						</configuration>
 					</execution>
 				</executions>
@@ -66,11 +66,11 @@
 							<outputDirectory>${project.build.directory}/classes/META-INF/resources/webjars/${artifactId}/${project.version}</outputDirectory>
 							<resources>
 								<resource>
-									<directory>dist/src</directory>
+									<directory>public</directory>
 									<filtering>false</filtering>
 								</resource>
 								<resource>
-									<directory>public</directory>
+									<directory>dist</directory>
 									<filtering>false</filtering>
 								</resource>
 							</resources>
