@@ -29,7 +29,7 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>npm install</id>
+						<id>install</id>
                         <phase>initialize</phase>
 						<goals>
 							<goal>npm</goal>
@@ -39,14 +39,23 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>npm run build</id>
+						<id>clean</id>
                         <phase>compile</phase>
 						<goals>
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-<!--                             <skip>true</skip> -->
-							<arguments>run build-test</arguments>
+							<arguments>run clean</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>build</id>
+                        <phase>compile</phase>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
 						</configuration>
 					</execution>
 				</executions>
@@ -70,7 +79,7 @@
 									<filtering>false</filtering>
 								</resource>
 								<resource>
-									<directory>dist</directory>
+									<directory>build</directory>
 									<filtering>false</filtering>
 								</resource>
 							</resources>
