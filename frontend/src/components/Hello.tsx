@@ -1,29 +1,23 @@
-/* eslint-disable */
-import {Component} from 'react';
-import React from 'react';
-//import logo from '../logo.svg';
-import '../App.css';
+import React, {Component} from "react";
+import "../App.css";
 
 class Hello extends Component<any, any> {
-
-    state = {message: ""};
-
-    componentDidMount() {
+    public state = {message: ""};
+    public componentDidMount() {
         setInterval(this.hello, 250);
     }
-
-    hello = () => {
-        fetch('/api/hello', {
-            method: 'POST',
-            body: 'world'
+    public hello = () => {
+        fetch("/api/hello", {
+            method: "POST",
+            body: "world",
         })
-            .then(response => response.text())
-            .then(message => {
+            .then((response) => response.text())
+            .then((message) => {
                 this.setState({message: message});
             });
-    };
+    }
 
-    render() {
+    public render() {
         return (
             <p id="message">{this.state.message}</p>
         );
