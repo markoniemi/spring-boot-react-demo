@@ -1,35 +1,35 @@
 import React, {Component} from "react";
 
 export default class UserItem extends Component<any, any> {
-    private nameInput: any;
-    private gradeInput: any;
-    private schoolInput: any;
+    private usernameInput: any;
+    private passwordInput: any;
+    private emailInput: any;
 
     constructor(props) {
         super(props);
         this.state = {isEdit: false};
-        this.editStudent = this.editStudent.bind(this);
-        this.editStudentSubmit = this.editStudentSubmit.bind(this);
-        this.deleteStudent = this.deleteStudent.bind(this);
+        this.edit = this.edit.bind(this);
+        this.submit = this.submit.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
-    public deleteStudent() {
+    public delete() {
         const {id} = this.props.student;
         this.props.deleteStudent(id);
     }
 
-    public editStudent() {
+    public edit() {
         this.setState((prevState, props) => ({
             isEdit: !prevState.isEdit,
         }));
     }
 
-    public editStudentSubmit() {
+    public submit() {
         const {id} = this.props.student;
         this.setState((prevState, props) => ({
             isEdit: !prevState.isEdit,
         }));
-        this.props.editStudentSubmit(id, this.nameInput.value, this.gradeInput.value, this.schoolInput.value);
+        this.props.editStudentSubmit(id, this.usernameInput.value, this.passwordInput.value, this.emailInput.value);
     }
 
     public render() {
@@ -37,11 +37,11 @@ export default class UserItem extends Component<any, any> {
         return (
             this.state.isEdit === true ?
                 <tr className="bg-warning" key={this.props.index}>
-                    <td><input ref={(nameInput) => this.nameInput = nameInput} defaultValue={username}/></td>
-                    <td><input type="password" defaultValue={password} ref={(gradeInput) => this.gradeInput = gradeInput}/></td>
-                    <td><input ref={(schoolInput) => this.schoolInput = schoolInput} defaultValue={email}/></td>
-                    <td><button className="far fa-save" onClick={this.editStudentSubmit}/></td>
-                    <td><button className="fas fa-trash"/></td>
+                    <td><input id="usernameInput" ref={(usernameInput) => this.usernameInput = usernameInput} defaultValue={username}/></td>
+                    <td><input id="passwordInput" type="password" defaultValue={password} ref={(passwordInput) => this.passwordInput = passwordInput}/></td>
+                    <td><input id="emailInput" ref={(emailInput) => this.emailInput = emailInput} defaultValue={email}/></td>
+                    <td><button id="edit" className="far fa-save" onClick={this.submit}/></td>
+                    <td><button id="delete" className="fas fa-trash"/></td>
                 </tr>
                 :
                 <tr key={this.props.index}>
@@ -49,8 +49,8 @@ export default class UserItem extends Component<any, any> {
                     {/*<td>{password}</td>*/}
                     <td></td>
                     <td>{email}</td>
-                    <td><button className="far fa-edit" onClick={this.editStudent}/></td>
-                    <td><button className="fas fa-trash" onClick={this.deleteStudent}/></td>
+                    <td><button id="edit" className="far fa-edit" onClick={this.edit}/></td>
+                    <td><button id="delete" className="fas fa-trash" onClick={this.delete}/></td>
                 </tr>
         );
     }

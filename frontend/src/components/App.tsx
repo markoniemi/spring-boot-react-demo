@@ -10,34 +10,34 @@ class App extends Component<any, any> {
         this.state = {
             studentList: [],
         };
-        this.editStudentSubmit = this.editStudentSubmit.bind(this);
-        this.deleteStudent = this.deleteStudent.bind(this);
-        this.addNewStudent = this.addNewStudent.bind(this);
+        this.submitUser = this.submitUser.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
+        this.addUser = this.addUser.bind(this);
     }
 
-    private setStudentsToState(studentList) {
+    private setUsersToState(studentList) {
         this.setState((prevState, props) => ({studentList: studentList}));
     }
 
     public componentWillMount() {
-        this.setStudentsToState(StudentApi.getStudents());
+        this.setUsersToState(StudentApi.getStudents());
     }
 
-    public addNewStudent() {
+    public addUser() {
         StudentApi.create();
-        this.setStudentsToState(StudentApi.getStudents());
+        this.setUsersToState(StudentApi.getStudents());
     }
 
-    public deleteStudent(id) {
+    public deleteUser(id) {
         if (window.confirm("Do you want to delete this item") === true) {
             StudentApi.delete(id);
-            this.setStudentsToState(StudentApi.getStudents());
+            this.setUsersToState(StudentApi.getStudents());
         }
     }
 
-    public editStudentSubmit(id, username, password, email) {
+    public submitUser(id, username, password, email) {
         StudentApi.update({id: id, username: username, password: password, email: email});
-        this.setStudentsToState(StudentApi.getStudents());
+        this.setUsersToState(StudentApi.getStudents());
     }
 
     public render() {
@@ -62,12 +62,12 @@ class App extends Component<any, any> {
                                         </tr>
                                         </thead>
                                         <UserList
-                                            deleteStudent={this.deleteStudent}
+                                            deleteStudent={this.deleteUser}
                                             studentList={this.state.studentList}
-                                            editStudentSubmit={this.editStudentSubmit}
+                                            editStudentSubmit={this.submitUser}
                                         />
                                     </table>
-                                    <button className="btn btn-dark pull-left" onClick={this.addNewStudent}>Add New
+                                    <button className="btn btn-dark pull-left" onClick={this.addUser}>Add New
                                     </button>
                                 </div>
                             </div>
