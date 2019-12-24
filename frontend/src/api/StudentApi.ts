@@ -2,10 +2,10 @@ class StudentApi {
     private static studentList = JSON.parse(localStorage.getItem("students"));
 
     public static initialize() {
-        const studentList = [{id: 1, name: "John Doe", grade: 1, school: "React Redux School"},
-            {id: 2, name: "Jane Doe", grade: 2, school: "React Redux School"},
-            {id: 3, name: "Terry Adams", grade: 3, school: "React Redux School"},
-            {id: 4, name: "Jenny Smith", grade: 4, school: "React Redux School"}];
+        const studentList = [{id: 1, username: "username1", password: "password", email: "email1"},
+            {id: 2, username: "username2", password: "password", email: "email2"},
+            {id: 3, username: "username3", password: "password", email: "email3"},
+            {id: 4, username: "username4", password: "password", email: "email4"}];
         if (localStorage.getItem("students") === null) {
             localStorage.setItem("students", JSON.stringify(studentList));
         }
@@ -17,7 +17,7 @@ class StudentApi {
 
     public static create() {
         let newStudentList = [...StudentApi.studentList, {
-            id: StudentApi.createId(), name: "", grade: 1, school: "",
+            id: StudentApi.createId(), username: "", password: 1, email: "",
         }];
         StudentApi.studentList = newStudentList;
         localStorage.setItem("students", JSON.stringify(newStudentList));
@@ -30,9 +30,9 @@ class StudentApi {
     public static update(editedStudent) {
         let studentListCopy = StudentApi.studentList.map((student) => {
             if (student.id === editedStudent.id) {
-                student.name = editedStudent.name;
-                student.grade = editedStudent.grade;
-                student.school = editedStudent.school;
+                student.username = editedStudent.username;
+                student.password = editedStudent.password;
+                student.email = editedStudent.email;
             }
             return student;
         });

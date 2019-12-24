@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "../App.css";
-import StudentList from "./StudentList";
+import UserList from "./UserList";
 import Hello from "./Hello";
 import StudentApi from "../api/StudentApi";
 
@@ -35,8 +35,8 @@ class App extends Component<any, any> {
         }
     }
 
-    public editStudentSubmit(id, name, grade, school) {
-        StudentApi.update({id: id, name: name, grade: grade, school: school});
+    public editStudentSubmit(id, username, password, email) {
+        StudentApi.update({id: id, username: username, password: password, email: email});
         this.setStudentsToState(StudentApi.getStudents());
     }
 
@@ -48,20 +48,20 @@ class App extends Component<any, any> {
                         <div className="col-lg-12">
                             <div className="card">
                                 <div className="card-header">
-                                    Student Registry
+                                    Users
                                 </div>
                                 <div className="card-body">
                                     <table className="table table-hover">
                                         <thead className="thead-dark">
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Grade</th>
-                                            <th>School</th>
+                                            <th>Username</th>
+                                            <th>Password</th>
+                                            <th>Email</th>
                                             <th>Edit/Save</th>
                                             <th>Delete</th>
                                         </tr>
                                         </thead>
-                                        <StudentList
+                                        <UserList
                                             deleteStudent={this.deleteStudent}
                                             studentList={this.state.studentList}
                                             editStudentSubmit={this.editStudentSubmit}
