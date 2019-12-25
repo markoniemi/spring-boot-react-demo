@@ -67,7 +67,7 @@ class App extends Component<any, any> {
                                             editStudentSubmit={this.submitUser}
                                         />
                                     </table>
-                                    <button className="btn btn-dark pull-left" onClick={this.addUser}>Add New
+                                    <button id="addUser" className="btn btn-dark pull-left" onClick={this.addUser}>Add New
                                     </button>
                                 </div>
                             </div>

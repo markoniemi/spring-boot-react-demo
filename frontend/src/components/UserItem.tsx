@@ -36,19 +36,19 @@ export default class UserItem extends Component<any, any> {
         const {username, password, email} = this.props.student;
         return (
             this.state.isEdit === true ?
-                <tr className="bg-warning" key={this.props.index}>
+                <tr id={username} className="bg-warning" key={this.props.index}>
                     <td><input id="usernameInput" ref={(usernameInput) => this.usernameInput = usernameInput} defaultValue={username}/></td>
                     <td><input id="passwordInput" type="password" defaultValue={password} ref={(passwordInput) => this.passwordInput = passwordInput}/></td>
                     <td><input id="emailInput" ref={(emailInput) => this.emailInput = emailInput} defaultValue={email}/></td>
-                    <td><button id="edit" className="far fa-save" onClick={this.submit}/></td>
+                    <td><button id="submit" className="far fa-save" onClick={this.submit}/></td>
                     <td><button id="delete" className="fas fa-trash"/></td>
                 </tr>
                 :
-                <tr key={this.props.index}>
-                    <td>{username}</td>
+                <tr id={username} key={this.props.index}>
+                    <td id="username">{username}</td>
                     {/*<td>{password}</td>*/}
                     <td></td>
-                    <td>{email}</td>
+                    <td id="email">{email}</td>
                     <td><button id="edit" className="far fa-edit" onClick={this.edit}/></td>
                     <td><button id="delete" className="fas fa-trash" onClick={this.delete}/></td>
                 </tr>
