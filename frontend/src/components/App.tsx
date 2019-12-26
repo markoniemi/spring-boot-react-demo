@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import "../App.css";
 import UserList from "./UserList";
 import Hello from "./Hello";
-import StudentApi from "../api/StudentApi";
+import UserApi from "../api/UserApi";
 
 class App extends Component<any, any> {
     constructor(props) {
@@ -20,24 +20,24 @@ class App extends Component<any, any> {
     }
 
     public componentWillMount() {
-        this.setUsersToState(StudentApi.getStudents());
+        this.setUsersToState(UserApi.getUsers());
     }
 
     public addUser() {
-        StudentApi.create();
-        this.setUsersToState(StudentApi.getStudents());
+        UserApi.create();
+        this.setUsersToState(UserApi.getUsers());
     }
 
     public deleteUser(id) {
         if (window.confirm("Do you want to delete this item") === true) {
-            StudentApi.delete(id);
-            this.setUsersToState(StudentApi.getStudents());
+            UserApi.delete(id);
+            this.setUsersToState(UserApi.getUsers());
         }
     }
 
     public submitUser(id, username, password, email) {
-        StudentApi.update({id: id, username: username, password: password, email: email});
-        this.setUsersToState(StudentApi.getStudents());
+        UserApi.update({id: id, username: username, password: password, email: email});
+        this.setUsersToState(UserApi.getUsers());
     }
 
     public render() {
