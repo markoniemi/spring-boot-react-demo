@@ -6,9 +6,9 @@ interface UserProps {
     user: User;
     index: number;
 
-    deleteStudent(id: number);
+    deleteUser(id: number);
 
-    editStudentSubmit(user: User);
+    submitUser(user: User);
 }
 
 interface UserState {
@@ -30,7 +30,7 @@ export default class UserItem extends Component<UserProps, UserState> {
 
     public delete() {
         const {id} = this.props.user;
-        this.props.deleteStudent(id);
+        this.props.deleteUser(id);
     }
 
     public edit() {
@@ -44,7 +44,7 @@ export default class UserItem extends Component<UserProps, UserState> {
         this.setState((prevState, props) => ({
             isEdit: !prevState.isEdit,
         }));
-        this.props.editStudentSubmit(new User(this.usernameInput.value, this.passwordInput.value, this.emailInput.value, id));
+        this.props.submitUser(new User(this.usernameInput.value, this.passwordInput.value, this.emailInput.value, id));
     }
 
     public render() {

@@ -5,40 +5,45 @@ import Hello from "./Hello";
 import UserApi from "../api/UserApi";
 import User from "../domain/User";
 
-class App extends Component<any, any> {
+interface AppState {
+    users: User[];
+}
+
+class App extends Component<Readonly<{}>, AppState> {
     constructor(props) {
         super(props);
         this.state = {
-            studentList: [],
+            users: [],
         };
         this.submitUser = this.submitUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
         this.addUser = this.addUser.bind(this);
     }
 
-    private setUsersToState(studentList) {
-        this.setState((prevState, props) => ({studentList: studentList}));
-    }
-
     public componentWillMount() {
-        this.setUsersToState(UserApi.getUsers());
+        this.fetchUsers();
     }
 
     public addUser() {
         UserApi.create();
-        this.setUsersToState(UserApi.getUsers());
+        this.fetchUsers();
     }
 
     public deleteUser(id) {
         if (window.confirm("Do you want to delete this item") === true) {
             UserApi.delete(id);
-            this.setUsersToState(UserApi.getUsers());
+            this.fetchUsers();
         }
     }
 
     public submitUser(user: User) {
         UserApi.update(user);
-        this.setUsersToState(UserApi.getUsers());
+        this.fetchUsers();
+    }
+
+    private fetchUsers() {
+        let users: User[] = UserApi.getUsers();
+        this.setState((prevState, props) => ({users: users}));
     }
 
     public render() {
@@ -63,9 +68,9 @@ class App extends Component<any, any> {
                                         </tr>
                                         </thead>
                                         <UserList
-                                            deleteStudent={this.deleteUser}
-                                            studentList={this.state.studentList}
-                                            editStudentSubmit={this.submitUser}
+                                            deleteUser={this.deleteUser}
+                                            users={this.state.users}
+                                            submitUser={this.submitUser}
                                         />
                                     </table>
                                     <button id="addUser" className="btn btn-dark pull-left" onClick={this.addUser}>Add

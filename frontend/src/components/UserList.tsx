@@ -1,18 +1,26 @@
 import React, {Component} from "react";
 import UserItem from "./UserItem";
+import User from "../domain/User";
 
-export default class UserList extends Component<any, any> {
+interface UserListProps {
+    users: User[];
+
+    submitUser(user: User): void;
+
+    deleteUser(id: number): void;
+}
+
+export default class UserList extends Component<UserListProps, Readonly<{}>> {
     public render() {
-        const students = this.props.studentList;
-        const trItem = students.map((item, index) =>
+        const userItems = this.props.users.map((item, index) =>
             <UserItem
                 key={index}
                 user={item}
                 index={index}
-                editStudentSubmit={this.props.editStudentSubmit}
-                deleteStudent={this.props.deleteStudent}/>)
+                submitUser={this.props.submitUser}
+                deleteUser={this.props.deleteUser}/>)
         return (
-            <tbody>{trItem}</tbody>
+            <tbody>{userItems}</tbody>
         );
     }
 }
