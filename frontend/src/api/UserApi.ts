@@ -4,10 +4,11 @@ export default class UserApi {
     private static users: User[] = JSON.parse(localStorage.getItem("users"));
 
     public static initialize() {
-        const users: User[] = [{id: 1, username: "username1", password: "password", email: "email1"},
-            {id: 2, username: "username2", password: "password", email: "email2"},
-            {id: 3, username: "username3", password: "password", email: "email3"},
-            {id: 4, username: "username4", password: "password", email: "email4"}];
+        const users = [new User("username1", "password", "email1", 1),
+            new User("username2", "password", "email2", 2),
+            new User("username3", "password", "email3", 3),
+            new User("username4", "password", "email4", 4)
+        ]
         if (localStorage.getItem("users") === null) {
             localStorage.setItem("users", JSON.stringify(users));
         }

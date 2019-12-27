@@ -29,7 +29,7 @@ class App extends Component<Readonly<{}>, AppState> {
         this.fetchUsers();
     }
 
-    public deleteUser(id) {
+    public deleteUser(id: number) {
         if (window.confirm("Do you want to delete this item") === true) {
             UserApi.delete(id);
             this.fetchUsers();
@@ -73,8 +73,8 @@ class App extends Component<Readonly<{}>, AppState> {
                                             submitUser={this.submitUser}
                                         />
                                     </table>
-                                    <button id="addUser" className="btn btn-dark pull-left" onClick={this.addUser}>Add
-                                        New
+                                    <button id="addUser" className="btn btn-dark pull-left" onClick={this.addUser}>
+                                        Add New
                                     </button>
                                 </div>
                             </div>
