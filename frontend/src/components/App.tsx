@@ -3,6 +3,7 @@ import "../App.css";
 import UserList from "./UserList";
 import Hello from "./Hello";
 import UserApi from "../api/UserApi";
+import User from "../domain/User";
 
 class App extends Component<any, any> {
     constructor(props) {
@@ -35,8 +36,8 @@ class App extends Component<any, any> {
         }
     }
 
-    public submitUser(id, username, password, email) {
-        UserApi.update({id: id, username: username, password: password, email: email});
+    public submitUser(user: User) {
+        UserApi.update(user);
         this.setUsersToState(UserApi.getUsers());
     }
 
@@ -67,7 +68,8 @@ class App extends Component<any, any> {
                                             editStudentSubmit={this.submitUser}
                                         />
                                     </table>
-                                    <button id="addUser" className="btn btn-dark pull-left" onClick={this.addUser}>Add New
+                                    <button id="addUser" className="btn btn-dark pull-left" onClick={this.addUser}>Add
+                                        New
                                     </button>
                                 </div>
                             </div>

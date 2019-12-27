@@ -7,7 +7,7 @@ export default class UserList extends Component<any, any> {
         const trItem = students.map((item, index) =>
             <UserItem
                 key={index}
-                student={item}
+                user={item}
                 index={index}
                 editStudentSubmit={this.props.editStudentSubmit}
                 deleteStudent={this.props.deleteStudent}/>)
