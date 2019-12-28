@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import "../App.css";
-
-class Hello extends Component<any, any> {
+interface HelloState {
+    message:string;
+}
+class Hello extends Component<any, HelloState> {
     public state = {message: ""};
     public componentDidMount() {
         setInterval(this.hello, 250);

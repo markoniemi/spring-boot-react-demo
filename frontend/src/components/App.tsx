@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import "../App.css";
 import UserList from "./UserList";
 import Hello from "./Hello";
-import UserApi from "../api/UserApi";
+import UserApiMock from "../api/UserApiMock";
 import User from "../domain/User";
 
 interface AppState {
@@ -25,24 +25,26 @@ class App extends Component<Readonly<{}>, AppState> {
     }
 
     public addUser() {
-        UserApi.create();
-        this.fetchUsers();
+        let users: User[] = UserApiMock.create();
+        this.setState((prevState, props) => ({users: users}));
+        // this.fetchUsers();
     }
 
     public deleteUser(id: number) {
         if (window.confirm("Do you want to delete this item") === true) {
-            UserApi.delete(id);
-            this.fetchUsers();
+            let users: User[] = UserApiMock.delete(id);
+            this.setState((prevState, props) => ({users: users}));
+            // this.fetchUsers();
         }
     }
 
     public submitUser(user: User) {
-        UserApi.update(user);
-        this.fetchUsers();
+        let users: User[] = UserApiMock.update(user);
+        this.setState((prevState, props) => ({users: users}));
     }
 
     private fetchUsers() {
-        let users: User[] = UserApi.getUsers();
+        let users: User[] = UserApiMock.fetchUsers();
         this.setState((prevState, props) => ({users: users}));
     }
 
