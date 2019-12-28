@@ -4,13 +4,14 @@ import UserList from "./UserList";
 import Hello from "./Hello";
 import UserServiceMock from "../api/UserServiceMock";
 import User from "../domain/User";
+import {UserService} from "../api/UserService";
 
 interface AppState {
     users: User[];
 }
 
 class App extends Component<Readonly<{}>, AppState> {
-    private userService: UserServiceMock = new UserServiceMock();
+    private userService: UserService = new UserServiceMock();
 
     constructor(props) {
         super(props);
@@ -22,31 +23,31 @@ class App extends Component<Readonly<{}>, AppState> {
         this.addUser = this.addUser.bind(this);
     }
 
-    public componentWillMount() {
-        this.fetchUsers();
+    public async componentWillMount() {
+        await this.fetchUsers();
     }
 
-    public addUser() {
-        let users: User[] = this.userService.create(new User("","",""));
+    public async addUser() {
+        let users: User[] = await this.userService.create(new User("","",""));
         this.setState((prevState, props) => ({users: users}));
         // this.fetchUsers();
     }
 
-    public deleteUser(id: number) {
+    public async deleteUser(id: number) {
         if (window.confirm("Do you want to delete this item") === true) {
-            let users: User[] = this.userService.delete(id);
+            let users: User[] = await this.userService.delete(id);
             this.setState((prevState, props) => ({users: users}));
             // this.fetchUsers();
         }
     }
 
-    public submitUser(user: User) {
-        let users: User[] = this.userService.update(user);
+    public async submitUser(user: User) {
+        let users: User[] = await this.userService.update(user);
         this.setState((prevState, props) => ({users: users}));
     }
 
-    private fetchUsers() {
-        let users: User[] = this.userService.fetchUsers();
+    private async fetchUsers() {
+        let users: User[] = await this.userService.fetchUsers();
         this.setState((prevState, props) => ({users: users}));
     }
 

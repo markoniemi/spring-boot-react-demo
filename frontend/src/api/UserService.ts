@@ -1,11 +1,11 @@
 import User from "../domain/User";
 
 export interface UserService {
-    fetchUsers(): User[];
+    fetchUsers(): Promise<User[]>;
 
-    create(newUser: User): User[];
+    create(newUser: User): Promise<User[]>;
 
-    update(editedUser: User): User[];
+    update(editedUser: User): Promise<User[]>;
 
-    delete(id: number): User[];
+    delete(id: number): Promise<User[]>;
 }
