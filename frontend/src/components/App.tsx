@@ -27,23 +27,25 @@ class App extends Component<Readonly<{}>, AppState> {
         await this.fetchUsers();
     }
 
-    public async addUser() {
-        let users: User[] = await this.userService.create(new User("","",""));
-        this.setState((prevState, props) => ({users: users}));
-        // this.fetchUsers();
+    public addUser() {
+        let updatedUsers = [...this.state.users, new User("", "", "")];
+        this.setState((prevState, props) => ({users: updatedUsers}));
     }
 
     public async deleteUser(id: number) {
         if (window.confirm("Do you want to delete this item") === true) {
-            let users: User[] = await this.userService.delete(id);
-            this.setState((prevState, props) => ({users: users}));
-            // this.fetchUsers();
+            await this.userService.delete(id);
+            this.fetchUsers();
         }
     }
 
     public async submitUser(user: User) {
-        let users: User[] = await this.userService.update(user);
-        this.setState((prevState, props) => ({users: users}));
+        if (user.id == undefined) {
+            await this.userService.create(user);
+        } else {
+            await this.userService.update(user);
+        }
+        this.fetchUsers();
     }
 
     private async fetchUsers() {

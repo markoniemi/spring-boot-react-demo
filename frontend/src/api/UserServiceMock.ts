@@ -19,7 +19,7 @@ export default class UserServiceMock implements UserService {
         }
     }
 
-   public async fetchUsers(): Promise<User[]> {
+    public async fetchUsers(): Promise<User[]> {
         return this.users;
     }
 
@@ -27,14 +27,15 @@ export default class UserServiceMock implements UserService {
         return Math.max(...this.users.map((user: User) => user.id)) + 1;
     }
 
-    public async create(newUser: User): Promise<User[]> {
-        let updatedUsers = [...this.users, new User("", "", "", this.createId())];
+    public async create(newUser: User): Promise<User> {
+        newUser.id = this.createId();
+        let updatedUsers = [...this.users, newUser];
         this.users = updatedUsers;
         localStorage.setItem("users", JSON.stringify(updatedUsers));
-        return this.users;
+        return newUser;
     }
 
-    public async update(editedUser: User): Promise<User[]> {
+    public async update(editedUser: User): Promise<User> {
         let updatedUsers = this.users.map((user: User) => {
             if (user.id === editedUser.id) {
                 user.username = editedUser.username;
@@ -45,14 +46,13 @@ export default class UserServiceMock implements UserService {
         });
         this.users = updatedUsers;
         localStorage.setItem("users", JSON.stringify(updatedUsers));
-        return this.users;
+        return editedUser;
     }
 
-    public async delete(id: number): Promise<User[]> {
+    public async delete(id: number): Promise<void> {
         let filteredUsers = this.users.filter((user: User) => user.id !== id);
         this.users = filteredUsers;
         localStorage.setItem("users", JSON.stringify(filteredUsers));
-        return this.users;
     }
 }
 

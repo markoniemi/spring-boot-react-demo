@@ -1,6 +1,7 @@
 package org.example.selenium;
 
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,5 +34,7 @@ public class UsersPage extends AbstractPage {
 
     public void deleteUser(String username) {
         click(By.xpath("//tr[@id='" + username + "']//button[@id='delete']"));
+        Alert alert = webDriver.switchTo().alert();
+        alert.accept();        
     }
 }

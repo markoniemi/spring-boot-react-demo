@@ -22,6 +22,7 @@ public class ReactDemoApplicationIT {
     @Resource
     protected WebDriver webDriver;
     private UsersPage usersPage;
+
     @Before
     public void setUp() {
         usersPage = new UsersPage(webDriver);
@@ -40,5 +41,9 @@ public class ReactDemoApplicationIT {
         usersPage.editUser("username", "newUsername", "newEmail");
         usersPage.assertUser("newUsername", "newEmail");
         usersPage.deleteUser("newUsername");
+        // TODO assert user deleted
+        usersPage.editUser("username1", "editedUsername", "editedEmail");
+        usersPage.assertUser("editedUsername", "editedEmail");
+        usersPage.editUser("editedUsername", "username1", "email");
     }
 }
