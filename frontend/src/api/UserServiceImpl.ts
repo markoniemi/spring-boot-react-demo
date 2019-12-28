@@ -1,12 +1,12 @@
 import User from "../domain/User";
 
-export default class UserApi {
+export default class UserServiceImpl {
   public static async fetchUsers(): Promise<User[]> {
     const request: RequestInit = {
       // headers: Jwt.getHeaders(),
       method: "GET",
     };
-    const response: Response = await fetch(UserApi.getApiUrl(), request);
+    const response: Response = await fetch(UserServiceImpl.getApiUrl(), request);
     return response.json();
   }
 
@@ -20,7 +20,7 @@ export default class UserApi {
       // headers: Jwt.getHeaders(),
       method: "POST",
     };
-    const response: Response = await fetch(UserApi.getApiUrl(), request);
+    const response: Response = await fetch(UserServiceImpl.getApiUrl(), request);
     return response.json();
   }
 
@@ -29,7 +29,7 @@ export default class UserApi {
       // headers: Jwt.getHeaders(),
       method: "DELETE",
     };
-    await fetch(UserApi.getApiUrl() + user.id, request);
+    await fetch(UserServiceImpl.getApiUrl() + user.id, request);
   }
 
   public static async editUser(user: User): Promise<void> {
@@ -38,7 +38,7 @@ export default class UserApi {
       // headers: Jwt.getHeaders(),
       method: "PUT",
     };
-    await fetch(UserApi.getApiUrl() + user.id, request);
+    await fetch(UserServiceImpl.getApiUrl() + user.id, request);
   }
   public static getApiUrl(): string {
     return `http://${process.env.HOST}:${process.env.PORT}/api/users/`;

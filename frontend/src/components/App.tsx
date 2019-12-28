@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import "../App.css";
 import UserList from "./UserList";
 import Hello from "./Hello";
-import UserApiMock from "../api/UserApiMock";
+import UserServiceMock from "../api/UserServiceMock";
 import User from "../domain/User";
 
 interface AppState {
@@ -10,6 +10,8 @@ interface AppState {
 }
 
 class App extends Component<Readonly<{}>, AppState> {
+    private userService: UserServiceMock = new UserServiceMock();
+
     constructor(props) {
         super(props);
         this.state = {
@@ -25,26 +27,26 @@ class App extends Component<Readonly<{}>, AppState> {
     }
 
     public addUser() {
-        let users: User[] = UserApiMock.create();
+        let users: User[] = this.userService.create();
         this.setState((prevState, props) => ({users: users}));
         // this.fetchUsers();
     }
 
     public deleteUser(id: number) {
         if (window.confirm("Do you want to delete this item") === true) {
-            let users: User[] = UserApiMock.delete(id);
+            let users: User[] = this.userService.delete(id);
             this.setState((prevState, props) => ({users: users}));
             // this.fetchUsers();
         }
     }
 
     public submitUser(user: User) {
-        let users: User[] = UserApiMock.update(user);
+        let users: User[] = this.userService.update(user);
         this.setState((prevState, props) => ({users: users}));
     }
 
     private fetchUsers() {
-        let users: User[] = UserApiMock.fetchUsers();
+        let users: User[] = this.userService.fetchUsers();
         this.setState((prevState, props) => ({users: users}));
     }
 
