@@ -27,7 +27,7 @@ class App extends Component<Readonly<{}>, AppState> {
     }
 
     public addUser() {
-        let users: User[] = this.userService.create();
+        let users: User[] = this.userService.create(new User("","",""));
         this.setState((prevState, props) => ({users: users}));
         // this.fetchUsers();
     }

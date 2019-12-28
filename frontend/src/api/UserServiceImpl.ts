@@ -1,4 +1,5 @@
 import User from "../domain/User";
+import {UserService} from "./UserService";
 
 export default class UserServiceImpl {
   public static async fetchUsers(): Promise<User[]> {
@@ -10,11 +11,11 @@ export default class UserServiceImpl {
     return response.json();
   }
 
-  public static async create(): Promise<User[]> {
+  public static async newUser(): Promise<User[]> {
     let updatedUsers = [...await this.fetchUsers(), new User("", "", "")];
     return updatedUsers;
   }
-  public static async addUser(user: User): Promise<User> {
+  public static async create(user: User): Promise<User> {
     const request: RequestInit = {
       body: JSON.stringify(user),
       // headers: Jwt.getHeaders(),
@@ -24,7 +25,7 @@ export default class UserServiceImpl {
     return response.json();
   }
 
-  public static async removeUser(user: User): Promise<void> {
+  public static async delete(user: User): Promise<void> {
     const request: RequestInit = {
       // headers: Jwt.getHeaders(),
       method: "DELETE",
@@ -32,7 +33,7 @@ export default class UserServiceImpl {
     await fetch(UserServiceImpl.getApiUrl() + user.id, request);
   }
 
-  public static async editUser(user: User): Promise<void> {
+  public static async update(user: User): Promise<void> {
     const request: RequestInit = {
       body: JSON.stringify(user),
       // headers: Jwt.getHeaders(),

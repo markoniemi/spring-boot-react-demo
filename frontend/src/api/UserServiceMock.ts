@@ -1,6 +1,7 @@
 import User from "../domain/User";
+import {UserService} from "./UserService";
 
-export default class UserServiceMock {
+export default class UserServiceMock implements UserService {
     private users: User[] = JSON.parse(localStorage.getItem("users"));
 
     constructor() {
@@ -18,19 +19,19 @@ export default class UserServiceMock {
         }
     }
 
-    public fetchUsers(): User[] {
-        return this.users;
-    }
-
-    public create(): User[] {
-        let updatedUsers = [...this.users, new User("", "", "", this.createId())];
-        this.users = updatedUsers;
-        localStorage.setItem("users", JSON.stringify(updatedUsers));
+   public fetchUsers(): User[] {
         return this.users;
     }
 
     private createId() {
         return Math.max(...this.users.map((user: User) => user.id)) + 1;
+    }
+
+    public create(newUser: User): User[] {
+        let updatedUsers = [...this.users, new User("", "", "", this.createId())];
+        this.users = updatedUsers;
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+        return this.users;
     }
 
     public update(editedUser: User): User[] {
