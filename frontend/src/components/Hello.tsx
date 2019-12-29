@@ -9,7 +9,7 @@ class Hello extends Component<any, HelloState> {
         setInterval(this.hello, 250);
     }
     public hello = () => {
-        fetch("/api/hello", {
+        fetch("/api/rest/hello", {
             method: "POST",
             body: "world",
         })
