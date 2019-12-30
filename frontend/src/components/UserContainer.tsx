@@ -4,13 +4,14 @@ import UserList from "./UserList";
 import UserServiceMock from "../api/UserServiceMock";
 import User from "../domain/User";
 import { UserService } from "../api/UserService";
+import UserServiceImpl from "../api/UserServiceImpl";
 
 interface UserContainerState {
     users: User[];
 }
 
 class UserContainer extends Component<Readonly<{}>, UserContainerState> {
-    private userService: UserService = new UserServiceMock();
+    private userService: UserService = new UserServiceImpl();
 
     constructor(props) {
         super(props);

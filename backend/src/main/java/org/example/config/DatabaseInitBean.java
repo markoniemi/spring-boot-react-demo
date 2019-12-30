@@ -22,8 +22,8 @@ public class DatabaseInitBean implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         log.debug("Creating user {}", username);
         userRepository.save(new User(username, "admin", "email"));
-        for (int i = 0; i < 20; i++) {
-            userRepository.save(new User("user" + i, "user", "email"));
+        for (int i = 0; i < 5; i++) {
+            userRepository.save(new User("username" + i, "user", "email"));
         }
     }
 }

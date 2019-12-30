@@ -1,9 +1,10 @@
 import User from "../domain/User";
+import { UserService } from "./UserService";
 
-export default class UserServiceImpl {
+export default class UserServiceImpl implements UserService {
     public async fetchUsers(): Promise<User[]> {
         const request: RequestInit = {
-            // headers: Jwt.getHeaders(),
+            headers: this.getHeaders(),
             method: "GET",
         };
         const response: Response = await fetch(this.getApiUrl(), request);
@@ -17,31 +18,38 @@ export default class UserServiceImpl {
     public async create(user: User): Promise<User> {
         const request: RequestInit = {
             body: JSON.stringify(user),
-            // headers: Jwt.getHeaders(),
+            headers: this.getHeaders(),
             method: "POST",
         };
         const response: Response = await fetch(this.getApiUrl(), request);
         return response.json();
     }
 
-    public async delete(user: User): Promise<void> {
+    public async delete(id: number): Promise<void> {
         const request: RequestInit = {
-            // headers: Jwt.getHeaders(),
+            headers: this.getHeaders(),
             method: "DELETE",
         };
-        await fetch(this.getApiUrl() + user.id, request);
+        await fetch(this.getApiUrl() + id, request);
     }
 
-    public async update(user: User): Promise<void> {
+    public async update(user: User): Promise<User> {
         const request: RequestInit = {
             body: JSON.stringify(user),
-            // headers: Jwt.getHeaders(),
+            headers: this.getHeaders(),
             method: "PUT",
         };
-        await fetch(this.getApiUrl() + user.id, request);
+        const response: Response = await fetch(this.getApiUrl() + user.id, request);
+        return response.json();
     }
 
     public getApiUrl(): string {
-        return `http://${process.env.HOST}:${process.env.PORT}/api/users/`;
+        // return `http://${process.env.HOST}:${process.env.PORT}/api/rest/users/`;
+        // return `http://localhost:8081/api/rest/users/`;
+        return `/api/rest/users/`;
+    }
+
+    private getHeaders(): Headers {
+        return new Headers({ "content-type": "application/json" });
     }
 }

@@ -43,6 +43,7 @@ public interface UserService {
      * @throws NullPointerException if the user does not exist
      */
     @PUT
+    @Path("/{id}")
     User update(@WebParam(name = "user") User user);
 
     @GET

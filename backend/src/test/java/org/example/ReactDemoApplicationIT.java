@@ -31,18 +31,21 @@ public class ReactDemoApplicationIT {
     @Test
     public void helloWorld() throws InterruptedException {
         webDriver.get("http://localhost:8080");
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         webDriver.get("http://localhost:8080");
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         Assert.assertTrue(webDriver.findElement(By.id("message")).getText().contains("world"));
         usersPage.clickAddUser();
         usersPage.editUser("", "username", "email");
+        Thread.sleep(1000);
         usersPage.assertUser("username", "email");
         usersPage.editUser("username", "newUsername", "newEmail");
+        Thread.sleep(1000);
         usersPage.assertUser("newUsername", "newEmail");
         usersPage.deleteUser("newUsername");
         // TODO assert user deleted
         usersPage.editUser("username1", "editedUsername", "editedEmail");
+        Thread.sleep(1000);
         usersPage.assertUser("editedUsername", "editedEmail");
         usersPage.editUser("editedUsername", "username1", "email");
     }

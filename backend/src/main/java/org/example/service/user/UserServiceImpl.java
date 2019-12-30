@@ -1,6 +1,7 @@
 package org.example.service.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -39,7 +40,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-        User databaseUser = userRepository.findByUsername(user.getUsername());
+//        User databaseUser = userRepository.findByUsername(user.getUsername());
+        User databaseUser = userRepository.findById(user.getId()).get();
 //        Validate.notNull(databaseUser, "User does not exist.");
         databaseUser.setEmail(user.getEmail());
         databaseUser.setPassword(user.getPassword());
