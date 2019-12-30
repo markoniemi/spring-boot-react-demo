@@ -19,10 +19,14 @@ interface UserState {
 }
 
 export default class UserItem extends Component<UserProps, UserState> {
-
     constructor(props) {
         super(props);
-        this.state = { isEdit: false, username: props.user.username, password: props.user.password, email: props.user.email };
+        this.state = {
+            isEdit: false,
+            username: props.user.username,
+            password: props.user.password,
+            email: props.user.email,
+        };
         this.edit = this.edit.bind(this);
         this.submit = this.submit.bind(this);
         this.delete = this.delete.bind(this);
