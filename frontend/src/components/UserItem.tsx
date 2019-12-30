@@ -13,19 +13,21 @@ interface UserProps {
 
 interface UserState {
     isEdit: boolean;
+    username: string;
+    password: string;
+    email: string;
 }
 
 export default class UserItem extends Component<UserProps, UserState> {
-    private usernameInput: any;
-    private passwordInput: any;
-    private emailInput: any;
 
     constructor(props) {
         super(props);
-        this.state = { isEdit: false };
+        this.state = { isEdit: false, username: props.user.username, password: props.user.password, email: props.user.email };
         this.edit = this.edit.bind(this);
         this.submit = this.submit.bind(this);
         this.delete = this.delete.bind(this);
+        this.setEdit = this.setEdit.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     public delete(): void {
@@ -40,7 +42,7 @@ export default class UserItem extends Component<UserProps, UserState> {
     public submit(): void {
         const { id } = this.props.user;
         this.setEdit(false);
-        this.props.submitUser(new User(this.usernameInput.value, this.passwordInput.value, this.emailInput.value, id));
+        this.props.submitUser(new User(this.state.username, this.state.password, this.state.email, id));
     }
 
     public render(): JSX.Element {
@@ -57,23 +59,26 @@ export default class UserItem extends Component<UserProps, UserState> {
                 <td>
                     <input
                         id="usernameInput"
-                        ref={usernameInput => (this.usernameInput = usernameInput)}
-                        defaultValue={user.username}
+                        name="username"
+                        value={this.state.username}
+                        onChange={this.onChange}
                     />
                 </td>
                 <td>
                     <input
                         id="passwordInput"
+                        name="password"
                         type="password"
-                        defaultValue={user.password}
-                        ref={passwordInput => (this.passwordInput = passwordInput)}
+                        value={this.state.password}
+                        onChange={this.onChange}
                     />
                 </td>
                 <td>
                     <input
                         id="emailInput"
-                        ref={emailInput => (this.emailInput = emailInput)}
-                        defaultValue={user.email}
+                        name="email"
+                        value={this.state.email}
+                        onChange={this.onChange}
                     />
                 </td>
                 <td>
@@ -104,8 +109,17 @@ export default class UserItem extends Component<UserProps, UserState> {
     }
 
     private setEdit(isEdit: boolean): void {
-        this.setState((prevState, props) => ({
+        this.setState({
+            ...this.state,
             isEdit: isEdit,
-        }));
+        });
+    }
+
+    private onChange(event) {
+        const value = event.target.value;
+        this.setState({
+            ...this.state,
+            [event.target.name]: value,
+        });
     }
 }
