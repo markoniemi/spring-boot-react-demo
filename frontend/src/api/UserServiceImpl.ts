@@ -1,5 +1,4 @@
 import User from "../domain/User";
-import {UserService} from "./UserService";
 
 export default class UserServiceImpl {
     public async fetchUsers(): Promise<User[]> {
@@ -12,8 +11,7 @@ export default class UserServiceImpl {
     }
 
     public async newUser(): Promise<User[]> {
-        let updatedUsers = [...await this.fetchUsers(), new User("", "", "")];
-        return updatedUsers;
+        return [...(await this.fetchUsers()), new User("", "", "")];
     }
 
     public async create(user: User): Promise<User> {

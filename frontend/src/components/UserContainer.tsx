@@ -1,10 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import "../App.css";
 import UserList from "./UserList";
-import Hello from "./Hello";
 import UserServiceMock from "../api/UserServiceMock";
 import User from "../domain/User";
-import {UserService} from "../api/UserService";
+import { UserService } from "../api/UserService";
 
 interface UserContainerState {
     users: User[];
@@ -23,23 +22,23 @@ class UserContainer extends Component<Readonly<{}>, UserContainerState> {
         this.addUser = this.addUser.bind(this);
     }
 
-    public async componentWillMount() {
+    public async componentWillMount(): Promise<void> {
         await this.fetchUsers();
     }
 
-    public addUser() {
-        let updatedUsers = [...this.state.users, new User("", "", "")];
-        this.setState((prevState, props) => ({users: updatedUsers}));
+    public addUser(): void {
+        const updatedUsers = [...this.state.users, new User("", "", "")];
+        this.setState((prevState, props) => ({ users: updatedUsers }));
     }
 
-    public async deleteUser(id: number) {
+    public async deleteUser(id: number): Promise<void> {
         if (window.confirm("Do you want to delete this item") === true) {
             await this.userService.delete(id);
             this.fetchUsers();
         }
     }
 
-    public async submitUser(user: User) {
+    public async submitUser(user: User): Promise<void> {
         if (user.id == undefined) {
             await this.userService.create(user);
         } else {
@@ -48,19 +47,17 @@ class UserContainer extends Component<Readonly<{}>, UserContainerState> {
         this.fetchUsers();
     }
 
-    private async fetchUsers() {
-        let users: User[] = await this.userService.fetchUsers();
-        this.setState((prevState, props) => ({users: users}));
+    private async fetchUsers(): Promise<void> {
+        const users: User[] = await this.userService.fetchUsers();
+        this.setState((prevState, props) => ({ users: users }));
     }
 
-    public render() {
+    public render(): JSX.Element {
         return (
             <div className="row mt-3">
                 <div className="col-lg-12">
                     <div className="card">
-                        <div className="card-header">
-                            Users
-                        </div>
+                        <div className="card-header">Users</div>
                         <div className="card-body">
                             <table className="table table-hover">
                                 <thead className="thead-dark">

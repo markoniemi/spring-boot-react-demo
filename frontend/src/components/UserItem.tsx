@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import User from "../domain/User";
 
 interface UserProps {
@@ -22,28 +22,28 @@ export default class UserItem extends Component<UserProps, UserState> {
 
     constructor(props) {
         super(props);
-        this.state = {isEdit: false};
+        this.state = { isEdit: false };
         this.edit = this.edit.bind(this);
         this.submit = this.submit.bind(this);
         this.delete = this.delete.bind(this);
     }
 
-    public delete() {
-        const {id} = this.props.user;
+    public delete(): void {
+        const { id } = this.props.user;
         this.props.deleteUser(id);
     }
 
-    public edit() {
+    public edit(): void {
         this.setEdit(true);
     }
 
-    public submit() {
-        const {id} = this.props.user;
-        this.setEdit(false)
+    public submit(): void {
+        const { id } = this.props.user;
+        this.setEdit(false);
         this.props.submitUser(new User(this.usernameInput.value, this.passwordInput.value, this.emailInput.value, id));
     }
 
-    public render() {
+    public render(): JSX.Element {
         if (this.state.isEdit === true) {
             return this.renderEdit(this.props.user);
         } else {
@@ -51,15 +51,30 @@ export default class UserItem extends Component<UserProps, UserState> {
         }
     }
 
-    private renderEdit(user: User) {
+    private renderEdit(user: User): JSX.Element {
         return (
             <tr id={user.username} className="bg-warning" key={this.props.index}>
-                <td><input id="usernameInput" ref={(usernameInput) => this.usernameInput = usernameInput}
-                           defaultValue={user.username}/></td>
-                <td><input id="passwordInput" type="password" defaultValue={user.password}
-                           ref={(passwordInput) => this.passwordInput = passwordInput}/></td>
-                <td><input id="emailInput" ref={(emailInput) => this.emailInput = emailInput}
-                           defaultValue={user.email}/>
+                <td>
+                    <input
+                        id="usernameInput"
+                        ref={usernameInput => (this.usernameInput = usernameInput)}
+                        defaultValue={user.username}
+                    />
+                </td>
+                <td>
+                    <input
+                        id="passwordInput"
+                        type="password"
+                        defaultValue={user.password}
+                        ref={passwordInput => (this.passwordInput = passwordInput)}
+                    />
+                </td>
+                <td>
+                    <input
+                        id="emailInput"
+                        ref={emailInput => (this.emailInput = emailInput)}
+                        defaultValue={user.email}
+                    />
                 </td>
                 <td>
                     <button id="submit" className="far fa-save" onClick={this.submit}/>
@@ -68,15 +83,15 @@ export default class UserItem extends Component<UserProps, UserState> {
                     <button id="delete" className="fas fa-trash"/>
                 </td>
             </tr>
-        )
+        );
     }
 
-    private renderView(user: User) {
+    private renderView(user: User): JSX.Element {
         return (
             <tr id={user.username} key={this.props.index}>
                 <td id="username">{user.username}</td>
                 {/*<td>{password}</td>*/}
-                <td></td>
+                <td/>
                 <td id="email">{user.email}</td>
                 <td>
                     <button id="edit" className="far fa-edit" onClick={this.edit}/>
@@ -85,10 +100,10 @@ export default class UserItem extends Component<UserProps, UserState> {
                     <button id="delete" className="fas fa-trash" onClick={this.delete}/>
                 </td>
             </tr>
-        )
+        );
     }
 
-    private setEdit(isEdit: boolean) {
+    private setEdit(isEdit: boolean): void {
         this.setState((prevState, props) => ({
             isEdit: isEdit,
         }));
