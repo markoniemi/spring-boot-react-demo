@@ -3,7 +3,9 @@ package org.example;
 import javax.annotation.Resource;
 
 import org.example.config.IntegrationTestConfig;
+import org.example.selenium.UsersPage;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -19,12 +21,32 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class ReactDemoApplicationIT {
     @Resource
     protected WebDriver webDriver;
+    private UsersPage usersPage;
+
+    @Before
+    public void setUp() {
+        usersPage = new UsersPage(webDriver);
+    }
 
     @Test
     public void helloWorld() throws InterruptedException {
         webDriver.get("http://localhost:8080");
-        Thread.sleep(5000);
-        System.out.println(webDriver.getPageSource());
-        Assert.assertTrue(webDriver.findElement(By.className("App-title")).getText().contains("world"));
+        Thread.sleep(1000);
+        webDriver.get("http://localhost:8080");
+        Thread.sleep(1000);
+        Assert.assertTrue(webDriver.findElement(By.id("message")).getText().contains("world"));
+        usersPage.clickAddUser();
+        usersPage.editUser("", "username", "email");
+        Thread.sleep(1000);
+        usersPage.assertUser("username", "email");
+        usersPage.editUser("username", "newUsername", "newEmail");
+        Thread.sleep(1000);
+        usersPage.assertUser("newUsername", "newEmail");
+        usersPage.deleteUser("newUsername");
+        // TODO assert user deleted
+        usersPage.editUser("username1", "editedUsername", "editedEmail");
+        Thread.sleep(1000);
+        usersPage.assertUser("editedUsername", "editedEmail");
+        usersPage.editUser("editedUsername", "username1", "email");
     }
 }

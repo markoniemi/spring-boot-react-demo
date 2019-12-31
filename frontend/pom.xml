@@ -24,11 +24,12 @@
                         <phase>initialize</phase>
 						<configuration>
 							<nodeVersion>v10.15.2</nodeVersion>
+                            <yarnVersion>v1.5.1</yarnVersion>
 							<npmVersion>6.4.1</npmVersion>
 						</configuration>
 					</execution>
 					<execution>
-						<id>npm install</id>
+						<id>install</id>
                         <phase>initialize</phase>
 						<goals>
 							<goal>npm</goal>
@@ -38,7 +39,17 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>npm run build</id>
+						<id>clean</id>
+                        <phase>compile</phase>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run clean</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>build</id>
                         <phase>compile</phase>
 						<goals>
 							<goal>npm</goal>
