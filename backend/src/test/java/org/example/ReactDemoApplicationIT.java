@@ -44,6 +44,7 @@ public class ReactDemoApplicationIT {
         usersPage.assertUser("newUsername", "newEmail");
         usersPage.deleteUser("newUsername");
         // TODO assert user deleted
+        Thread.sleep(1000);
         usersPage.editUser("username1", "editedUsername", "editedEmail");
         Thread.sleep(1000);
         usersPage.assertUser("editedUsername", "editedEmail");
