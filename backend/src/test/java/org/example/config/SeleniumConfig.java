@@ -5,16 +5,12 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 
 @ComponentScan(basePackages = "org.selenium")
-//@PropertySource("classpath:server.properties")
 public class SeleniumConfig {
     @Bean
     public WebDriver getWebDriver() {

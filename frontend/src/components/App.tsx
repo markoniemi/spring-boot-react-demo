@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import "../App.css";
-import Hello from "./Hello";
 import UserContainer from "./UserContainer";
+import EditUser from "./EditUser";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 class App extends Component<Readonly<{}>, Readonly<{}>> {
     public render(): JSX.Element {
         return (
-            <div>
-                <div className="container-fluid">
-                    <UserContainer />
-                </div>
-                <Hello />
-            </div>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/" component={UserContainer} />
+                    <Route path="/users/new" component={EditUser} />
+                    <Route path="/users/:id" component={EditUser} />
+                </Switch>
+            </BrowserRouter>
         );
     }
 }

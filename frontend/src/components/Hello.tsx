@@ -6,6 +6,8 @@ interface HelloState {
 }
 
 class Hello extends Component<Readonly<{}>, HelloState> {
+    private interval: number;
+
     constructor(props) {
         super(props);
         this.state = { message: "" };
@@ -13,7 +15,11 @@ class Hello extends Component<Readonly<{}>, HelloState> {
     }
 
     public componentDidMount(): void {
-        setInterval(this.fetchMessage, 250);
+        this.interval = window.setInterval(this.fetchMessage, 250);
+    }
+
+    public componentWillUnmount(): void {
+        window.clearInterval(this.interval);
     }
 
     public async fetchMessage(): Promise<void> {

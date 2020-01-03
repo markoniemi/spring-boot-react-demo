@@ -11,6 +11,15 @@ export default class UserServiceImpl implements UserService {
         return response.json();
     }
 
+    public async findById(id: number): Promise<User> {
+        const request: RequestInit = {
+            headers: this.getHeaders(),
+            method: "GET",
+        };
+        const response: Response = await fetch(this.getApiUrl() + id, request);
+        return response.json();
+    }
+
     public async newUser(): Promise<User[]> {
         return [...(await this.fetchUsers()), new User("", "", "")];
     }

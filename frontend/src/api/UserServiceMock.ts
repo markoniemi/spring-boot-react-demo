@@ -23,6 +23,9 @@ export default class UserServiceMock implements UserService {
     public async fetchUsers(): Promise<User[]> {
         return this.users;
     }
+    public async findById(id: number): Promise<User> {
+        return this.users.find((user: User): boolean => user.id === id);
+    }
 
     private createId(): number {
         return Math.max(...this.users.map((user: User) => user.id)) + 1;
