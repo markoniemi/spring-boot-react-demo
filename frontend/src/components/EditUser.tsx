@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon } from "react-bootstrap";
+import { Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon, Panel } from "react-bootstrap";
 import User from "../domain/User";
 import { UserService } from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
@@ -29,79 +29,82 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
 
     public render(): JSX.Element {
         return (
-            <div>
-                <Form horizontal={true}>
-                    <FormGroup>
-                        <Col sm={1}>
-                            <ControlLabel>id:</ControlLabel>
-                        </Col>
-                        <Col sm={4}>
-                            <FormControl
-                                disabled={true}
-                                type="text"
-                                bsSize="small"
-                                autoFocus={true}
-                                value={this.state.id ? this.state.id.toString() : ""}
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup>
-                        <Col sm={1}>
-                            <ControlLabel>username:</ControlLabel>
-                        </Col>
-                        <Col sm={4}>
-                            <FormControl
-                                id="username"
-                                name="username"
-                                type="text"
-                                bsSize="small"
-                                autoFocus={true}
-                                value={this.state.username}
-                                onChange={this.onChange}
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup>
-                        <Col sm={1}>
-                            <ControlLabel>email:</ControlLabel>
-                        </Col>
-                        <Col sm={4}>
-                            <FormControl
-                                id="email"
-                                name="email"
-                                type="text"
-                                bsSize="small"
-                                value={this.state.email}
-                                onKeyPress={this.onKeyPress}
-                                onChange={this.onChange}
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup>
-                        <Col sm={1}>
-                            <ControlLabel>password:</ControlLabel>
-                        </Col>
-                        <Col sm={4}>
-                            <FormControl
-                                id="password"
-                                name="password"
-                                type="password"
-                                bsSize="small"
-                                value={this.state.password}
-                                onKeyPress={this.onKeyPress}
-                                onChange={this.onChange}
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup>
-                        <Col sm={5}>
-                            <Button id="saveUser" bsSize="small" className="pull-right" onClick={this.submitUser}>
-                                <Glyphicon glyph="glyphicon glyphicon-ok" />
-                            </Button>
-                        </Col>
-                    </FormGroup>
-                </Form>
-            </div>
+            <Panel>
+                <Panel.Heading>User</Panel.Heading>
+                <Panel.Body>
+                    <Form horizontal={true}>
+                        <FormGroup>
+                            <Col sm={1}>
+                                <ControlLabel>id:</ControlLabel>
+                            </Col>
+                            <Col sm={4}>
+                                <FormControl
+                                    disabled={true}
+                                    type="text"
+                                    bsSize="small"
+                                    autoFocus={true}
+                                    value={this.state.id ? this.state.id.toString() : ""}
+                                />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup>
+                            <Col sm={1}>
+                                <ControlLabel>username:</ControlLabel>
+                            </Col>
+                            <Col sm={4}>
+                                <FormControl
+                                    id="username"
+                                    name="username"
+                                    type="text"
+                                    bsSize="small"
+                                    autoFocus={true}
+                                    value={this.state.username}
+                                    onChange={this.onChange}
+                                />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup>
+                            <Col sm={1}>
+                                <ControlLabel>email:</ControlLabel>
+                            </Col>
+                            <Col sm={4}>
+                                <FormControl
+                                    id="email"
+                                    name="email"
+                                    type="text"
+                                    bsSize="small"
+                                    value={this.state.email}
+                                    onKeyPress={this.onKeyPress}
+                                    onChange={this.onChange}
+                                />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup>
+                            <Col sm={1}>
+                                <ControlLabel>password:</ControlLabel>
+                            </Col>
+                            <Col sm={4}>
+                                <FormControl
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    bsSize="small"
+                                    value={this.state.password}
+                                    onKeyPress={this.onKeyPress}
+                                    onChange={this.onChange}
+                                />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup>
+                            <Col sm={5}>
+                                <Button id="saveUser" bsSize="small" className="pull-right" onClick={this.submitUser}>
+                                    <Glyphicon glyph="glyphicon glyphicon-ok" />
+                                </Button>
+                            </Col>
+                        </FormGroup>
+                    </Form>
+                </Panel.Body>
+            </Panel>
         );
     }
 

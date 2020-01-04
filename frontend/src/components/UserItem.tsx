@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import User from "../domain/User";
 import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
+import { Button, Glyphicon } from "react-bootstrap";
 
 interface UserProps {
     user: User;
@@ -34,10 +35,12 @@ class UserItem extends Component<RouteComponentProps & UserProps, Readonly<{}>> 
                 </td>
                 <td id="email">{user.email}</td>
                 <td>
-                    <button id="edit" className="far fa-edit" onClick={this.editUser} />
-                </td>
-                <td>
-                    <button id="delete" className="fas fa-trash" onClick={this.delete} />
+                    <Button id="edit" bsSize="small" onClick={this.editUser}>
+                        <Glyphicon glyph="glyphicon glyphicon-edit" />
+                    </Button>
+                    <Button id="delete" bsSize="small" onClick={this.delete}>
+                        <Glyphicon glyph="glyphicon glyphicon-remove" />
+                    </Button>
                 </td>
             </tr>
         );
