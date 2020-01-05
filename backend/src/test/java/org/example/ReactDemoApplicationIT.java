@@ -57,6 +57,8 @@ public class ReactDemoApplicationIT {
         Thread.sleep(1000);
         usersPage.assertUser("editedUsername", "editedEmail");
         usersPage.clickEditUser("editedUsername");
+        webDriver.get("http://localhost:8080/users/1");
         editUserPage.editUser("username1", "password", "email");
+        usersPage.assertUser("username1", "email");
     }
 }
