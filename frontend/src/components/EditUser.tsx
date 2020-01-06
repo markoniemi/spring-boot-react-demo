@@ -38,7 +38,9 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
                     <Form horizontal={true}>
                         <FormGroup>
                             <Col sm={1}>
-                                <ControlLabel>id:</ControlLabel>
+                                <ControlLabel>
+                                    <FormattedMessage id="id" />:
+                                </ControlLabel>
                             </Col>
                             <Col sm={4}>
                                 <FormControl
@@ -52,7 +54,9 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
                         </FormGroup>
                         <FormGroup>
                             <Col sm={1}>
-                                <ControlLabel>username:</ControlLabel>
+                                <ControlLabel>
+                                    <FormattedMessage id="username" />:
+                                </ControlLabel>
                             </Col>
                             <Col sm={4}>
                                 <FormControl
@@ -68,7 +72,9 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
                         </FormGroup>
                         <FormGroup>
                             <Col sm={1}>
-                                <ControlLabel>email:</ControlLabel>
+                                <ControlLabel>
+                                    <FormattedMessage id="email" />:
+                                </ControlLabel>
                             </Col>
                             <Col sm={4}>
                                 <FormControl
@@ -84,7 +90,9 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
                         </FormGroup>
                         <FormGroup>
                             <Col sm={1}>
-                                <ControlLabel>password:</ControlLabel>
+                                <ControlLabel>
+                                    <FormattedMessage id="password" />:
+                                </ControlLabel>
                             </Col>
                             <Col sm={4}>
                                 <FormControl
