@@ -4,6 +4,7 @@ import User from "../domain/User";
 import { UserService } from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 interface RouteParam {
     id: string;
@@ -30,7 +31,9 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
     public render(): JSX.Element {
         return (
             <Panel>
-                <Panel.Heading>User</Panel.Heading>
+                <Panel.Heading>
+                    <FormattedMessage id="user" />
+                </Panel.Heading>
                 <Panel.Body>
                     <Form horizontal={true}>
                         <FormGroup>
