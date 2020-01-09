@@ -5,12 +5,19 @@ import { UserService } from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import Messages from "./Messages";
+import Message, { MessageType } from "../domain/Message";
 
 interface RouteParam {
     id: string;
 }
 
-class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
+interface EditUserState {
+    user: User;
+    messages?: ReadonlyArray<Message>;
+}
+
+class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUserState> {
     private userService: UserService = new UserServiceImpl();
 
     constructor(props) {
@@ -18,13 +25,17 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
         this.onChange = this.onChange.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
         this.submitUser = this.submitUser.bind(this);
-        this.state = new User("", "", "");
+        this.state = { user: new User("", "", "") };
     }
 
     public async componentDidMount(): Promise<void> {
         const id = Number(this.props.match.params.id);
         if (id) {
-            this.setState(await this.userService.findById(id));
+            try {
+                this.setState({ user: await this.userService.findById(id) });
+            } catch (error) {
+                this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
+            }
         }
     }
 
@@ -35,6 +46,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
                     <FormattedMessage id="user" />
                 </Panel.Heading>
                 <Panel.Body>
+                    <Messages messages={this.state.messages} />
                     <Form horizontal={true}>
                         <FormGroup>
                             <Col sm={1}>
@@ -48,7 +60,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
                                     type="text"
                                     bsSize="small"
                                     autoFocus={true}
-                                    value={this.state.id ? this.state.id.toString() : ""}
+                                    value={this.state.user.id ? this.state.user.id.toString() : ""}
                                 />
                             </Col>
                         </FormGroup>
@@ -65,7 +77,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
                                     type="text"
                                     bsSize="small"
                                     autoFocus={true}
-                                    value={this.state.username}
+                                    value={this.state.user.username}
                                     onChange={this.onChange}
                                 />
                             </Col>
@@ -82,7 +94,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
                                     name="email"
                                     type="text"
                                     bsSize="small"
-                                    value={this.state.email}
+                                    value={this.state.user.email}
                                     onKeyPress={this.onKeyPress}
                                     onChange={this.onChange}
                                 />
@@ -100,7 +112,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
                                     name="password"
                                     type="password"
                                     bsSize="small"
-                                    value={this.state.password}
+                                    value={this.state.user.password}
                                     onKeyPress={this.onKeyPress}
                                     onChange={this.onChange}
                                 />
@@ -120,11 +132,8 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
     }
 
     private onChange(event: React.ChangeEvent<any>): void {
-        const value = event.target.value;
-        this.setState({
-            ...this.state,
-            [event.target.name]: value,
-        });
+        const { name, value } = event.target;
+        this.setState(state => ({ user: { ...this.state.user, [name]: value } }));
     }
 
     private async onKeyPress(event: React.KeyboardEvent<FormControl>): Promise<void> {
@@ -134,13 +143,17 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, User> {
     }
 
     private async submitUser(): Promise<void> {
-        const user: User = this.state;
-        if (user.id == undefined) {
-            await this.userService.create(user);
-        } else {
-            await this.userService.update(user);
+        const user: User = this.state.user;
+        try {
+            if (user.id == undefined) {
+                await this.userService.create(user);
+            } else {
+                await this.userService.update(user);
+            }
+            this.props.history.push("/");
+        } catch (error) {
+            this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
         }
-        this.props.history.push("/");
     }
 }
 

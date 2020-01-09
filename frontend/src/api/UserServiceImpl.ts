@@ -8,7 +8,11 @@ export default class UserServiceImpl implements UserService {
             method: "GET",
         };
         const response: Response = await fetch(this.getApiUrl(), request);
-        return response.json();
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Error loading users");
+        }
     }
 
     public async findById(id: number): Promise<User> {
@@ -17,11 +21,11 @@ export default class UserServiceImpl implements UserService {
             method: "GET",
         };
         const response: Response = await fetch(this.getApiUrl() + id, request);
-        return response.json();
-    }
-
-    public async newUser(): Promise<User[]> {
-        return [...(await this.fetchUsers()), new User("", "", "")];
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Error loading user");
+        }
     }
 
     public async create(user: User): Promise<User> {
@@ -31,7 +35,11 @@ export default class UserServiceImpl implements UserService {
             method: "POST",
         };
         const response: Response = await fetch(this.getApiUrl(), request);
-        return response.json();
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Error saving user");
+        }
     }
 
     public async delete(id: number): Promise<void> {
@@ -39,7 +47,10 @@ export default class UserServiceImpl implements UserService {
             headers: this.getHeaders(),
             method: "DELETE",
         };
-        await fetch(this.getApiUrl() + id, request);
+        const response: Response =await fetch(this.getApiUrl() + id, request);
+        if (!response.ok) {
+            throw new Error("Error deleting user");
+        }
     }
 
     public async update(user: User): Promise<User> {
@@ -49,7 +60,11 @@ export default class UserServiceImpl implements UserService {
             method: "PUT",
         };
         const response: Response = await fetch(this.getApiUrl() + user.id, request);
-        return response.json();
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Error updating user");
+        }
     }
 
     public getApiUrl(): string {

@@ -6,11 +6,14 @@ import UserServiceImpl from "../api/UserServiceImpl";
 import Hello from "./Hello";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import { Panel, Button, Glyphicon, Table } from "react-bootstrap";
+import { Button, Glyphicon, Panel, Table } from "react-bootstrap";
 import UserItem from "./UserItem";
+import Message, { MessageType } from "../domain/Message";
+import Messages from "./Messages";
 
 interface UserContainerState {
     users: User[];
+    messages?: ReadonlyArray<Message>;
 }
 
 class UserContainer extends Component<RouteComponentProps, UserContainerState> {
@@ -18,15 +21,17 @@ class UserContainer extends Component<RouteComponentProps, UserContainerState> {
 
     constructor(props) {
         super(props);
-        this.state = {
-            users: [],
-        };
+        this.state = { users: [] };
         this.deleteUser = this.deleteUser.bind(this);
         this.addUser = this.addUser.bind(this);
     }
 
     public async componentWillMount(): Promise<void> {
-        await this.fetchUsers();
+        try {
+            await this.fetchUsers();
+        } catch (error) {
+            this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
+        }
     }
 
     public addUser(): void {
@@ -35,7 +40,11 @@ class UserContainer extends Component<RouteComponentProps, UserContainerState> {
 
     public async deleteUser(id: number): Promise<void> {
         if (window.confirm("Do you want to delete this item") === true) {
-            await this.userService.delete(id);
+            try {
+                await this.userService.delete(id);
+            } catch (error) {
+                this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
+            }
             this.fetchUsers();
         }
     }
@@ -50,6 +59,7 @@ class UserContainer extends Component<RouteComponentProps, UserContainerState> {
                     <FormattedMessage id="users" />
                 </Panel.Heading>
                 <Panel.Body>
+                    <Messages messages={this.state.messages} />
                     <Table>
                         <thead>
                             <tr>
@@ -76,7 +86,12 @@ class UserContainer extends Component<RouteComponentProps, UserContainerState> {
     }
 
     private async fetchUsers(): Promise<void> {
-        const users: User[] = await this.userService.fetchUsers();
+        let users: User[];
+        try {
+            users = await this.userService.fetchUsers();
+        } catch (error) {
+            this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
+        }
         this.setState((prevState, props) => ({ users: users }));
     }
 }
