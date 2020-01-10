@@ -50,32 +50,35 @@ class UserContainer extends Component<RouteComponentProps, UserContainerState> {
     }
 
     public render(): JSX.Element {
-        const userItems = this.state.users.map((item, index) => (
-            <UserItem key={index} user={item} index={index} deleteUser={this.deleteUser} />
-        ));
+        let userItems;
+        if (this.state.users) {
+            userItems = this.state.users.map((item, index) => (
+                <UserItem key={index} user={item} index={index} deleteUser={this.deleteUser}/>
+            ));
+        }
         return (
             <Panel>
                 <Panel.Heading>
-                    <FormattedMessage id="users" />
+                    <FormattedMessage id="users"/>
                 </Panel.Heading>
                 <Panel.Body>
-                    <Messages messages={this.state.messages} />
+                    <Messages messages={this.state.messages}/>
                     <Table>
                         <thead>
-                            <tr>
-                                <th>
-                                    <FormattedMessage id="username" />
-                                </th>
-                                <th>
-                                    <FormattedMessage id="email" />
-                                </th>
-                                <th />
-                            </tr>
+                        <tr>
+                            <th>
+                                <FormattedMessage id="username"/>
+                            </th>
+                            <th>
+                                <FormattedMessage id="email"/>
+                            </th>
+                            <th/>
+                        </tr>
                         </thead>
                         <tbody>{userItems}</tbody>
                     </Table>
                     <Button id="addUser" bsStyle="primary" onClick={this.addUser}>
-                        <Glyphicon glyph="glyphicon glyphicon-plus" />
+                        <Glyphicon glyph="glyphicon glyphicon-plus"/>
                     </Button>
                 </Panel.Body>
                 <Panel.Footer>
