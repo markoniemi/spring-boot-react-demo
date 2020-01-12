@@ -21,6 +21,7 @@ export default class Server {
                 "/api/*": `http://${backendHost}:${backendPort}`,
             },
             publicPath: "",
+            historyApiFallback: true,
         };
     }
 

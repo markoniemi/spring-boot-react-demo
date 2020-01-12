@@ -1,18 +1,18 @@
 import * as React from "react";
 import { Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon, Panel } from "react-bootstrap";
 import User from "../domain/User";
-import { UserService } from "../api/UserService";
+import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
 import Message, { MessageType } from "../domain/Message";
 
-interface RouteParam {
+export interface RouteParam {
     id: string;
 }
 
-interface EditUserState {
+export interface EditUserState {
     user: User;
     messages?: ReadonlyArray<Message>;
 }

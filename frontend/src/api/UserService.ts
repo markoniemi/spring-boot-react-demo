@@ -1,6 +1,6 @@
 import User from "../domain/User";
 
-export interface UserService {
+export default interface UserService {
     findById(id: number): Promise<User>;
 
     fetchUsers(): Promise<User[]>;

@@ -3,13 +3,13 @@ import User from "../domain/User";
 import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
 import { Button, Glyphicon } from "react-bootstrap";
 
-interface UserProps {
+export interface UserProps {
     user: User;
 
     deleteUser(id: number);
 }
 
-class UserItem extends Component<RouteComponentProps & UserProps, Readonly<{}>> {
+class UserRow extends Component<RouteComponentProps & UserProps, Readonly<{}>> {
     constructor(props) {
         super(props);
         this.delete = this.delete.bind(this);
@@ -47,4 +47,4 @@ class UserItem extends Component<RouteComponentProps & UserProps, Readonly<{}>> 
     }
 }
 
-export default withRouter(UserItem);
+export default withRouter(UserRow);

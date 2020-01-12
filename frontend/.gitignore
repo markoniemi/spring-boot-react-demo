@@ -3,6 +3,7 @@
 /coverage
 /build
 /dist
+/reports
 webpack.prod.js
 
 .DS_Store

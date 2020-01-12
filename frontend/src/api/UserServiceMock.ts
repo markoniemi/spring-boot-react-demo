@@ -1,5 +1,5 @@
 import User from "../domain/User";
-import { UserService } from "./UserService";
+import UserService from "./UserService";
 
 export default class UserServiceMock implements UserService {
     private users: User[] = JSON.parse(localStorage.getItem("users"));

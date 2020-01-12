@@ -10,6 +10,7 @@
     "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
   },
   "testRegex": "(/test/.*-(test|it))\\.tsx?",
+  "testPathIgnorePatterns" : ["__snapshots__"],
   "coverageDirectory": "reports/coverage",
   "coveragePathIgnorePatterns": ["src/index.tsx"],
   "collectCoverageFrom" : ["src/**", "server/**"],
