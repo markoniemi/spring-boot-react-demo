@@ -47,7 +47,7 @@ export default class UserServiceImpl implements UserService {
             headers: this.getHeaders(),
             method: "DELETE",
         };
-        const response: Response =await fetch(this.getApiUrl() + id, request);
+        const response: Response = await fetch(this.getApiUrl() + id, request);
         if (!response.ok) {
             throw new Error("Error deleting user");
         }
@@ -73,6 +73,7 @@ export default class UserServiceImpl implements UserService {
         return `/api/rest/users/`;
     }
 
+    // need to import isomorphic-fetch in test case for Headers to work
     private getHeaders(): Headers {
         return new Headers({ "content-type": "application/json" });
     }

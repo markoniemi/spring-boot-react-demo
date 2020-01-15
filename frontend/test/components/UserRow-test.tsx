@@ -17,7 +17,6 @@ describe("UserRow component", () => {
         const userWrapper: ShallowWrapper<RouteComponentProps & UserProps, Readonly<{}>> = shallow(
             <UserRow.WrappedComponent user={user1} deleteUser={null} {...routeComponentProps} />,
         );
-        expect(userWrapper).toMatchSnapshot();
         assert.equal(userWrapper.find("td").at(0).text(), "user1");
         assert.equal(userWrapper.find("td").at(1).text(), "email1");
     });
@@ -27,7 +26,6 @@ describe("UserRow component", () => {
         const userWrapper: ShallowWrapper<RouteComponentProps & UserProps, Readonly<{}>> = shallow(
             <UserRow.WrappedComponent user={emptyUser} deleteUser={null} {...routeComponentProps} />,
         );
-        expect(userWrapper).toMatchSnapshot();
         assert.equal(userWrapper.find("td").at(0).text(), "");
         assert.equal(userWrapper.find("td").at(1).text(), "");
     });
