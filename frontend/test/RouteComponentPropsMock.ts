@@ -1,8 +1,7 @@
-// import { RouteComponentProps } from "react-router-dom";
-import { createMemoryHistory } from "history";
-// TODO add type definition
-// export default function createRouteComponentProps(params): RouteComponentProps {
-export default function createRouteComponentProps(params) {
+import { RouteComponentProps } from "react-router-dom";
+import { createLocation, createMemoryHistory } from "history";
+
+export default function createRouteComponentProps(params): RouteComponentProps<any> {
     return {
         match: {
             params: params,
@@ -10,7 +9,7 @@ export default function createRouteComponentProps(params) {
             path: null,
             url: null,
         },
-        location: null,
+        location: createLocation(""),
         history: createMemoryHistory(),
     };
 }
