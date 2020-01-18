@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
-import UserContainer from "./UserContainer";
+import UserContainer from "./UsersContainer";
 import EditUser from "./EditUser";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { IntlProvider } from "react-intl";

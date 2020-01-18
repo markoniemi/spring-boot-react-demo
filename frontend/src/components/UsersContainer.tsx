@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../App.css";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
@@ -11,12 +10,12 @@ import UserItem from "./UserRow";
 import Message, { MessageType } from "../domain/Message";
 import Messages from "./Messages";
 
-interface UserContainerState {
+export interface UsersContainerState {
     users: User[];
     messages?: ReadonlyArray<Message>;
 }
 
-class UserContainer extends Component<RouteComponentProps, UserContainerState> {
+class UsersContainer extends Component<RouteComponentProps, UsersContainerState> {
     private userService: UserService = new UserServiceImpl();
 
     constructor(props) {
@@ -99,4 +98,4 @@ class UserContainer extends Component<RouteComponentProps, UserContainerState> {
     }
 }
 
-export default withRouter(UserContainer);
+export default withRouter(UsersContainer);
