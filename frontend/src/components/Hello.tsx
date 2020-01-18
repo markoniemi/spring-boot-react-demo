@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-interface HelloState {
+export interface HelloState {
     message: string;
 }
 

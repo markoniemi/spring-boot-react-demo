@@ -15,6 +15,6 @@ describe("Messages component", () => {
         const wrapper: ShallowWrapper<MessageProps, {}> = shallow(<Messages messages={messages}/>);
         assert.isNotNull(wrapper.find(Messages));
         assert.isNotNull(wrapper.find(Alert));
-        assert(wrapper.find(Alert).text, "success");
+        assert(wrapper.find(Alert).at(0).text, "success");
     });
 });
