@@ -3,6 +3,7 @@ package org.example;
 import javax.annotation.Resource;
 
 import org.example.config.IntegrationTestConfig;
+import org.example.model.user.Role;
 import org.example.selenium.EditUserPage;
 import org.example.selenium.UsersPage;
 import org.junit.Assert;
@@ -40,25 +41,25 @@ public class ReactDemoApplicationIT {
         Assert.assertTrue(webDriver.findElement(By.id("message")).getText().contains("world"));
         usersPage.clickAddUser();
         Thread.sleep(1000);
-        editUserPage.editUser("username", "password", "email");
+        editUserPage.editUser("username", "password", "email", "User");
         Thread.sleep(1000);
-        usersPage.assertUser("username", "email");
+        usersPage.assertUser("username", "email", "User");
         usersPage.clickEditUser("username");
         Thread.sleep(1000);
-        editUserPage.editUser("newUsername", "newPassword", "newEmail");
+        editUserPage.editUser("newUsername", "newPassword", "newEmail", "User");
         Thread.sleep(1000);
-        usersPage.assertUser("newUsername", "newEmail");
+        usersPage.assertUser("newUsername", "newEmail", "User");
         usersPage.deleteUser("newUsername");
         // TODO assert user deleted
         Thread.sleep(1000);
         usersPage.clickEditUser("username1");
         Thread.sleep(1000);
-        editUserPage.editUser("editedUsername", "editedPassword", "editedEmail");
+        editUserPage.editUser("editedUsername", "editedPassword", "editedEmail", "Admin");
         Thread.sleep(1000);
-        usersPage.assertUser("editedUsername", "editedEmail");
+        usersPage.assertUser("editedUsername", "editedEmail", "Admin");
         usersPage.clickEditUser("editedUsername");
         webDriver.get("http://localhost:8080/users/1");
-        editUserPage.editUser("username1", "password", "email");
-        usersPage.assertUser("username1", "email");
+        editUserPage.editUser("username1", "password", "email", "User");
+        usersPage.assertUser("username1", "email", "User");
     }
 }

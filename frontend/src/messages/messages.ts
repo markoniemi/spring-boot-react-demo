@@ -8,6 +8,9 @@ const i18nConfig = {
         username: "Username",
         email: "Email",
         password: "Password",
+        role: "Role",
+        "role.ROLE_USER": "User",
+        "role.ROLE_ADMIN": "Admin",
     },
 };
 export default i18nConfig;

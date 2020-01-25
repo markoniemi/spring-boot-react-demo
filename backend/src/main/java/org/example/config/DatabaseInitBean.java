@@ -2,6 +2,7 @@ package org.example.config;
 
 import javax.annotation.Resource;
 
+import org.example.model.user.Role;
 import org.example.model.user.User;
 import org.example.repository.user.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
@@ -21,9 +22,9 @@ public class DatabaseInitBean implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         log.debug("Creating user {}", username);
-        userRepository.save(new User(username, "admin", "email"));
+        userRepository.save(new User(username, "admin", "email", Role.ROLE_ADMIN));
         for (int i = 0; i < 5; i++) {
-            userRepository.save(new User("username" + i, "user", "email"));
+            userRepository.save(new User("username" + i, "user", "email", Role.ROLE_USER));
         }
     }
 }

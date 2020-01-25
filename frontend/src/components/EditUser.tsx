@@ -1,12 +1,13 @@
 import * as React from "react";
-import { Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon, Panel } from "react-bootstrap";
+import { Button, Col, ControlLabel, Dropdown, Form, FormControl, FormGroup, Glyphicon, Panel } from "react-bootstrap";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import Messages from "./Messages";
 import Message, { MessageType } from "../domain/Message";
+import InjectedIntlProps = ReactIntl.InjectedIntlProps;
 
 export interface RouteParam {
     id: string;
@@ -17,11 +18,12 @@ export interface EditUserState {
     messages?: ReadonlyArray<Message>;
 }
 
-class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUserState> {
+class EditUser extends React.Component<RouteComponentProps<RouteParam> & InjectedIntlProps, EditUserState> {
     private userService: UserService = new UserServiceImpl();
 
     constructor(props) {
         super(props);
+        // window.onbeforeunload = () => true;
         this.onChange = this.onChange.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
         this.submitUser = this.submitUser.bind(this);
@@ -43,15 +45,15 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
         return (
             <Panel>
                 <Panel.Heading>
-                    <FormattedMessage id="user" />
+                    <FormattedMessage id="user"/>
                 </Panel.Heading>
                 <Panel.Body>
-                    <Messages messages={this.state.messages} />
+                    <Messages messages={this.state.messages}/>
                     <Form horizontal={true}>
                         <FormGroup>
                             <Col sm={1}>
                                 <ControlLabel>
-                                    <FormattedMessage id="id" />:
+                                    <FormattedMessage id="id"/>:
                                 </ControlLabel>
                             </Col>
                             <Col sm={4}>
@@ -67,7 +69,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                         <FormGroup>
                             <Col sm={1}>
                                 <ControlLabel>
-                                    <FormattedMessage id="username" />:
+                                    <FormattedMessage id="username"/>:
                                 </ControlLabel>
                             </Col>
                             <Col sm={4}>
@@ -85,7 +87,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                         <FormGroup>
                             <Col sm={1}>
                                 <ControlLabel>
-                                    <FormattedMessage id="email" />:
+                                    <FormattedMessage id="email"/>:
                                 </ControlLabel>
                             </Col>
                             <Col sm={4}>
@@ -103,7 +105,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                         <FormGroup>
                             <Col sm={1}>
                                 <ControlLabel>
-                                    <FormattedMessage id="password" />:
+                                    <FormattedMessage id="password"/>:
                                 </ControlLabel>
                             </Col>
                             <Col sm={4}>
@@ -119,9 +121,31 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             </Col>
                         </FormGroup>
                         <FormGroup>
+                            <Col sm={1}>
+                                <ControlLabel>
+                                    <FormattedMessage id="role"/>:
+                                </ControlLabel>
+                            </Col>
+                            <Col sm={4}>
+                                <FormControl
+                                    componentClass="select"
+                                    placeholder="select"
+                                    id="role"
+                                    name="role"
+                                    type="select"
+                                    bsSize="small"
+                                    value={this.state.user.role}
+                                    onChange={this.onChange}
+                                >
+                                    <option value="ROLE_ADMIN">Admin</option>
+                                    <option value="ROLE_USER">User</option>
+                                </FormControl>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup>
                             <Col sm={5}>
                                 <Button id="saveUser" bsSize="small" className="pull-right" onClick={this.submitUser}>
-                                    <Glyphicon glyph="glyphicon glyphicon-ok" />
+                                    <Glyphicon glyph="glyphicon glyphicon-ok"/>
                                 </Button>
                             </Col>
                         </FormGroup>
@@ -150,11 +174,11 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
             } else {
                 await this.userService.update(user);
             }
-            this.props.history.push("/");
         } catch (error) {
             this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
         }
+        this.props.history.push("/");
     }
 }
 
-export default withRouter(EditUser);
+export default withRouter(injectIntl(EditUser));

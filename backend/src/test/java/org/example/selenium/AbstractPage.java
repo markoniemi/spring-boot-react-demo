@@ -32,6 +32,9 @@ public abstract class AbstractPage {
     protected void selectByValue(By by, String value) {
         new Select(webDriver.findElement(by)).selectByValue(value);
     }
+    protected void selectByText(By by, String value) {
+        new Select(webDriver.findElement(by)).selectByVisibleText(value);
+    }
     protected void sleep() {
         try {
             Thread.sleep(SLEEP_TIME);

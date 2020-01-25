@@ -44,7 +44,7 @@ public class User {
     private String password;
     @NonNull
     private String email;
-//    @NonNull
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
+    @NonNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

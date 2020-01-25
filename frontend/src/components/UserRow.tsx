@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import User from "../domain/User";
 import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
 import { Button, Glyphicon } from "react-bootstrap";
+import { FormattedMessage } from "react-intl";
 
 export interface UserProps {
     user: User;
@@ -34,6 +35,7 @@ class UserRow extends Component<RouteComponentProps & UserProps, Readonly<{}>> {
                     <NavLink to={"/users/" + user.id}>{user.username}</NavLink>
                 </td>
                 <td id="email">{user.email}</td>
+                <td id="role"><FormattedMessage id={"role." + user.role} /></td>
                 <td>
                     <Button id="edit" bsSize="small" onClick={this.editUser}>
                         <Glyphicon glyph="glyphicon glyphicon-edit" />
