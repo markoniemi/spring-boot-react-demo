@@ -1,13 +1,12 @@
 import * as React from "react";
-import { Button, Col, ControlLabel, Dropdown, Form, FormControl, FormGroup, Glyphicon, Panel } from "react-bootstrap";
+import { Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon, Panel } from "react-bootstrap";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { FormattedMessage, injectIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
 import Message, { MessageType } from "../domain/Message";
-import InjectedIntlProps = ReactIntl.InjectedIntlProps;
 
 export interface RouteParam {
     id: string;
@@ -18,7 +17,7 @@ export interface EditUserState {
     messages?: ReadonlyArray<Message>;
 }
 
-class EditUser extends React.Component<RouteComponentProps<RouteParam> & InjectedIntlProps, EditUserState> {
+class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUserState> {
     private userService: UserService = new UserServiceImpl();
 
     constructor(props) {
@@ -137,8 +136,12 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam> & Injecte
                                     value={this.state.user.role}
                                     onChange={this.onChange}
                                 >
-                                    <option value="ROLE_ADMIN">Admin</option>
-                                    <option value="ROLE_USER">User</option>
+                                    <FormattedMessage id="role.ROLE_ADMIN">
+                                        {(message) => <option value="ROLE_ADMIN">{message}</option>}
+                                    </FormattedMessage>
+                                    <FormattedMessage id="role.ROLE_USER">
+                                        {(message) => <option value="ROLE_USER">{message}</option>}
+                                    </FormattedMessage>
                                 </FormControl>
                             </Col>
                         </FormGroup>
@@ -181,4 +184,4 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam> & Injecte
     }
 }
 
-export default withRouter(injectIntl(EditUser));
+export default withRouter(EditUser);
