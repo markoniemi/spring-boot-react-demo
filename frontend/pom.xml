@@ -65,7 +65,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run test</arguments>
+                            <arguments>run test coveralls sonarqube</arguments>
                         </configuration>
                     </execution>
                 </executions>
@@ -124,4 +124,30 @@
             </plugins>
         </pluginManagement>
     </build>
+    <profiles>
+        <profile>
+            <id>report</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>1.8.0</version>
+                        <executions>
+                            <execution>
+                                <id>report</id>
+                                <phase>report</phase>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run coveralls sonarqube</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
