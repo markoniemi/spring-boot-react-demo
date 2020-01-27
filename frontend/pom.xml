@@ -65,7 +65,17 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run test coveralls sonarqube</arguments>
+                            <arguments>run test </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run coveralls sonarqube</arguments>
                         </configuration>
                     </execution>
                 </executions>
