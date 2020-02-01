@@ -8,7 +8,8 @@
         <artifactId>spring-boot-react-demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>backend</artifactId>
+	<name>spring-boot-backend</name>
+    <artifactId>spring-boot-backend</artifactId>
 
     <properties>
         <org.apache.cxf.version>3.3.4</org.apache.cxf.version>
@@ -20,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>frontend</artifactId>
+            <artifactId>react-frontend</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

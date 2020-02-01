@@ -8,7 +8,8 @@
         <artifactId>spring-boot-react-demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>frontend</artifactId>
+	<name>react-frontend</name>
+    <artifactId>react-frontend</artifactId>
     <build>
         <plugins>
             <plugin>
