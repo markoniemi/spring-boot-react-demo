@@ -5,7 +5,7 @@ import UserServiceImpl from "../api/UserServiceImpl";
 import Hello from "./Hello";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import { Button, Glyphicon, Panel, Table } from "react-bootstrap";
+import { Button, Table, Card } from "react-bootstrap";
 import UserItem from "./UserRow";
 import Message, { MessageType } from "../domain/Message";
 import Messages from "./Messages";
@@ -56,11 +56,11 @@ class UsersContainer extends Component<RouteComponentProps, UsersContainerState>
             ));
         }
         return (
-            <Panel>
-                <Panel.Heading>
+            <Card>
+                <Card.Title>
                     <FormattedMessage id="users" />
-                </Panel.Heading>
-                <Panel.Body>
+                </Card.Title>
+                <Card.Body>
                     <Messages messages={this.state.messages} />
                     <Table>
                         <thead>
@@ -76,14 +76,15 @@ class UsersContainer extends Component<RouteComponentProps, UsersContainerState>
                         </thead>
                         <tbody>{userItems}</tbody>
                     </Table>
-                    <Button id="addUser" bsStyle="primary" onClick={this.addUser}>
-                        <Glyphicon glyph="glyphicon glyphicon-plus" />
+                    <Button id="addUser" variant="primary" onClick={this.addUser}>
+                        Plus
+                        {/*<Glyphicon glyph="glyphicon glyphicon-plus" />*/}
                     </Button>
-                </Panel.Body>
-                <Panel.Footer>
+                </Card.Body>
+                <Card.Footer>
                     <Hello />
-                </Panel.Footer>
-            </Panel>
+                </Card.Footer>
+            </Card>
         );
     }
 

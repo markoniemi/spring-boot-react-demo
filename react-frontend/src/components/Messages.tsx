@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Alert } from "react-bootstrap";
-import Message, { MessageType } from "../domain/Message";
+import Message, { MessageType, MessageVariant } from "../domain/Message";
 
 export interface MessageProps {
     messages?: ReadonlyArray<Message>;
@@ -15,6 +15,7 @@ export class Messages extends React.Component<MessageProps, {}> {
 
     public render(): JSX.Element {
         if (this.props.messages != null && this.props.messages.length > 0) {
+            // return <Toast></Toast>
             return <div id="messages">{this.props.messages.map(this.renderMessage)}</div>;
         } else {
             return null;
@@ -23,13 +24,13 @@ export class Messages extends React.Component<MessageProps, {}> {
 
     private renderMessage(message: Message): JSX.Element {
         return (
-            <Alert bsStyle={Messages.mapTypeToStyle(message.type)} key={message.id}>
+            <Alert variant={Messages.mapTypeToStyle(message.type)} key={message.id}>
                 {message.text}
             </Alert>
         );
     }
 
-    private static mapTypeToStyle(type: MessageType): string {
+    private static mapTypeToStyle(type: MessageType): MessageVariant {
         if (type === MessageType.ERROR) {
             return "danger";
         }

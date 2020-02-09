@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Button, Col, ControlLabel, Form, FormControl, FormGroup, Glyphicon, Panel } from "react-bootstrap";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
@@ -7,6 +6,7 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
 import Message, { MessageType } from "../domain/Message";
+import { Button, Card, Col, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
 
 export interface RouteParam {
     id: string;
@@ -42,24 +42,24 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
 
     public render(): JSX.Element {
         return (
-            <Panel>
-                <Panel.Heading>
+            <Card>
+                <Card.Title>
                     <FormattedMessage id="user"/>
-                </Panel.Heading>
-                <Panel.Body>
+                </Card.Title>
+                <Card.Body>
                     <Messages messages={this.state.messages}/>
-                    <Form horizontal={true}>
+                    <Form>
                         <FormGroup>
                             <Col sm={1}>
-                                <ControlLabel>
+                                <FormLabel>
                                     <FormattedMessage id="id"/>:
-                                </ControlLabel>
+                                </FormLabel>
                             </Col>
                             <Col sm={4}>
                                 <FormControl
                                     disabled={true}
                                     type="text"
-                                    bsSize="small"
+                                    size="sm"
                                     autoFocus={true}
                                     value={this.state.user.id ? this.state.user.id.toString() : ""}
                                 />
@@ -67,16 +67,16 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                         </FormGroup>
                         <FormGroup>
                             <Col sm={1}>
-                                <ControlLabel>
+                                <FormLabel>
                                     <FormattedMessage id="username"/>:
-                                </ControlLabel>
+                                </FormLabel>
                             </Col>
                             <Col sm={4}>
                                 <FormControl
                                     id="username"
                                     name="username"
                                     type="text"
-                                    bsSize="small"
+                                    size="sm"
                                     autoFocus={true}
                                     value={this.state.user.username}
                                     onChange={this.onChange}
@@ -85,54 +85,54 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                         </FormGroup>
                         <FormGroup>
                             <Col sm={1}>
-                                <ControlLabel>
+                                <FormLabel>
                                     <FormattedMessage id="email"/>:
-                                </ControlLabel>
+                                </FormLabel>
                             </Col>
                             <Col sm={4}>
                                 <FormControl
                                     id="email"
                                     name="email"
                                     type="text"
-                                    bsSize="small"
+                                    size="sm"
                                     value={this.state.user.email}
-                                    onKeyPress={this.onKeyPress}
+                                    // onKeyPress={this.onKeyPress}
                                     onChange={this.onChange}
                                 />
                             </Col>
                         </FormGroup>
                         <FormGroup>
                             <Col sm={1}>
-                                <ControlLabel>
+                                <FormLabel>
                                     <FormattedMessage id="password"/>:
-                                </ControlLabel>
+                                </FormLabel>
                             </Col>
                             <Col sm={4}>
                                 <FormControl
                                     id="password"
                                     name="password"
                                     type="password"
-                                    bsSize="small"
+                                    size="sm"
                                     value={this.state.user.password}
-                                    onKeyPress={this.onKeyPress}
+                                    // onKeyPress={this.onKeyPress}
                                     onChange={this.onChange}
                                 />
                             </Col>
                         </FormGroup>
                         <FormGroup>
                             <Col sm={1}>
-                                <ControlLabel>
+                                <FormLabel>
                                     <FormattedMessage id="role"/>:
-                                </ControlLabel>
+                                </FormLabel>
                             </Col>
                             <Col sm={4}>
                                 <FormControl
-                                    componentClass="select"
+                                    as="select"
                                     placeholder="select"
                                     id="role"
                                     name="role"
                                     type="select"
-                                    bsSize="small"
+                                    size="sm"
                                     value={this.state.user.role}
                                     onChange={this.onChange}
                                 >
@@ -147,14 +147,15 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                         </FormGroup>
                         <FormGroup>
                             <Col sm={5}>
-                                <Button id="saveUser" bsSize="small" className="pull-right" onClick={this.submitUser}>
-                                    <Glyphicon glyph="glyphicon glyphicon-ok"/>
+                                <Button id="saveUser" size="sm" className="pull-right" onClick={this.submitUser}>
+                                    OK
+                                    {/*<Glyphicon glyph="glyphicon glyphicon-ok"/>*/}
                                 </Button>
                             </Col>
                         </FormGroup>
                     </Form>
-                </Panel.Body>
-            </Panel>
+                </Card.Body>
+            </Card>
         );
     }
 

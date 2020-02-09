@@ -5,6 +5,27 @@ export enum MessageType {
     SUCCESS = "SUCCESS",
 }
 
+// export enum Variant {
+//     | "primary"
+// | "secondary"
+// | "success"
+// | "danger"
+// | "warning"
+// | "info"
+// | "dark"
+// | "light";
+// }
+
+export type MessageVariant =
+    | "primary"
+    | "secondary"
+    | "success"
+    | "danger"
+    | "warning"
+    | "info"
+    | "dark"
+    | "light";
+
 export default class Message {
     public id?: string;
     public text: string;
