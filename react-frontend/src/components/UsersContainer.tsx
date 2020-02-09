@@ -9,6 +9,8 @@ import { Button, Table, Card } from "react-bootstrap";
 import UserItem from "./UserRow";
 import Message, { MessageType } from "../domain/Message";
 import Messages from "./Messages";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Icons from "@fortawesome/free-solid-svg-icons";
 
 export interface UsersContainerState {
     users: User[];
@@ -57,10 +59,10 @@ class UsersContainer extends Component<RouteComponentProps, UsersContainerState>
         }
         return (
             <Card>
+                <Card.Body>
                 <Card.Title>
                     <FormattedMessage id="users" />
                 </Card.Title>
-                <Card.Body>
                     <Messages messages={this.state.messages} />
                     <Table>
                         <thead>
@@ -77,8 +79,7 @@ class UsersContainer extends Component<RouteComponentProps, UsersContainerState>
                         <tbody>{userItems}</tbody>
                     </Table>
                     <Button id="addUser" variant="primary" onClick={this.addUser}>
-                        Plus
-                        {/*<Glyphicon glyph="glyphicon glyphicon-plus" />*/}
+                        <FontAwesomeIcon icon={Icons.faPlus} />
                     </Button>
                 </Card.Body>
                 <Card.Footer>

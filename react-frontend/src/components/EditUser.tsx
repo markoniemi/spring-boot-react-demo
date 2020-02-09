@@ -6,7 +6,9 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
 import Message, { MessageType } from "../domain/Message";
-import { Button, Card, Col, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, FormControl, FormGroup, FormLabel, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Icons from "@fortawesome/free-solid-svg-icons";
 
 export interface RouteParam {
     id: string;
@@ -43,115 +45,126 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
     public render(): JSX.Element {
         return (
             <Card>
-                <Card.Title>
-                    <FormattedMessage id="user"/>
-                </Card.Title>
                 <Card.Body>
+                    <Card.Title>
+                        <FormattedMessage id="user"/>
+                    </Card.Title>
                     <Messages messages={this.state.messages}/>
                     <Form>
                         <FormGroup>
-                            <Col sm={1}>
-                                <FormLabel>
-                                    <FormattedMessage id="id"/>:
-                                </FormLabel>
-                            </Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    disabled={true}
-                                    type="text"
-                                    size="sm"
-                                    autoFocus={true}
-                                    value={this.state.user.id ? this.state.user.id.toString() : ""}
-                                />
-                            </Col>
+                            <Form.Row>
+                                <Col sm={1}>
+                                    <FormLabel>
+                                        <FormattedMessage id="id"/>:
+                                    </FormLabel>
+                                </Col>
+                                <Col sm={4}>
+                                    <FormControl
+                                        disabled={true}
+                                        type="text"
+                                        size="sm"
+                                        autoFocus={true}
+                                        value={this.state.user.id ? this.state.user.id.toString() : ""}
+                                    />
+                                </Col>
+                            </Form.Row>
                         </FormGroup>
                         <FormGroup>
-                            <Col sm={1}>
-                                <FormLabel>
-                                    <FormattedMessage id="username"/>:
-                                </FormLabel>
-                            </Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    id="username"
-                                    name="username"
-                                    type="text"
-                                    size="sm"
-                                    autoFocus={true}
-                                    value={this.state.user.username}
-                                    onChange={this.onChange}
-                                />
-                            </Col>
+                            <Form.Row>
+                                <Col sm={1}>
+                                    <FormLabel>
+                                        <FormattedMessage id="username"/>:
+                                    </FormLabel>
+                                </Col>
+                                <Col sm={4}>
+                                    <FormControl
+                                        id="username"
+                                        name="username"
+                                        type="text"
+                                        size="sm"
+                                        autoFocus={true}
+                                        value={this.state.user.username}
+                                        onChange={this.onChange}
+                                    />
+                                </Col>
+                            </Form.Row>
                         </FormGroup>
                         <FormGroup>
-                            <Col sm={1}>
-                                <FormLabel>
-                                    <FormattedMessage id="email"/>:
-                                </FormLabel>
-                            </Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    id="email"
-                                    name="email"
-                                    type="text"
-                                    size="sm"
-                                    value={this.state.user.email}
-                                    // onKeyPress={this.onKeyPress}
-                                    onChange={this.onChange}
-                                />
-                            </Col>
+                            <Form.Row>
+                                <Col sm={1}>
+                                    <FormLabel>
+                                        <FormattedMessage id="email"/>:
+                                    </FormLabel>
+                                </Col>
+                                <Col sm={4}>
+                                    <FormControl
+                                        id="email"
+                                        name="email"
+                                        type="text"
+                                        size="sm"
+                                        value={this.state.user.email}
+                                        // onKeyPress={this.onKeyPress}
+                                        onChange={this.onChange}
+                                    />
+                                </Col>
+                            </Form.Row>
                         </FormGroup>
                         <FormGroup>
-                            <Col sm={1}>
-                                <FormLabel>
-                                    <FormattedMessage id="password"/>:
-                                </FormLabel>
-                            </Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    size="sm"
-                                    value={this.state.user.password}
-                                    // onKeyPress={this.onKeyPress}
-                                    onChange={this.onChange}
-                                />
-                            </Col>
+                            <Form.Row>
+                                <Col sm={1}>
+                                    <FormLabel>
+                                        <FormattedMessage id="password"/>:
+                                    </FormLabel>
+                                </Col>
+                                <Col sm={4}>
+                                    <FormControl
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        size="sm"
+                                        value={this.state.user.password}
+                                        // onKeyPress={this.onKeyPress}
+                                        onChange={this.onChange}
+                                    />
+                                </Col>
+                            </Form.Row>
                         </FormGroup>
                         <FormGroup>
-                            <Col sm={1}>
-                                <FormLabel>
-                                    <FormattedMessage id="role"/>:
-                                </FormLabel>
-                            </Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    as="select"
-                                    placeholder="select"
-                                    id="role"
-                                    name="role"
-                                    type="select"
-                                    size="sm"
-                                    value={this.state.user.role}
-                                    onChange={this.onChange}
-                                >
-                                    <FormattedMessage id="role.ROLE_ADMIN">
-                                        {(message) => <option value="ROLE_ADMIN">{message}</option>}
-                                    </FormattedMessage>
-                                    <FormattedMessage id="role.ROLE_USER">
-                                        {(message) => <option value="ROLE_USER">{message}</option>}
-                                    </FormattedMessage>
-                                </FormControl>
-                            </Col>
+                            <Form.Row>
+                                <Col sm={1}>
+                                    <FormLabel>
+                                        <FormattedMessage id="role"/>:
+                                    </FormLabel>
+                                </Col>
+                                <Col sm={4}>
+                                    <FormControl
+                                        as="select"
+                                        placeholder="select"
+                                        id="role"
+                                        name="role"
+                                        type="select"
+                                        size="sm"
+                                        value={this.state.user.role}
+                                        onChange={this.onChange}
+                                    >
+                                        <FormattedMessage id="role.ROLE_ADMIN">
+                                            {(message) => <option value="ROLE_ADMIN">{message}</option>}
+                                        </FormattedMessage>
+                                        <FormattedMessage id="role.ROLE_USER">
+                                            {(message) => <option value="ROLE_USER">{message}</option>}
+                                        </FormattedMessage>
+                                    </FormControl>
+                                </Col>
+                            </Form.Row>
                         </FormGroup>
                         <FormGroup>
-                            <Col sm={5}>
-                                <Button id="saveUser" size="sm" className="pull-right" onClick={this.submitUser}>
-                                    OK
-                                    {/*<Glyphicon glyph="glyphicon glyphicon-ok"/>*/}
-                                </Button>
-                            </Col>
+                            <Form.Row>
+                                <Col sm={5}>
+                                    <Button id="saveUser" size="sm" className="pull-right" onClick={this.submitUser}>
+                                        <FontAwesomeIcon icon={Icons.faCheckSquare}/>
+                                    </Button>
+                                </Col>
+                            </Form.Row>
                         </FormGroup>
                     </Form>
                 </Card.Body>

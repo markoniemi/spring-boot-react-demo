@@ -9,7 +9,10 @@
   "license": "MIT",
   "repository": "github:markoniemi/spring-boot-react-demo",
   "dependencies": {
-    "bootstrap": "3.3.7",
+    "@fortawesome/react-fontawesome": "0.1.8",
+    "@fortawesome/free-solid-svg-icons": "5.12.1",
+    "@fortawesome/fontawesome-svg-core": "1.2.27",
+    "bootstrap": "4.4.1",
     "css-loader": "3.4.1",
     "debug": "4.1.1",
     "file-loader": "5.0.2",

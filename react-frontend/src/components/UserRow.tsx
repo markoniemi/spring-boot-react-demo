@@ -3,6 +3,8 @@ import User from "../domain/User";
 import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Icons from "@fortawesome/free-solid-svg-icons";
 
 export interface UserProps {
     user: User;
@@ -38,12 +40,10 @@ class UserRow extends Component<RouteComponentProps & UserProps, Readonly<{}>> {
                 <td id="role"><FormattedMessage id={"role." + user.role} /></td>
                 <td>
                     <Button id="edit" size="sm" onClick={this.editUser}>
-                        Edit
-                        {/*<Glyphicon glyph="glyphicon glyphicon-edit" />*/}
+                        <FontAwesomeIcon icon={Icons.faEdit} />
                     </Button>
                     <Button id="delete" size="sm" onClick={this.delete}>
-                        Remove
-                        {/*<Glyphicon glyph="glyphicon glyphicon-remove" />*/}
+                        <FontAwesomeIcon icon={Icons.faTrashAlt} />
                     </Button>
                 </td>
             </tr>
