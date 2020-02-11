@@ -14,9 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.example.model.user.User;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 @WebService
 @Produces({ MediaType.APPLICATION_JSON })
 @Path("/users")
