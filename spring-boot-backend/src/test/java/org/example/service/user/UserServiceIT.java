@@ -3,11 +3,15 @@ package org.example.service.user;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
+import javax.xml.ws.handler.MessageContext;
 
 import org.example.ReactDemoApplication;
 import org.example.config.IntegrationTestConfig;
@@ -36,13 +40,22 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class UserServiceIT {
     private TestRestTemplate testRestTemplate = new TestRestTemplate();
-    private String url="http://localhost:8080";
+    private String url = "http://localhost:8080";
 
     public UserService getUserWsClient() throws MalformedURLException {
         URL wsdlURL = new URL("http://localhost:8080/api/soap/users?wsdl");
         QName qname = new QName("http://user.service.example.org/", "UserService");
         Service service = Service.create(wsdlURL, qname);
-        return service.getPort(UserService.class);
+        UserService userService = service.getPort(UserService.class);
+        setHeader(userService, "Authentication", "Bearer: ");
+        return userService;
+    }
+
+    private void setHeader(UserService userService, String header, String value) {
+        Map<String, List<String>> requestHeaders = new HashMap<>();
+        requestHeaders.put(header, Arrays.asList(value));
+        Map<String, Object> requestContext = ((BindingProvider) userService).getRequestContext();
+        requestContext.put(MessageContext.HTTP_REQUEST_HEADERS, requestHeaders);
     }
 
     @Test

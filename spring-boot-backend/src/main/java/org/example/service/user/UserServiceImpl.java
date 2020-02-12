@@ -1,10 +1,13 @@
 package org.example.service.user;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
 
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.Validate;
@@ -22,11 +25,27 @@ import lombok.extern.log4j.Log4j2;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserRepository userRepository;
+    @Resource
+    WebServiceContext context;    
 
     @Override
     public List<User> findAll() {
+        getHeaders();
         log.trace("findAll");
         return IterableUtils.toList(userRepository.findAll());
+    }
+
+    private void getHeaders() {
+        if (context == null || context.getMessageContext() == null) {
+            return;
+        }
+        MessageContext messageContext = context.getMessageContext();
+        Map<String, List<String>> requestHeaders = (Map<String, List<String>>)messageContext.get(MessageContext.HTTP_REQUEST_HEADERS);
+        if (requestHeaders == null || requestHeaders.get("Authentication") == null) {
+            return;
+        }
+        List<String> list = requestHeaders.get("Authentication");
+        log.info("Http headers: Authentication: {}", list.get(0));
     }
 
     @Override
