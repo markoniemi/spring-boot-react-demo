@@ -60,9 +60,9 @@ class UsersContainer extends Component<RouteComponentProps, UsersContainerState>
         return (
             <Card>
                 <Card.Body>
-                <Card.Title>
-                    <FormattedMessage id="users" />
-                </Card.Title>
+                    <Card.Title>
+                        <FormattedMessage id="users" />
+                    </Card.Title>
                     <Messages messages={this.state.messages} />
                     <Table>
                         <thead>

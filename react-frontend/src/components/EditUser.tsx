@@ -47,15 +47,15 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
             <Card>
                 <Card.Body>
                     <Card.Title>
-                        <FormattedMessage id="user"/>
+                        <FormattedMessage id="user" />
                     </Card.Title>
-                    <Messages messages={this.state.messages}/>
+                    <Messages messages={this.state.messages} />
                     <Form>
                         <FormGroup>
                             <Form.Row>
                                 <Col sm={1}>
                                     <FormLabel>
-                                        <FormattedMessage id="id"/>:
+                                        <FormattedMessage id="id" />:
                                     </FormLabel>
                                 </Col>
                                 <Col sm={4}>
@@ -73,7 +73,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             <Form.Row>
                                 <Col sm={1}>
                                     <FormLabel>
-                                        <FormattedMessage id="username"/>:
+                                        <FormattedMessage id="username" />:
                                     </FormLabel>
                                 </Col>
                                 <Col sm={4}>
@@ -93,7 +93,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             <Form.Row>
                                 <Col sm={1}>
                                     <FormLabel>
-                                        <FormattedMessage id="email"/>:
+                                        <FormattedMessage id="email" />:
                                     </FormLabel>
                                 </Col>
                                 <Col sm={4}>
@@ -113,7 +113,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             <Form.Row>
                                 <Col sm={1}>
                                     <FormLabel>
-                                        <FormattedMessage id="password"/>:
+                                        <FormattedMessage id="password" />:
                                     </FormLabel>
                                 </Col>
                                 <Col sm={4}>
@@ -133,7 +133,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             <Form.Row>
                                 <Col sm={1}>
                                     <FormLabel>
-                                        <FormattedMessage id="role"/>:
+                                        <FormattedMessage id="role" />:
                                     </FormLabel>
                                 </Col>
                                 <Col sm={4}>
@@ -148,10 +148,10 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                                         onChange={this.onChange}
                                     >
                                         <FormattedMessage id="role.ROLE_ADMIN">
-                                            {(message) => <option value="ROLE_ADMIN">{message}</option>}
+                                            {message => <option value="ROLE_ADMIN">{message}</option>}
                                         </FormattedMessage>
                                         <FormattedMessage id="role.ROLE_USER">
-                                            {(message) => <option value="ROLE_USER">{message}</option>}
+                                            {message => <option value="ROLE_USER">{message}</option>}
                                         </FormattedMessage>
                                     </FormControl>
                                 </Col>
@@ -161,7 +161,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             <Form.Row>
                                 <Col sm={5}>
                                     <Button id="saveUser" size="sm" className="pull-right" onClick={this.submitUser}>
-                                        <FontAwesomeIcon icon={Icons.faCheckSquare}/>
+                                        <FontAwesomeIcon icon={Icons.faCheckSquare} />
                                     </Button>
                                 </Col>
                             </Form.Row>

@@ -37,7 +37,9 @@ class UserRow extends Component<RouteComponentProps & UserProps, Readonly<{}>> {
                     <NavLink to={"/users/" + user.id}>{user.username}</NavLink>
                 </td>
                 <td id="email">{user.email}</td>
-                <td id="role"><FormattedMessage id={"role." + user.role} /></td>
+                <td id="role">
+                    <FormattedMessage id={"role." + user.role} />
+                </td>
                 <td>
                     <Button id="edit" size="sm" onClick={this.editUser}>
                         <FontAwesomeIcon icon={Icons.faEdit} />

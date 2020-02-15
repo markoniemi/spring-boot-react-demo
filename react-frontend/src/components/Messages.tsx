@@ -1,22 +1,41 @@
 import * as React from "react";
-import { Alert } from "react-bootstrap";
+import { Alert, Toast, ToastBody, ToastHeader } from "react-bootstrap";
 import Message, { MessageType, MessageVariant } from "../domain/Message";
+import User from "../domain/User";
 
 export interface MessageProps {
     messages?: ReadonlyArray<Message>;
 }
 
-export class Messages extends React.Component<MessageProps, {}> {
+export interface MessageState {
+    show: boolean;
+}
+
+export class Messages extends React.Component<MessageProps, MessageState> {
     // private static readonly debug: Debug.IDebugger = Debug("Messages");
 
     constructor(props: MessageProps) {
         super(props);
+        this.onClose = this.onClose.bind(this);
+        this.state = { show: true };
     }
 
     public render(): JSX.Element {
         if (this.props.messages != null && this.props.messages.length > 0) {
-            // return <Toast></Toast>
-            return <div id="messages">{this.props.messages.map(this.renderMessage)}</div>;
+            return (
+                <Toast
+                    onClose={this.onClose} show={this.state.show}
+                    id="messages"
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                    }}
+                >
+                    <ToastHeader />
+                    <ToastBody>{this.props.messages.map(this.renderMessage)}</ToastBody>
+                </Toast>
+            );
         } else {
             return null;
         }
@@ -41,6 +60,10 @@ export class Messages extends React.Component<MessageProps, {}> {
             return "success";
         }
         return "info";
+    }
+
+    private onClose() {
+        this.setState({ show: false });
     }
 }
 
