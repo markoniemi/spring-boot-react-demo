@@ -17,6 +17,7 @@ import org.example.ReactDemoApplication;
 import org.example.config.IntegrationTestConfig;
 import org.example.model.user.User;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,6 +39,7 @@ import lombok.extern.log4j.Log4j2;
 @SpringBootTest(classes = ReactDemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @ContextHierarchy(@ContextConfiguration(classes = IntegrationTestConfig.class))
 @Log4j2
+@Ignore
 public class UserServiceIT {
     private TestRestTemplate testRestTemplate = new TestRestTemplate();
     private String url = "http://localhost:8080";

@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserRepository userRepository;
     @Resource
-    WebServiceContext context;    
+    WebServiceContext context;
 
     @Override
     public List<User> findAll() {
@@ -40,7 +42,8 @@ public class UserServiceImpl implements UserService {
             return;
         }
         MessageContext messageContext = context.getMessageContext();
-        Map<String, List<String>> requestHeaders = (Map<String, List<String>>)messageContext.get(MessageContext.HTTP_REQUEST_HEADERS);
+        Map<String, List<String>> requestHeaders = (Map<String, List<String>>) messageContext
+                .get(MessageContext.HTTP_REQUEST_HEADERS);
         if (requestHeaders == null || requestHeaders.get("Authentication") == null) {
             return;
         }
@@ -102,7 +105,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void delete(Long id) {
         log.trace("delete: {}", id);
-        userRepository.deleteById(id);
+        try {
+            userRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
     }
 
     @Override
