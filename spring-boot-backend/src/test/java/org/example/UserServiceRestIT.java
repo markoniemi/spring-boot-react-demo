@@ -1,6 +1,6 @@
 package org.example;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 import org.example.config.IntegrationTestConfig;
 import org.example.model.user.Role;
@@ -31,6 +31,14 @@ public class UserServiceRestIT {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
+    public void findAll() throws JsonProcessingException {
+        List<User> users = RestAssured.get(url + "/api/rest/users/").then().statusCode(200).extract().body().jsonPath()
+                .getList(".", User.class);
+        Assert.assertNotNull(users);
+        Assert.assertEquals(6, users.size());
+    }
+
+    @Test
     public void create() throws JsonProcessingException {
         String userJson = objectMapper.writeValueAsString(new User("username", "password", "email", Role.ROLE_USER));
         User user = RestAssured.given().body(userJson).header("Content-Type", "application/json")
@@ -38,11 +46,10 @@ public class UserServiceRestIT {
                 .as(User.class);
         Assert.assertNotNull(user);
         Assert.assertNotNull(user.getId());
-        user = RestAssured.get(url + "/api/rest/users/"+user.getId()).then().statusCode(200).extract().as(User.class);
+        user = RestAssured.get(url + "/api/rest/users/" + user.getId()).then().statusCode(200).extract().as(User.class);
         Assert.assertNotNull(user);
         Assert.assertNotNull(user.getId());
-        RestAssured.when().delete(url + "/api/rest/users/"+user.getId()).then()
-        .statusCode(204);
+        RestAssured.when().delete(url + "/api/rest/users/" + user.getId()).then().statusCode(204);
     }
 
     @Test
