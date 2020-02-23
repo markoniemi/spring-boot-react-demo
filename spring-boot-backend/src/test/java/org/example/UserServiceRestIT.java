@@ -2,10 +2,14 @@ package org.example;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.config.IntegrationTestConfig;
 import org.example.model.user.Role;
 import org.example.model.user.User;
+import org.example.service.user.ValidationError;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,11 +26,8 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import lombok.extern.log4j.Log4j2;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = ReactDemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
-@ContextHierarchy(@ContextConfiguration(classes = IntegrationTestConfig.class))
 @Log4j2
-public class UserServiceRestIT {
+public class UserServiceRestIT extends AbstractIntegrationTestBase {
     private String url = "http://localhost:8080";
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -50,6 +51,22 @@ public class UserServiceRestIT {
         Assert.assertNotNull(user);
         Assert.assertNotNull(user.getId());
         RestAssured.when().delete(url + "/api/rest/users/" + user.getId()).then().statusCode(204);
+    }
+
+    @Test
+    public void validationError() throws JsonProcessingException {
+        String userJson = "{\"username\":null}";
+        List<ValidationError> validationErrors = RestAssured.given().body(userJson)
+                .header("Content-Type", "application/json").header("Accept", "application/json")
+                .post(url + "/api/rest/users").then().statusCode(400).extract().body().jsonPath()
+                .getList(".", ValidationError.class);
+
+        Assert.assertEquals(1, validationErrors.size());
+        ValidationError validationError = validationErrors.get(0);
+        log.debug(validationError);
+        Assert.assertEquals("user", validationError.getObjectName());
+        Assert.assertEquals("username", validationError.getField());
+        Assert.assertEquals("field.required", validationError.getCode());
     }
 
     @Test

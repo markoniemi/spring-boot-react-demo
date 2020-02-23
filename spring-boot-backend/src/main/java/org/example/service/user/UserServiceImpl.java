@@ -6,17 +6,19 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
 import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.example.model.user.User;
 import org.example.repository.user.UserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BindException;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -29,6 +31,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Resource
     WebServiceContext context;
+    @Resource
+    UserValidator userValidator;
 
     @Override
     public List<User> findAll() {
@@ -53,10 +57,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User create(User user) {
-        Validate.notNull(user, "invalid.user");
-        Validate.notBlank(user.getUsername(), "invalid.user.username");
-        Validate.isTrue(userRepository.findByUsername(user.getUsername()) == null, "exist.user.username");
+    public User create(User user) throws BindException {
+        BindException errors = new BindException(user, "user");
+        userValidator.validate(user, errors);
+        if (userRepository.findByUsername(user.getUsername()) != null)
+            errors.reject("exist.user.username");
+        if (errors.hasErrors()) {
+            throw errors;
+        }
         log.trace("create: {}", user);
         return userRepository.save(user);
     }
@@ -65,7 +73,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User update(User user) {
         User databaseUser = userRepository.findById(user.getId()).get();
-        Validate.notNull(databaseUser, "User does not exist.");
+        if (databaseUser == null) {
+            throw new NotFoundException("User does not exist.");
+        }
         databaseUser.setEmail(user.getEmail());
         databaseUser.setPassword(user.getPassword());
         databaseUser.setRole(user.getRole());
@@ -78,6 +88,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User findById(Long id) {
         log.trace("findById: {}", id);
+        if (id == null) {
+            throw new BadRequestException();
+        }
         return userRepository.findById(id).get();
     }
 
@@ -85,6 +98,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User findByUsername(String username) {
         log.trace("findByUsername: {}", username);
+        if (StringUtils.isBlank(username)) {
+            throw new BadRequestException();
+        }
         return userRepository.findByUsername(username);
     }
 
@@ -108,7 +124,8 @@ public class UserServiceImpl implements UserService {
         try {
             userRepository.deleteById(id);
         } catch (Exception e) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
+//            throw new WebApplicationException(Response.Status.NOT_FOUND);
+            throw new NotFoundException();
         }
     }
 
