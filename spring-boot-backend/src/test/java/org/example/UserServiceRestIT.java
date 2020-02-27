@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -54,7 +55,7 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
     }
 
     @Test
-    public void validationError() throws JsonProcessingException {
+    public void createWithValidationError() throws JsonProcessingException {
         String userJson = "{\"username\":null}";
         List<ValidationError> validationErrors = RestAssured.given().body(userJson)
                 .header("Content-Type", "application/json").header("Accept", "application/json")
@@ -66,6 +67,21 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
         log.debug(validationError);
         Assert.assertEquals("user", validationError.getObjectName());
         Assert.assertEquals("username", validationError.getField());
+        Assert.assertEquals("field.required", validationError.getCode());
+    }
+    @Test
+    public void updateWithValidationError() throws JsonProcessingException {
+        String userJson = "{\"id\":1, \"username\":null}";
+        List<ValidationError> validationErrors = RestAssured.given().body(userJson)
+                .header("Content-Type", "application/json").header("Accept", "application/json")
+                .put(url + "/api/rest/users/1").then().statusCode(400).extract().body().jsonPath()
+                .getList(".", ValidationError.class);
+        log.debug(Arrays.toString(validationErrors.toArray()));
+//        Assert.assertEquals(1, validationErrors.size());
+        ValidationError validationError = validationErrors.get(0);
+//        log.debug(validationError);
+        Assert.assertEquals("User", validationError.getObjectName());
+//        Assert.assertEquals("username", validationError.getField());
         Assert.assertEquals("field.required", validationError.getCode());
     }
 

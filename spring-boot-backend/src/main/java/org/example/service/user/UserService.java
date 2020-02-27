@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.validation.Valid;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,10 +16,12 @@ import javax.ws.rs.core.MediaType;
 
 import org.example.model.user.User;
 import org.springframework.validation.BindException;
+import org.springframework.validation.annotation.Validated;
 
 @WebService
 @Produces({ MediaType.APPLICATION_JSON })
 @Path("/users")
+@Validated
 public interface UserService {
     /**
      * @return all users from repository or an empty list in case of no items.
@@ -28,7 +31,8 @@ public interface UserService {
 
     /**
      * Creates a user to repository.
-     * @throws BindException 
+     * 
+     * @throws BindException
      * 
      * @throws NullPointerException     if the username is null
      * @throws IllegalArgumentException if the username is blank
@@ -44,7 +48,7 @@ public interface UserService {
      */
     @PUT
     @Path("/{id}")
-    User update(@WebParam(name = "user") User user);
+    User update(@Valid @WebParam(name = "user") User user);
 
     @GET
     @Path("/{id}")

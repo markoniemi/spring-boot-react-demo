@@ -2,23 +2,29 @@ package org.example.service.user;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import javax.validation.Validator;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 import org.example.model.user.User;
 import org.example.repository.user.UserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindException;
+import org.springframework.validation.annotation.Validated;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -33,6 +39,8 @@ public class UserServiceImpl implements UserService {
     WebServiceContext context;
     @Resource
     UserValidator userValidator;
+    @Resource
+    Validator validator;
 
     @Override
     public List<User> findAll() {
@@ -76,12 +84,17 @@ public class UserServiceImpl implements UserService {
         if (databaseUser == null) {
             throw new NotFoundException("User does not exist.");
         }
-        databaseUser.setEmail(user.getEmail());
-        databaseUser.setPassword(user.getPassword());
-        databaseUser.setRole(user.getRole());
-        databaseUser.setUsername(user.getUsername());
-        log.trace("update: {}", databaseUser);
-        return userRepository.save(databaseUser);
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        if (CollectionUtils.isNotEmpty(violations)) {
+            throw new ConstraintViolationException(violations);
+        }
+//        databaseUser.setEmail(user.getEmail());
+//        databaseUser.setPassword(user.getPassword());
+//        databaseUser.setRole(user.getRole());
+//        databaseUser.setUsername(user.getUsername());
+        user.setId(databaseUser.getId());
+        log.trace("update: {}", user);
+        return userRepository.save(user);
     }
 
     @Override
