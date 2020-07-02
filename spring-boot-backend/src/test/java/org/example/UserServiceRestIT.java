@@ -38,19 +38,21 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
                 .as(new TypeRef<List<User>>() {
                 });
         Assert.assertNotNull(users);
+        log.info(Arrays.toString(users.toArray()));
         Assert.assertEquals(6, users.size());
-        users = RestAssured.get(url + "/users?email=email1").then().statusCode(200).extract()
+        users = RestAssured.get(url + "/users?email=email0").then().statusCode(200).extract()
+                .as(new TypeRef<List<User>>() {
+                });
+        Assert.assertNotNull(users);
+        log.info(Arrays.toString(users.toArray()));
+        Assert.assertEquals(1, users.size());
+        Assert.assertEquals("email0", users.get(0).getEmail());
+        users = RestAssured.get(url + "/users?username=username0").then().statusCode(200).extract()
                 .as(new TypeRef<List<User>>() {
                 });
         Assert.assertNotNull(users);
         Assert.assertEquals(1, users.size());
-        Assert.assertEquals("email1", users.get(0).getEmail());
-        users = RestAssured.get(url + "/users?username=username1").then().statusCode(200).extract()
-                .as(new TypeRef<List<User>>() {
-                });
-        Assert.assertNotNull(users);
-        Assert.assertEquals(1, users.size());
-        Assert.assertEquals("username1", users.get(0).getUsername());
+        Assert.assertEquals("username0", users.get(0).getUsername());
     }
 
     @Test

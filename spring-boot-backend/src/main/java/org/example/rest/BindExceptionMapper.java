@@ -1,7 +1,7 @@
 package org.example.rest;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -20,22 +20,27 @@ public class BindExceptionMapper implements ExceptionMapper<BindException> {
 
     @Override
     public Response toResponse(BindException errors) {
-        List<ValidationError> validationErrors = new ArrayList<>();
-        for (ObjectError error : errors.getAllErrors()) {
-            ValidationError validationError = new ValidationError(error.getObjectName(), null, error.getCode(),
-                    error.getDefaultMessage(), error.getArguments());
-            if (error instanceof FieldError) {
-                validationError.setField(((FieldError) error).getField());
-            }
-            validationErrors.add(validationError);
-        }
-        String errorJson = null;
+        List<ValidationError> validationErrors = errors.getAllErrors().stream().map(this::createValidationError)
+                .collect(Collectors.toList());
+        return Response.status(Response.Status.BAD_REQUEST).entity(asJson(validationErrors))
+                .type(MediaType.APPLICATION_JSON).build();
+    }
+
+    private String asJson(List<ValidationError> validationErrors) {
         try {
-            errorJson = objectMapper.writeValueAsString(validationErrors);
+            return objectMapper.writeValueAsString(validationErrors);
         } catch (JsonProcessingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return Response.status(Response.Status.BAD_REQUEST).entity(errorJson).type(MediaType.APPLICATION_JSON).build();
+        return null;
+    }
+
+    private ValidationError createValidationError(ObjectError error) {
+        ValidationError validationError = new ValidationError(error.getObjectName(), null, error.getCode(),
+                error.getDefaultMessage(), error.getArguments());
+        if (error instanceof FieldError) {
+            validationError.setField(((FieldError) error).getField());
+        }
+        return validationError;
     }
 }
