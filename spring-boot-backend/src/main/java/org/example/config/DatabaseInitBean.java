@@ -24,7 +24,7 @@ public class DatabaseInitBean implements InitializingBean {
         log.debug("Creating user {}", username);
         userRepository.save(new User(username, "admin", "email", Role.ROLE_ADMIN));
         for (int i = 0; i < 5; i++) {
-            userRepository.save(new User("username" + i, "user", "email", Role.ROLE_USER));
+            userRepository.save(new User("username" + i, "user", "email" + i, Role.ROLE_USER));
         }
     }
 }

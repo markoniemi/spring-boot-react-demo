@@ -1,5 +1,6 @@
 package org.example.service.user;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,6 +47,20 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() {
         getHeaders();
         log.trace("findAll");
+        return IterableUtils.toList(userRepository.findAll());
+    }
+    @Override
+    public List<User> search(UserSearchForm userSearchForm) {
+        getHeaders();
+        log.info("search: {}", userSearchForm);
+        if (userSearchForm!=null) {
+            if (StringUtils.isNotBlank(userSearchForm.getEmail())) {
+                return Arrays.asList(userRepository.findByEmail(userSearchForm.getEmail()));
+            }
+            if (StringUtils.isNotBlank(userSearchForm.getUsername())) {
+                return Arrays.asList(userRepository.findByUsername(userSearchForm.getUsername()));
+            }
+        }
         return IterableUtils.toList(userRepository.findAll());
     }
 
