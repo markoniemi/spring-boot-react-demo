@@ -29,7 +29,7 @@ public interface UserService {
      */
     List<User> findAll();
     @GET
-    List<User> search(@BeanParam UserSearchForm userSearchForm);
+    List<User> find(@BeanParam UserSearchForm userSearchForm);
 
     /**
      * Creates a user to repository.

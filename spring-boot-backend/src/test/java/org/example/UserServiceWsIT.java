@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class UserServiceWsIT {
 
     @Test
-    public void getUsers() throws JsonParseException, JsonMappingException, IOException {
+    public void findAll() throws JsonParseException, JsonMappingException, IOException {
         UserService userService = getUserClient();
         List<User> users = userService.findAll();
         Assert.assertNotNull(users);

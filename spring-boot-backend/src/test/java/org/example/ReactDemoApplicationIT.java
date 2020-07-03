@@ -3,7 +3,6 @@ package org.example;
 import javax.annotation.Resource;
 
 import org.example.config.IntegrationTestConfig;
-import org.example.model.user.Role;
 import org.example.selenium.EditUserPage;
 import org.example.selenium.UsersPage;
 import org.junit.Assert;
@@ -33,7 +32,7 @@ public class ReactDemoApplicationIT {
     }
 
     @Test
-    public void helloWorld() throws InterruptedException {
+    public void testUI() throws InterruptedException {
         webDriver.get("http://localhost:8080");
         Thread.sleep(2000);
         webDriver.get("http://localhost:8080");

@@ -14,8 +14,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.restassured.RestAssured;
 import io.restassured.mapper.TypeRef;
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -33,7 +31,7 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
     }
 
     @Test
-    public void search() throws JsonProcessingException {
+    public void find() throws JsonProcessingException {
         List<User> users = RestAssured.get(url + "/users/").then().statusCode(200).extract()
                 .as(new TypeRef<List<User>>() {
                 });
@@ -93,7 +91,6 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
         log.debug(Arrays.toString(validationErrors.toArray()));
 //        Assert.assertEquals(1, validationErrors.size());
         ValidationError validationError = validationErrors.get(0);
-//        log.debug(validationError);
         Assert.assertEquals("User", validationError.getObjectName());
 //        Assert.assertEquals("username", validationError.getField());
         Assert.assertEquals("field.required", validationError.getCode());
@@ -101,7 +98,6 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
 
     @Test
     public void deleteNonExistent() {
-        ExtractableResponse<Response> response = RestAssured.when().delete(url + "/users/10000").then().statusCode(404)
-                .extract();
+        RestAssured.when().delete(url + "/users/10000").then().statusCode(404).extract();
     }
 }

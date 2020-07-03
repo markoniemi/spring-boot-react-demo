@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         return IterableUtils.toList(userRepository.findAll());
     }
     @Override
-    public List<User> search(UserSearchForm userSearchForm) {
+    public List<User> find(UserSearchForm userSearchForm) {
         getHeaders();
         log.info("search: {}", userSearchForm);
         if (userSearchForm!=null) {

@@ -20,7 +20,7 @@ public class UserServiceFeignIT extends AbstractIntegrationTestBase{
     private UserService userService;
 
     @Test
-    public void getUsers() throws JsonParseException, JsonMappingException, IOException {
+    public void findAll() throws JsonParseException, JsonMappingException, IOException {
         List<User> users = userService.findAll();
         Assert.assertNotNull(users);
         Assert.assertEquals(6, users.size());

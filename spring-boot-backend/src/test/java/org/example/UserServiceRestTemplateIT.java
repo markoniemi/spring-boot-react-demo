@@ -40,7 +40,7 @@ public class UserServiceRestTemplateIT {
     }
 
     @Test
-    public void findUsers() throws JsonParseException, JsonMappingException, IOException {
+    public void findAll() throws JsonParseException, JsonMappingException, IOException {
         User[] users = testRestTemplate.getForObject(url + "/api/rest/users", User[].class);
         Assert.assertNotNull(users);
         Assert.assertEquals(6, users.length);
@@ -53,7 +53,7 @@ public class UserServiceRestTemplateIT {
     }
 
     @Test
-    public void findByIdUsername() throws JsonParseException, JsonMappingException, IOException {
+    public void findByUsername() throws JsonParseException, JsonMappingException, IOException {
         User user = testRestTemplate.getForObject(url + "/api/rest/users/username/admin1", User.class);
         Assert.assertEquals("admin1", user.getUsername());
     }
