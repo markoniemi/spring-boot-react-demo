@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.validation.Valid;
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -26,8 +27,9 @@ public interface UserService {
     /**
      * @return all users from repository or an empty list in case of no items.
      */
-    @GET
     List<User> findAll();
+    @GET
+    List<User> search(@BeanParam UserSearchForm userSearchForm);
 
     /**
      * Creates a user to repository.

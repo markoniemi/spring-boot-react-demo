@@ -1,17 +1,17 @@
 package org.example.rest;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Path.Node;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import org.example.service.user.ValidationError;
-import org.springframework.validation.FieldError;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,21 +21,29 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
     ObjectMapper objectMapper = new ObjectMapper();
 
     public Response toResponse(ConstraintViolationException exception) {
-        List<ValidationError> validationErrors = new ArrayList<>();
-        for (ConstraintViolation<?> violation : exception.getConstraintViolations()) {
-            ValidationError validationError = new ValidationError(violation.getLeafBean().getClass().getSimpleName(),
-                    violation.getPropertyPath().toString(), violation.getMessageTemplate(),
-                    violation.getMessageTemplate(), null);
-            validationErrors.add(validationError);
-        }
-        String errorJson = null;
+        List<ValidationError> validationErrors = exception.getConstraintViolations().stream().map(this::createValidationError)
+                .collect(Collectors.toList());
+        return Response.status(Response.Status.BAD_REQUEST).entity(asJson(validationErrors))
+                .type(MediaType.APPLICATION_JSON).build();
+    }
+
+    private String asJson(List<ValidationError> validationErrors) {
         try {
-            errorJson = objectMapper.writeValueAsString(validationErrors);
+            return objectMapper.writeValueAsString(validationErrors);
         } catch (JsonProcessingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return Response.status(Response.Status.BAD_REQUEST).entity(errorJson).type(MediaType.APPLICATION_JSON).build();
+        return null;
+    }
 
+    private ValidationError createValidationError(ConstraintViolation<?> violation) {
+        ValidationError validationError = new ValidationError();
+        validationError.setObjectName(violation.getLeafBean().getClass().getSimpleName());
+        for (Node node : violation.getPropertyPath()) {
+            validationError.setField(node.getName());
+        }
+        validationError.setCode(violation.getMessageTemplate());
+        validationError.setDefaultMessage(violation.getMessageTemplate());
+        return validationError;
     }
 }
