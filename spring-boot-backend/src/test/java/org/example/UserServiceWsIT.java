@@ -12,7 +12,6 @@ import org.example.config.IntegrationTestConfig;
 import org.example.model.user.User;
 import org.example.service.user.UserService;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +26,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ReactDemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @ContextHierarchy(@ContextConfiguration(classes = IntegrationTestConfig.class))
-@Ignore
 public class UserServiceWsIT {
 
     @Test
