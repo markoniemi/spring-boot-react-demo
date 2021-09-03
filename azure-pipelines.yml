@@ -7,9 +7,6 @@ pool:
 
 variables:
 - group: tokens
-
-variables:
-- group: tokens
 - name: MAVEN_CACHE_FOLDER
   value: $(Pipeline.Workspace)/.m2/repository
 - name: MAVEN_OPTS
