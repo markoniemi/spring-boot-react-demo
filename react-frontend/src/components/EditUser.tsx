@@ -177,7 +177,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
         this.setState(state => ({ user: { ...this.state.user, [name]: value } }));
     }
 
-    private async onKeyPress(event: React.KeyboardEvent<FormControl>): Promise<void> {
+    private async onKeyPress(event: any): Promise<void> {
         if ("Enter" === event.key) {
             await this.submitUser();
         }
