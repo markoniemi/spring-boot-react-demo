@@ -8,7 +8,7 @@ import { user1, users } from "../userList";
 import User from "../../src/domain/User";
 
 const userService: UserService = new UserServiceImpl();
-describe("UserService", async () => {
+describe("UserService", () => {
     beforeEach(() => {
         dotenv.config({ path: "config/development.env" });
     });
