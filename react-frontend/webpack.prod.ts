@@ -15,14 +15,13 @@ const config: webpack.Configuration = {
     },
     module: {
         rules: [
-            {test: /\.tsx?$/, loader: "awesome-typescript-loader"},
-            {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"},
-            {test: /\.css$/, loader: "style-loader!css-loader"},
-            {test: /\.json$/, loader: "json-loader"}, {
+            {test: /\.tsx?$/, use: ["ts-loader"]},
+            {test: /\.js$/, exclude: /node_modules/, use: ["babel-loader"]},
+            {test: /\.css$/, use: ["style-loader","css-loader"]},
+            {test: /\.json$/, use: ["json-loader"]}, {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
-                loader: "url-loader?limit=100000@name=[name][ext]",
-            },
-        ],
+                use: ["file-loader"],
+            }],
     },
     plugins: [
         new CopyWebpackPlugin([
