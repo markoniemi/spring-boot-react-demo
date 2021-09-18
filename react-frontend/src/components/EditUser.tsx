@@ -31,7 +31,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
         this.state = { user: new User("", "", "") };
     }
 
-    public async componentDidMount(): Promise<void> {
+    public override async componentDidMount(): Promise<void> {
         const id = Number(this.props.match.params.id);
         if (id) {
             try {

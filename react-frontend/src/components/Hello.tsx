@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import MessageServiceImpl from "../api/MessageServiceImpl";
 
 export interface HelloState {
     message: string;
@@ -6,6 +7,7 @@ export interface HelloState {
 
 class Hello extends Component<Readonly<{}>, HelloState> {
     private interval: number;
+    private helloService = new MessageServiceImpl();
 
     constructor(props) {
         super(props);
@@ -13,7 +15,7 @@ class Hello extends Component<Readonly<{}>, HelloState> {
         this.fetchMessage = this.fetchMessage.bind(this);
     }
 
-    public componentDidMount(): void {
+    public override componentDidMount(): void {
         this.interval = window.setInterval(this.fetchMessage, 250);
     }
 
@@ -22,11 +24,12 @@ class Hello extends Component<Readonly<{}>, HelloState> {
     }
 
     public async fetchMessage(): Promise<void> {
-        const response: Response = await fetch("/api/rest/hello", {
-            method: "POST",
-            body: "world",
-        });
-        const message = await response.text();
+        const message = await this.helloService.getMessage();
+        // const response: Response = await fetch("/api/rest/hello", {
+        //     method: "POST",
+        //     body: "world",
+        // });
+        // const message = await response.text();
         this.setState({ message: message });
     }
 

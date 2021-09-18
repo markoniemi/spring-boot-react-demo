@@ -27,7 +27,7 @@ class UsersContainer extends Component<RouteComponentProps, UsersContainerState>
         this.addUser = this.addUser.bind(this);
     }
 
-    public async componentWillMount(): Promise<void> {
+    public override async componentDidMount(): Promise<void> {
         try {
             await this.fetchUsers();
         } catch (error) {
