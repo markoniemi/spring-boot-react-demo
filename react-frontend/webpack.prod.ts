@@ -10,24 +10,21 @@ const config: webpack.Configuration = {
         filename: "app.js",
     },
     resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".json"],
     },
     module: {
         rules: [
-            {test: /\.tsx?$/, use: ["ts-loader"]},
-            {test: /\.js$/, exclude: /node_modules/, use: ["babel-loader"]},
-            {test: /\.css$/, use: ["style-loader","css-loader"]},
-            {test: /\.json$/, use: ["json-loader"]}, {
+            { test: /\.tsx?$/, exclude: /node_modules/, use: ["ts-loader"] },
+            { test: /\.js$/, exclude: /node_modules/, use: ["babel-loader"] },
+            { test: /\.css$/, use: ["style-loader", "css-loader"] },
+            { test: /\.json$/, use: ["json-loader"] },
+            {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
                 use: ["file-loader"],
-            }],
+            },
+        ],
     },
-    plugins: [
-        new CopyWebpackPlugin([
-            {from: "public", to: "."},
-        ]),
-    ],
+    plugins: [new CopyWebpackPlugin([{ from: "public", to: "." }])],
 };
 
 export default config;
