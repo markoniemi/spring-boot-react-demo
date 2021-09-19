@@ -6,11 +6,7 @@ const webpackConfig: webpack.Configuration = {
     mode: "development",
     devtool: "source-map",
     entry: {
-        app: [
-            "babel-polyfill",
-            "react-hot-loader/patch",
-            "./src/index",
-        ],
+        app: ["react-hot-loader/patch", "./src/index"],
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
@@ -21,13 +17,15 @@ const webpackConfig: webpack.Configuration = {
     },
     module: {
         rules: [
-            {test: /\.tsx?$/, use: ["ts-loader"]},
-            {test: /\.js$/, exclude: /node_modules/, use: ["babel-loader"]},
-            {test: /\.css$/, use: ["style-loader","css-loader"]},
-            {test: /\.json$/, use: ["json-loader"]}, {
+            { test: /\.tsx?$/, use: ["ts-loader"] },
+            { test: /\.js$/, exclude: /node_modules/, use: ["babel-loader"] },
+            { test: /\.css$/, use: ["style-loader", "css-loader"] },
+            { test: /\.json$/, use: ["json-loader"] },
+            {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
                 use: ["file-loader"],
-            }],
+            },
+        ],
     },
     plugins: [
         // Dotenv reads config/development.env file to process.env
