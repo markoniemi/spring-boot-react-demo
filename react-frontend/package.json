@@ -26,7 +26,7 @@
     "style-loader": "1.1.4"
   },
   "scripts": {
-    "clean": "shx rm -rf build",
+    "clean": "shx rm -rf build & shx rm -rf dist",
     "dev:compile": "tsc",
     "dev:start-server": "node dist/server/Application",
     "dev": "node_modules/.bin/npm-run-all -s dev:*",
@@ -36,7 +36,7 @@
     "nodemon": "nodemon -e ts --exec \"npm run dev\"",
     "start": "node dist/server/Application",
     "test": "node_modules/.bin/npm-run-all -r -p test:*",
-    "test:start-server": "npm start",
+    "test:start-server": "tsc && npm start",
     "test:run-tests": "jest --coverage --config jest.config.json",
     "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN"
