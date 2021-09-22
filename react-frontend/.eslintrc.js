@@ -13,7 +13,9 @@ module.exports = {
             jsx: true,
         },
     },
-    rules: {},
+    rules: {
+        "prettier/prettier": "warn"
+    },
     settings: {
         react: {
             version: 'detect',
