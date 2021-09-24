@@ -25,7 +25,6 @@
                         <phase>initialize</phase>
                         <configuration>
                             <nodeVersion>v14.17.6</nodeVersion>
-                            <npmVersion>6.14.15</npmVersion>
                         </configuration>
                     </execution>
                     <execution>
