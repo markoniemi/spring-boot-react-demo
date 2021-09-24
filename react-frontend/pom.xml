@@ -40,7 +40,7 @@
                     </execution>
                     <execution>
                         <id>clean</id>
-                        <phase>compile</phase>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -85,7 +85,7 @@
                             <outputDirectory>${project.build.directory}/classes/META-INF/resources/webjars/${artifactId}/${project.version}</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>build</directory>
+                                    <directory>dist/build</directory>
                                     <filtering>false</filtering>
                                 </resource>
                             </resources>
