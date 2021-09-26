@@ -15,13 +15,12 @@ describe("Hello component", () => {
     afterEach(() => {
         fetchMock.restore();
     });
-    test("should render text", async (done) => {
+    test("should render text", async () => {
         fetchMock.post("/api/rest/hello", "response");
         const wrapper: ShallowWrapper<{}, HelloState> = shallow(<Hello/>);
         await sleep(500);
         console.log(wrapper.debug());
         assert.equal(wrapper.find("p").text(), "response");
-        done();
     });
     // test("should render messages", () => {
     //     const wrapper: ShallowWrapper<MessageProps, {}> = shallow(<Messages messages={messages}/>);

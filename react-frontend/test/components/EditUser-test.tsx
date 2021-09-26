@@ -19,7 +19,7 @@ describe("EditUser component", () => {
     afterEach(() => {
         fetchMock.restore();
     });
-    test("should render a user", async (done) => {
+    test("should render a user", async () => {
         fetchMock.getOnce("/api/rest/users/1", user1);
         const routeComponentProps = createRouteComponentProps({ id: "1" });
         const userWrapper: ShallowWrapper<RouteComponentProps<RouteParam>, EditUserState> = shallow(
@@ -29,9 +29,8 @@ describe("EditUser component", () => {
         assert.equal(userWrapper.find(FormControl).at(0).prop("value"), "1");
         assert.equal(userWrapper.find(FormControl).at(1).prop("value"), "user1");
         assert.equal(userWrapper.find(FormControl).at(2).prop("value"), "email1");
-        done();
     });
-    test("should show an error", async (done) => {
+    test("should show an error", async () => {
         fetchMock.getOnce("/api/rest/users/1", 401);
         const routeComponentProps = createRouteComponentProps({ id: "1" });
         const userWrapper: ShallowWrapper<RouteComponentProps<RouteParam>, EditUserState> = shallow(
@@ -40,9 +39,8 @@ describe("EditUser component", () => {
         await sleep(100);
         assert.equal(userWrapper.find(Messages).props().messages[0].type, "ERROR");
         assert.equal(userWrapper.find(Messages).props().messages[0].text, "Error: Error loading user");
-        done();
     });
-    test("should edit a user", async (done) => {
+    test("should edit a user", async () => {
         fetchMock.getOnce("/api/rest/users/1", user1);
         fetchMock.putOnce("/api/rest/users/1", 200);
         const routeComponentProps = createRouteComponentProps({ id: "1" });
@@ -63,6 +61,5 @@ describe("EditUser component", () => {
         await userWrapper.find(Button).at(0).simulate("click");
         await sleep(100);
         // TODO how to verify fetchMock was called
-        done();
     });
 });

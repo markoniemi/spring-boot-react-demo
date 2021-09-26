@@ -1,6 +1,6 @@
 import * as path from "path";
 import * as webpack from "webpack";
-import CopyWebpackPlugin = require("copy-webpack-plugin");
+import CopyWebpackPlugin from "copy-webpack-plugin";
 
 const config: webpack.Configuration = {
     mode: "production",
@@ -24,7 +24,7 @@ const config: webpack.Configuration = {
             },
         ],
     },
-    plugins: [new CopyWebpackPlugin([{ from: "public", to: "." }])],
+    plugins: [new CopyWebpackPlugin({ patterns: [{ from: "public", to: "." }] })],
 };
 
 export default config;

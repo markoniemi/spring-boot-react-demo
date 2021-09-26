@@ -1,4 +1,5 @@
 {
+  "testEnvironment": "jsdom",
   "setupFiles": ["./test/jest.setup.js" , "jest-localstorage-mock"],
   "moduleFileExtensions": [
     "ts",

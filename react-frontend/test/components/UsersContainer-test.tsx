@@ -21,7 +21,7 @@ describe("UsersContainer component", () => {
     afterEach(() => {
         fetchMock.restore();
     });
-    test("should render userlist", async (done) => {
+    test("should render userlist", async () => {
         fetchMock.getOnce("/api/rest/users/", users);
         const routeComponentProps = createRouteComponentProps(null);
         const usersContainerWrapper: ShallowWrapper<RouteComponentProps<RouteParam>, UsersContainerState> = shallow(
@@ -29,9 +29,8 @@ describe("UsersContainer component", () => {
         );
         await sleep(100);
         assert.equal(usersContainerWrapper.find(UserRow).length, 2);
-        done();
     });
-    test("should add user", async (done) => {
+    test("should add user", async () => {
         fetchMock.getOnce("/api/rest/users/", users);
         const routeComponentProps = createRouteComponentProps(null);
         routeComponentProps.history.push = jest.fn();
@@ -42,9 +41,8 @@ describe("UsersContainer component", () => {
         usersContainerWrapper.find(Button).simulate("click");
         await sleep(100);
         expect(routeComponentProps.history.push).toBeCalledWith("/users/new");
-        done();
     });
-    test("should render error message", async (done) => {
+    test("should render error message", async () => {
         fetchMock.getOnce("/api/rest/users/", 401);
         const routeComponentProps = createRouteComponentProps(null);
         const usersContainerWrapper: ShallowWrapper<RouteComponentProps<RouteParam>, UsersContainerState> = shallow(
@@ -53,6 +51,5 @@ describe("UsersContainer component", () => {
         await sleep(100);
         assert.equal(usersContainerWrapper.find(Messages).props().messages[0].type, "ERROR");
         assert.equal(usersContainerWrapper.find(Messages).props().messages[0].text, "Error: Error loading users");
-        done();
     });
 });
