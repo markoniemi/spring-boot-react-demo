@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import User from "../domain/User";
 import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -12,7 +12,7 @@ export interface UserProps {
     deleteUser(id: number);
 }
 
-class UserRow extends Component<RouteComponentProps & UserProps, Readonly<{}>> {
+class UserRow extends React.Component<RouteComponentProps & UserProps, Readonly<{}>> {
     constructor(props) {
         super(props);
         this.delete = this.delete.bind(this);
@@ -29,7 +29,7 @@ class UserRow extends Component<RouteComponentProps & UserProps, Readonly<{}>> {
         this.props.history.push("/users/" + id);
     }
 
-    public render(): JSX.Element {
+    public override render(): React.ReactNode {
         const user: User = this.props.user;
         return (
             <tr id={user.username} key={this.props.user.id}>

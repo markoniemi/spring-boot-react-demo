@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import MessageServiceImpl from "../api/MessageServiceImpl";
 
 export interface HelloState {
     message: string;
 }
 
-class Hello extends Component<Readonly<{}>, HelloState> {
+class Hello extends React.Component<Readonly<{}>, HelloState> {
     private interval: number;
     private helloService = new MessageServiceImpl();
 
@@ -33,7 +33,7 @@ class Hello extends Component<Readonly<{}>, HelloState> {
         this.setState({ message: message });
     }
 
-    public render(): JSX.Element {
+    public override render(): React.ReactNode {
         return <p id="message">{this.state.message}</p>;
     }
 }

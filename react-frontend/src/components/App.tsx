@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import UserContainer from "./UsersContainer";
 import EditUser from "./EditUser";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 import i18nConfig from "../messages/messages";
 
-class App extends Component<Readonly<{}>, Readonly<{}>> {
-    public render(): JSX.Element {
+class App extends React.Component<Readonly<{}>, Readonly<{}>> {
+    public override render(): React.ReactNode {
         return (
             <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
                 <BrowserRouter>

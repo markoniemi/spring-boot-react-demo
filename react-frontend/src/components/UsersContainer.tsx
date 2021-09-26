@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
 import Hello from "./Hello";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import { Button, Table, Card } from "react-bootstrap";
+import { Button, Card, Table } from "react-bootstrap";
 import UserItem from "./UserRow";
 import Message, { MessageType } from "../domain/Message";
 import Messages from "./Messages";
@@ -17,7 +17,7 @@ export interface UsersContainerState {
     messages?: ReadonlyArray<Message>;
 }
 
-class UsersContainer extends Component<RouteComponentProps, UsersContainerState> {
+class UsersContainer extends React.Component<RouteComponentProps, UsersContainerState> {
     private userService: UserService = new UserServiceImpl();
 
     constructor(props) {
@@ -50,7 +50,7 @@ class UsersContainer extends Component<RouteComponentProps, UsersContainerState>
         }
     }
 
-    public render(): JSX.Element {
+    public override render(): React.ReactNode {
         let userItems;
         if (this.state.users) {
             userItems = this.state.users.map((item, index) => (

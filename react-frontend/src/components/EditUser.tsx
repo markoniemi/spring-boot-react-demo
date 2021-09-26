@@ -1,13 +1,13 @@
-import * as React from "react";
+import React from "react";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
-import { RouteComponentProps, withRouter } from "react-router-dom";
-import { FormattedMessage } from "react-intl";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {FormattedMessage} from "react-intl";
 import Messages from "./Messages";
-import Message, { MessageType } from "../domain/Message";
-import { Button, Card, Col, Container, Form, FormControl, FormGroup, FormLabel, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Message, {MessageType} from "../domain/Message";
+import {Button, Card, Col, Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 
 export interface RouteParam {
@@ -42,7 +42,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
         }
     }
 
-    public render(): JSX.Element {
+    public override render(): React.ReactNode {
         return (
             <Card>
                 <Card.Body>

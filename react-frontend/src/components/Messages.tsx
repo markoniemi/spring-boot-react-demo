@@ -1,7 +1,6 @@
-import * as React from "react";
+import React from "react";
 import { Alert, Toast, ToastBody, ToastHeader } from "react-bootstrap";
 import Message, { MessageType, MessageVariant } from "../domain/Message";
-import User from "../domain/User";
 
 export interface MessageProps {
     messages?: ReadonlyArray<Message>;
@@ -20,11 +19,12 @@ export class Messages extends React.Component<MessageProps, MessageState> {
         this.state = { show: true };
     }
 
-    public render(): JSX.Element {
+    public override render(): React.ReactNode {
         if (this.props.messages != null && this.props.messages.length > 0) {
             return (
                 <Toast
-                    onClose={this.onClose} show={this.state.show}
+                    onClose={this.onClose}
+                    show={this.state.show}
                     id="messages"
                     style={{
                         position: "absolute",
@@ -41,7 +41,7 @@ export class Messages extends React.Component<MessageProps, MessageState> {
         }
     }
 
-    private renderMessage(message: Message): JSX.Element {
+    private renderMessage(message: Message): React.ReactNode {
         return (
             <Alert variant={Messages.mapTypeToStyle(message.type)} key={message.id}>
                 {message.text}
