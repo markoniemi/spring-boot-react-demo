@@ -9,12 +9,10 @@ const webpackConfig: webpack.Configuration = {
     mode: "development",
     devtool: "source-map",
     devServer: {
-        contentBase: "./public",
         hot: true,
         proxy: {
             "/api/*": `http://${process.env.BACKEND_HOST}:${process.env.BACKEND_PORT}`,
         },
-        publicPath: "",
         historyApiFallback: true,
         port: process.env.PORT,
     },
