@@ -2,12 +2,12 @@ import React from "react";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
-import {RouteComponentProps, withRouter} from "react-router-dom";
-import {FormattedMessage} from "react-intl";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
-import Message, {MessageType} from "../domain/Message";
-import {Button, Card, Col, Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Message, { MessageType } from "../domain/Message";
+import { Button, Card, Col, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 
 export interface RouteParam {
@@ -148,10 +148,10 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                                         onChange={this.onChange}
                                     >
                                         <FormattedMessage id="role.ROLE_ADMIN">
-                                            {message => <option value="ROLE_ADMIN">{message}</option>}
+                                            {(message) => <option value="ROLE_ADMIN">{message}</option>}
                                         </FormattedMessage>
                                         <FormattedMessage id="role.ROLE_USER">
-                                            {message => <option value="ROLE_USER">{message}</option>}
+                                            {(message) => <option value="ROLE_USER">{message}</option>}
                                         </FormattedMessage>
                                     </FormControl>
                                 </Col>
@@ -174,7 +174,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
 
     private onChange(event: React.ChangeEvent<any>): void {
         const { name, value } = event.target;
-        this.setState(state => ({ user: { ...this.state.user, [name]: value } }));
+        this.setState((state) => ({ user: { ...this.state.user, [name]: value } }));
     }
 
     private async onKeyPress(event: any): Promise<void> {

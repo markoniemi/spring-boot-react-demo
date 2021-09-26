@@ -1,6 +1,11 @@
 module.exports = {
     parser: "@typescript-eslint/parser",
-    extends: ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended", "prettier"],
+    extends: [
+        "plugin:react/recommended",
+        "plugin:prettier/recommended",
+        "prettier",
+        "plugin:@typescript-eslint/recommended",
+    ],
     parserOptions: {
         ecmaVersion: 2018,
         sourceType: "module",
@@ -10,6 +15,7 @@ module.exports = {
     },
     rules: {
         "prettier/prettier": "warn",
+        "@typescript-eslint/ban-types": "warn",
     },
     settings: {
         react: {
@@ -17,7 +23,7 @@ module.exports = {
         },
     },
     env: {
-        node: true,
+        browser: true,
         jest: true,
     },
 };

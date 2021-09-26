@@ -16,15 +16,7 @@ export enum MessageType {
 // | "light";
 // }
 
-export type MessageVariant =
-    | "primary"
-    | "secondary"
-    | "success"
-    | "danger"
-    | "warning"
-    | "info"
-    | "dark"
-    | "light";
+export type MessageVariant = "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "dark" | "light";
 
 export default class Message {
     public id?: string;

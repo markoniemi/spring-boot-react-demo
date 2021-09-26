@@ -9,7 +9,7 @@ class Hello extends React.Component<Readonly<{}>, HelloState> {
     private interval: number;
     private helloService = new MessageServiceImpl();
 
-    constructor(props) {
+    constructor(props: {}) {
         super(props);
         this.state = { message: "" };
         this.fetchMessage = this.fetchMessage.bind(this);
