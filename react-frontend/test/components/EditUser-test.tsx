@@ -40,10 +40,24 @@ describe("EditUser component", () => {
         assert.equal(userWrapper.find(Messages).props().messages[0].type, "ERROR");
         assert.equal(userWrapper.find(Messages).props().messages[0].text, "Error: Error loading user");
     });
+    test("should show an error with empty user", async () => {
+        const routeComponentProps = createRouteComponentProps({});
+        const userWrapper: ShallowWrapper<RouteComponentProps<RouteParam>, EditUserState> = shallow(
+            <EditUser.WrappedComponent {...routeComponentProps} />,
+        );
+        assert.equal(userWrapper.find(FormControl).at(0).prop("value"), "");
+        assert.equal(userWrapper.find(FormControl).at(1).prop("value"), "");
+        assert.equal(userWrapper.find(FormControl).at(2).prop("value"), "");
+        fetchMock.postOnce("/api/rest/users/", 404);
+        await userWrapper.find(Button).at(0).simulate("click");
+        await sleep(100);
+        assert.equal(userWrapper.find(Messages).props().messages[0].type, "ERROR");
+        assert.equal(userWrapper.find(Messages).props().messages[0].text, "Error: Error saving user");
+    });
     test("should edit a user", async () => {
         fetchMock.getOnce("/api/rest/users/1", user1);
-        fetchMock.putOnce("/api/rest/users/1", 200);
         const routeComponentProps = createRouteComponentProps({ id: "1" });
+        routeComponentProps.history.push = jest.fn();
         const userWrapper: ShallowWrapper<RouteComponentProps<RouteParam>, EditUserState> = shallow(
             <EditUser.WrappedComponent {...routeComponentProps} />,
         );
@@ -58,8 +72,9 @@ describe("EditUser component", () => {
         assert.equal(formControl.prop("value"), "email1");
         formControl.simulate("change", { target: { name: "email", value: "newEmail" } });
         assert.equal(userWrapper.state().user.email, "newEmail");
+        fetchMock.putOnce("/api/rest/users/1", { username: "newUsername", email: "newEmail" });
         await userWrapper.find(Button).at(0).simulate("click");
         await sleep(100);
-        // TODO how to verify fetchMock was called
+        expect(routeComponentProps.history.push).toBeCalledWith("/");
     });
 });

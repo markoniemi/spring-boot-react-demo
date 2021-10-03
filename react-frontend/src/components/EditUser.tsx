@@ -191,10 +191,10 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
             } else {
                 await this.userService.update(user);
             }
+            this.props.history.push("/");
         } catch (error) {
             this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
         }
-        this.props.history.push("/");
     }
 }
 
