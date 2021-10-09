@@ -4,7 +4,7 @@ import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
 import { Button } from "react-bootstrap";
 import { RouteParam } from "../../src/components/EditUser";
-import { user1, users } from "../userList";
+import { users } from "../userList";
 import { RouteComponentProps } from "react-router-dom";
 import createRouteComponentProps from "../RouteComponentPropsMock";
 import fetchMock from "fetch-mock";
@@ -13,10 +13,12 @@ import Messages from "../../src/components/Messages";
 import "isomorphic-fetch";
 import UsersContainer, { UsersContainerState } from "../../src/components/UsersContainer";
 import UserRow from "../../src/components/UserRow";
+import log from "loglevel";
 
 describe("UsersContainer component", () => {
     beforeEach(() => {
         dotenv.config({ path: "config/development.env" });
+        log.setLevel("silent");
     });
     afterEach(() => {
         fetchMock.restore();
@@ -53,6 +55,7 @@ describe("UsersContainer component", () => {
         assert.equal(usersContainerWrapper.find(Messages).props().messages[0].text, "Error: Error loading users");
     });
     test("should delete user", async () => {
+        window.confirm = jest.fn();
         fetchMock.getOnce("/api/rest/users/", users);
         fetchMock.deleteOnce("/api/rest/users/", 200);
         const routeComponentProps = createRouteComponentProps(null);
@@ -60,8 +63,9 @@ describe("UsersContainer component", () => {
             <UsersContainer.WrappedComponent {...routeComponentProps} />,
         );
         await sleep(100);
-        // TODO use find to locate row and press button on it
-        (usersContainerWrapper.instance() as InstanceType<typeof UsersContainer.WrappedComponent>).deleteUser(user1.id);
+        log.debug(usersContainerWrapper.debug());
+        const userRowWrapper: ShallowWrapper = usersContainerWrapper.find(UserRow).at(0);
+        userRowWrapper.getElement().props.deleteUser();
         await sleep(100);
         assert.isTrue(fetchMock.done());
     });
