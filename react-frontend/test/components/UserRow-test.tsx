@@ -7,7 +7,6 @@ import User from "../../src/domain/User";
 import { user1 } from "../userList";
 import { RouteComponentProps } from "react-router-dom";
 import createRouteComponentProps from "../RouteComponentPropsMock";
-import { Button } from "react-bootstrap";
 
 describe("UserRow component", () => {
     beforeEach(() => {
@@ -36,7 +35,7 @@ describe("UserRow component", () => {
         const userWrapper: ShallowWrapper<RouteComponentProps & UserProps, Readonly<{}>> = shallow(
             <UserRow.WrappedComponent user={user1} deleteUser={deleteUser} {...routeComponentProps} />,
         );
-        userWrapper.find(Button).at(1).simulate("click");
+        userWrapper.find("#delete").at(0).simulate("click");
         expect(deleteUser).toBeCalledWith(1);
     });
 });
