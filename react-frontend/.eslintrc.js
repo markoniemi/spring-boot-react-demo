@@ -16,6 +16,7 @@ module.exports = {
     rules: {
         "prettier/prettier": "warn",
         "@typescript-eslint/ban-types": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
     },
     settings: {
         react: {
