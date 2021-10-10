@@ -13,12 +13,13 @@ import Messages from "../../src/components/Messages";
 import "isomorphic-fetch";
 import UsersContainer, { UsersContainerState } from "../../src/components/UsersContainer";
 import UserRow from "../../src/components/UserRow";
-import log from "loglevel";
+import log, { LogLevelDesc } from "loglevel";
+import * as process from "process";
 
 describe("UsersContainer component", () => {
     beforeEach(() => {
         dotenv.config({ path: "config/development.env" });
-        log.setLevel("silent");
+        log.setLevel(process.env.LOG_LEVEL as LogLevelDesc);
     });
     afterEach(() => {
         fetchMock.restore();
