@@ -16,7 +16,7 @@ import lombok.extern.log4j.Log4j2;
 public class DatabaseInitBean implements InitializingBean {
     @Resource
     private UserRepository userRepository;
-    @Value("${initial.username:admin1}")
+    @Value("${initial.username:admin}")
     private String username;
 
     @Override

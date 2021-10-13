@@ -75,6 +75,6 @@ describe("EditUser component", () => {
         fetchMock.putOnce("/api/rest/users/1", { username: "newUsername", email: "newEmail" });
         await userWrapper.find(Button).at(0).simulate("click");
         await sleep(100);
-        expect(routeComponentProps.history.push).toBeCalledWith("/");
+        expect(routeComponentProps.history.push).toBeCalledWith("/users");
     });
 });

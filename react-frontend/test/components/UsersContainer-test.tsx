@@ -41,7 +41,7 @@ describe("UsersContainer component", () => {
             <UsersContainer.WrappedComponent {...routeComponentProps} />,
         );
         await sleep(100);
-        usersContainerWrapper.find(Button).simulate("click");
+        usersContainerWrapper.find("#addUser").simulate("click");
         await sleep(100);
         expect(routeComponentProps.history.push).toBeCalledWith("/users/new");
     });

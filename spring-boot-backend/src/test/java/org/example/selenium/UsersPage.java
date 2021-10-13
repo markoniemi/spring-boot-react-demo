@@ -29,4 +29,9 @@ public class UsersPage extends AbstractPage {
         Assert.assertEquals(email, getText(By.xpath("//tr[@id='" + username + "']//td[@id='email']")));
         Assert.assertEquals(role, getText(By.xpath("//tr[@id='" + username + "']//td[@id='role']")));
     }
+
+    public void logout() {
+        click(By.id("logout"));
+//        assertTitle("Login");
+    }
 }

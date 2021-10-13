@@ -2,7 +2,6 @@ import React from "react";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
-import Hello from "./Hello";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { Button, Card, Table } from "react-bootstrap";
@@ -11,6 +10,8 @@ import Message, { MessageType } from "../domain/Message";
 import Messages from "./Messages";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
+import LoginService from "../api/LoginService";
+import Hello from "./Hello";
 
 export interface UsersContainerState {
     users: User[];
@@ -25,6 +26,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
         this.state = { users: [] };
         this.deleteUser = this.deleteUser.bind(this);
         this.addUser = this.addUser.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     public override async componentDidMount(): Promise<void> {
@@ -81,6 +83,9 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
                     <Button id="addUser" variant="primary" onClick={this.addUser}>
                         <FontAwesomeIcon icon={Icons.faPlus} />
                     </Button>
+                    <Button id="logout" variant="primary" onClick={this.logout}>
+                        <FontAwesomeIcon icon={Icons.faSignOutAlt} />
+                    </Button>
                 </Card.Body>
                 <Card.Footer>
                     <Hello />
@@ -97,6 +102,10 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
             this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
         }
         this.setState((prevState, props) => ({ users: users }));
+    }
+    private async logout() {
+        await LoginService.logout();
+        this.props.history.push("/");
     }
 }
 

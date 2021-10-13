@@ -7,6 +7,7 @@ import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.example.service.user.HelloService;
+import org.example.service.user.LoginService;
 import org.example.service.user.UserService;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,8 @@ public class RestConfig {
     private UserService userService;
     @Resource
     private HelloService helloService;
+    @Resource
+    private LoginService loginService;
 
     @Bean(destroyMethod = "shutdown")
     public SpringBus cxf() {
@@ -31,7 +34,7 @@ public class RestConfig {
         JAXRSServerFactoryBean factory = new RestServiceFactory();
         factory.setBus(cxf());
         factory.setAddress("/rest");
-        factory.setServiceBeanObjects(userService, helloService);
+        factory.setServiceBeanObjects(userService, helloService, loginService);
         return factory.create();
     }
 

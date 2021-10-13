@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public abstract class AbstractPage {
-    protected static final int SLEEP_TIME = 100;
+    protected static final int SLEEP_TIME = 2000;
     protected WebDriver webDriver;
 
     public AbstractPage(WebDriver webDriver) {

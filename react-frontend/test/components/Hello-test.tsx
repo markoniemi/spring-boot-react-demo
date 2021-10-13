@@ -19,7 +19,6 @@ describe("Hello component", () => {
         fetchMock.post("/api/rest/hello", "response");
         const wrapper: ShallowWrapper<{}, HelloState> = shallow(<Hello/>);
         await sleep(500);
-        console.log(wrapper.debug());
         assert.equal(wrapper.find("p").text(), "response");
     });
     // test("should render messages", () => {
