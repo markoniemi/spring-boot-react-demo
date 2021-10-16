@@ -147,6 +147,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                                         value={this.state.user.role}
                                         onChange={this.onChange}
                                     >
+                                        <option value=""/>
                                         <FormattedMessage id="role.ROLE_ADMIN">
                                             {(message) => <option value="ROLE_ADMIN">{message}</option>}
                                         </FormattedMessage>

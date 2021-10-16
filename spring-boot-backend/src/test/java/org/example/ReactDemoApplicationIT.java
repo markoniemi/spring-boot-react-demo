@@ -26,7 +26,7 @@ public class ReactDemoApplicationIT {
     @Resource
     protected WebDriver webDriver;
 //    @Resource(name = "loginUrl")
-    private String loginUrl="http://localhost:8081/";
+    private String loginUrl="http://localhost:8080/";
     private UsersPage usersPage;
     private EditUserPage editUserPage;
     private LoginPage loginPage;

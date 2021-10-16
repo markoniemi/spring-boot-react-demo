@@ -1,8 +1,12 @@
 package org.example;
 
 import java.io.IOException;
+import java.util.Collections;
+
+import javax.annotation.Resource;
 
 import org.example.config.IntegrationTestConfig;
+import org.example.config.RestRequestInterceptor;
 import org.example.model.user.Role;
 import org.example.model.user.User;
 import org.junit.Assert;
@@ -29,15 +33,17 @@ import lombok.extern.log4j.Log4j2;
 @SpringBootTest(classes = ReactDemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @ContextHierarchy(@ContextConfiguration(classes = IntegrationTestConfig.class))
 @Log4j2
-@Ignore
 public class UserServiceRestTemplateIT {
     private TestRestTemplate testRestTemplate = new TestRestTemplate();
     private String url = "http://localhost:8080";
+    @Resource
+    private RestRequestInterceptor requestInterceptor;
 
     @Before
     public void setUp() {
-//        testRestTemplate.getRestTemplate().setInterceptors(Collections.singletonList(requestInterceptor));
+        testRestTemplate.getRestTemplate().setInterceptors(Collections.singletonList(requestInterceptor));
     }
+
 
     @Test
     public void findAll() throws JsonParseException, JsonMappingException, IOException {
@@ -49,13 +55,13 @@ public class UserServiceRestTemplateIT {
     @Test
     public void findById() throws JsonParseException, JsonMappingException, IOException {
         User user = testRestTemplate.getForObject(url + "/api/rest/users/1", User.class);
-        Assert.assertEquals("admin1", user.getUsername());
+        Assert.assertEquals("admin", user.getUsername());
     }
 
     @Test
     public void findByUsername() throws JsonParseException, JsonMappingException, IOException {
-        User user = testRestTemplate.getForObject(url + "/api/rest/users/username/admin1", User.class);
-        Assert.assertEquals("admin1", user.getUsername());
+        User user = testRestTemplate.getForObject(url + "/api/rest/users/username/admin", User.class);
+        Assert.assertEquals("admin", user.getUsername());
     }
 
     @Test
