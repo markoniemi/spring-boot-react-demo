@@ -27,11 +27,12 @@
   },
   "scripts": {
     "clean": "shx rm -rf build & shx rm -rf dist",
-    "build": "tsc && webpack --mode production --config dist/webpack.prod.js",
+    "compile": "tsc && webpack --mode production --config dist/webpack.prod.js",
     "start": "tsc && webpack serve --mode development --config dist/webpack.config.js",
     "test": "jest --coverage --config jest.config.json",
     "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN"
+    "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN",
+    "build": "npm run clean && npm run compile && npm test"
   },
   "devDependencies": {
     "@types/chai": "4.2.21",

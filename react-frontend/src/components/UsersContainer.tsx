@@ -88,7 +88,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
                     </Button>
                 </Card.Body>
                 <Card.Footer>
-                    <Hello />
+                    {/*<Hello />*/}
                 </Card.Footer>
             </Card>
         );

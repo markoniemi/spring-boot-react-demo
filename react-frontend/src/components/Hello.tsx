@@ -4,7 +4,8 @@ import MessageServiceImpl from "../api/MessageServiceImpl";
 export interface HelloState {
     message: string;
 }
-
+// TODO change name to something else
+// TODO use a button instead of interval
 class Hello extends React.Component<Readonly<{}>, HelloState> {
     private interval: number;
     private helloService = new MessageServiceImpl();

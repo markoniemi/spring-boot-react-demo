@@ -30,7 +30,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private String getToken(HttpServletRequest request) {
         String header = request.getHeader(JwtToken.AUTHORIZATION_HEADER);
-        if (StringUtils.isBlank(header)) {
+        if (!JwtToken.hasToken(header)) {
+            logger.debug("No token in Authorization header.");
             return null;
         }
         return header.replace(JwtToken.TOKEN_PREFIX, "");
