@@ -2,7 +2,6 @@ package org.example.service.user;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -10,12 +9,10 @@ import javax.jws.WebService;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
 import javax.validation.Validator;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
@@ -25,7 +22,6 @@ import org.example.repository.user.UserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindException;
-import org.springframework.validation.annotation.Validated;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -44,16 +40,17 @@ public class UserServiceImpl implements UserService {
     Validator validator;
 
     @Override
+    @Transactional
     public List<User> findAll() {
-        getHeaders();
         log.trace("findAll");
         return IterableUtils.toList(userRepository.findAll());
     }
+
     @Override
+    @Transactional
     public List<User> find(UserSearchForm userSearchForm) {
-        getHeaders();
         log.info("search: {}", userSearchForm);
-        if (userSearchForm!=null) {
+        if (userSearchForm != null) {
             if (StringUtils.isNotBlank(userSearchForm.getEmail())) {
                 return Arrays.asList(userRepository.findByEmail(userSearchForm.getEmail()));
             }
@@ -62,20 +59,6 @@ public class UserServiceImpl implements UserService {
             }
         }
         return IterableUtils.toList(userRepository.findAll());
-    }
-
-    private void getHeaders() {
-        if (context == null || context.getMessageContext() == null) {
-            return;
-        }
-        MessageContext messageContext = context.getMessageContext();
-        Map<String, List<String>> requestHeaders = (Map<String, List<String>>) messageContext
-                .get(MessageContext.HTTP_REQUEST_HEADERS);
-        if (requestHeaders == null || requestHeaders.get("Authentication") == null) {
-            return;
-        }
-        List<String> list = requestHeaders.get("Authentication");
-        log.info("Http headers: Authentication: {}", list.get(0));
     }
 
     @Override
@@ -103,10 +86,6 @@ public class UserServiceImpl implements UserService {
         if (CollectionUtils.isNotEmpty(violations)) {
             throw new ConstraintViolationException(violations);
         }
-//        databaseUser.setEmail(user.getEmail());
-//        databaseUser.setPassword(user.getPassword());
-//        databaseUser.setRole(user.getRole());
-//        databaseUser.setUsername(user.getUsername());
         user.setId(databaseUser.getId());
         log.trace("update: {}", user);
         return userRepository.save(user);
@@ -152,7 +131,6 @@ public class UserServiceImpl implements UserService {
         try {
             userRepository.deleteById(id);
         } catch (Exception e) {
-//            throw new WebApplicationException(Response.Status.NOT_FOUND);
             throw new NotFoundException();
         }
     }
