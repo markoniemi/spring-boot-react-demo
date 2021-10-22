@@ -27,16 +27,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>clean</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run clean</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>compile</id>
                         <goals>
                             <goal>npm</goal>
