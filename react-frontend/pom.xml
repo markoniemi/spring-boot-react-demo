@@ -27,6 +27,16 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>compile</id>
                         <goals>
                             <goal>npm</goal>
