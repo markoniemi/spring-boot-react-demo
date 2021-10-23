@@ -11,7 +11,7 @@ import Messages from "./Messages";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import LoginService from "../api/LoginService";
-import Hello from "./Hello";
+import Time from "./Time";
 
 export interface UsersContainerState {
     users: User[];
@@ -88,7 +88,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
                     </Button>
                 </Card.Body>
                 <Card.Footer>
-                    {/*<Hello />*/}
+                    <Time />
                 </Card.Footer>
             </Card>
         );

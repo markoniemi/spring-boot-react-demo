@@ -19,7 +19,6 @@ export default class LoginService {
     }
 
     public static getApiUrl(): string {
-        return `http://localhost:8080/api/rest/auth/login/`;
-        // return `http://${process.env.HOST}:${process.env.PORT}/api/rest/auth/login/`;
+        return `/api/rest/auth/login/`;
     }
 }

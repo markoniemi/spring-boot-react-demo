@@ -6,7 +6,7 @@ import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.transport.servlet.CXFServlet;
-import org.example.service.user.HelloService;
+import org.example.service.user.TimeService;
 import org.example.service.user.LoginService;
 import org.example.service.user.UserService;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -19,7 +19,7 @@ public class RestConfig {
     @Resource
     private UserService userService;
     @Resource
-    private HelloService helloService;
+    private TimeService helloService;
     @Resource
     private LoginService loginService;
 
