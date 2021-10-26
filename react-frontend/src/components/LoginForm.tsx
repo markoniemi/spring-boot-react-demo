@@ -37,7 +37,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginF
                             <Card.Title>
                                 <FormattedMessage id="login" />
                             </Card.Title>
-                            <Messages />
+                            <Messages messages={this.state.messages} />
                             <Form>
                                 <FormGroup>
                                     <Form.Row>
@@ -120,7 +120,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginF
             Jwt.setToken(token);
             this.props.history.push("/users");
         } catch (error) {
-            this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
+            this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
         }
     }
 }

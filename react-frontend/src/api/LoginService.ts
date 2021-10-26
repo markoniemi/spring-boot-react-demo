@@ -9,7 +9,7 @@ export default class LoginService {
     public static async login(loginForm: ILoginForm): Promise<string> {
         const response: Response = await Http.post(this.getApiUrl(), JSON.stringify(loginForm));
         if (!response.ok) {
-            throw new Error("login.error");
+            throw new Error("error.login");
         }
         return response.text();
     }

@@ -37,7 +37,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
             try {
                 this.setState({ user: await this.userService.findById(id) });
             } catch (error) {
-                this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
+                this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
             }
         }
     }
@@ -194,7 +194,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
             }
             this.props.history.push("/users");
         } catch (error) {
-            this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
+            this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
         }
     }
 }

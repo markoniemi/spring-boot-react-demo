@@ -56,7 +56,7 @@ describe("App component", () => {
     //     );
     //     await sleep(100);
     //     assert.equal(usersContainerWrapper.find(Messages).props().messages[0].type, "ERROR");
-    //     assert.equal(usersContainerWrapper.find(Messages).props().messages[0].text, "Error: Error loading users");
+    //     assert.equal(usersContainerWrapper.find(Messages).props().messages[0].text, "Error loading users");
     //     done();
     // });
 });

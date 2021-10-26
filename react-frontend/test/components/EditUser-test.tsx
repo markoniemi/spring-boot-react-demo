@@ -38,7 +38,7 @@ describe("EditUser component", () => {
         );
         await sleep(100);
         assert.equal(userWrapper.find(Messages).props().messages[0].type, "ERROR");
-        assert.equal(userWrapper.find(Messages).props().messages[0].text, "Error: Error loading user");
+        assert.equal(userWrapper.find(Messages).props().messages[0].text, "error.load.user");
     });
     test("should show an error with empty user", async () => {
         const routeComponentProps = createRouteComponentProps({});
@@ -52,7 +52,7 @@ describe("EditUser component", () => {
         await userWrapper.find(Button).at(0).simulate("click");
         await sleep(100);
         assert.equal(userWrapper.find(Messages).props().messages[0].type, "ERROR");
-        assert.equal(userWrapper.find(Messages).props().messages[0].text, "Error: Error saving user");
+        assert.equal(userWrapper.find(Messages).props().messages[0].text, "error.save.user");
     });
     test("should edit a user", async () => {
         fetchMock.getOnce("/api/rest/users/1", user1);

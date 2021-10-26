@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert, Toast, ToastBody, ToastHeader } from "react-bootstrap";
+import { FormattedMessage } from "react-intl";
 import Message, { MessageType, MessageVariant } from "../domain/Message";
 
 export interface MessageProps {
@@ -43,8 +44,8 @@ export class Messages extends React.Component<MessageProps, MessageState> {
 
     private renderMessage(message: Message): React.ReactNode {
         return (
-            <Alert variant={Messages.mapTypeToStyle(message.type)} key={message.id}>
-                {message.text}
+            <Alert variant={Messages.mapTypeToStyle(message.type)} key={message.text}>
+                <FormattedMessage id={message.text} defaultMessage={message.text} />
             </Alert>
         );
     }

@@ -8,7 +8,7 @@ export default class UserServiceImpl implements UserService {
         if (response.ok) {
             return response.json();
         } else {
-            throw new Error("Error loading users");
+            throw new Error("error.load.users");
         }
     }
 
@@ -17,7 +17,7 @@ export default class UserServiceImpl implements UserService {
         if (response.ok) {
             return response.json();
         } else {
-            throw new Error("Error loading user");
+            throw new Error("error.load.user");
         }
     }
 
@@ -26,14 +26,14 @@ export default class UserServiceImpl implements UserService {
         if (response.ok) {
             return response.json();
         } else {
-            throw new Error("Error saving user");
+            throw new Error("error.save.user");
         }
     }
 
     public async delete(id: number): Promise<void> {
         const response: Response = await Http.delete(this.getApiUrl() + id);
         if (!response.ok) {
-            throw new Error("Error deleting user");
+            throw new Error("error.delete.user");
         }
     }
 
@@ -42,7 +42,7 @@ export default class UserServiceImpl implements UserService {
         if (response.ok) {
             return response.json();
         } else {
-            throw new Error("Error updating user");
+            throw new Error("error.save.user");
         }
     }
 

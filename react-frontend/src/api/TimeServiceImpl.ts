@@ -7,7 +7,7 @@ export default class TimeServiceImpl implements TimeService {
         if (response.ok) {
             return response.text();
         } else {
-            throw new Error("Error loading time");
+            throw new Error("error.time");
         }
     }
     public getApiUrl(): string {

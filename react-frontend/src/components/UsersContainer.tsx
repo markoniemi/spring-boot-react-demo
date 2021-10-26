@@ -33,7 +33,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
         try {
             await this.fetchUsers();
         } catch (error) {
-            this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
+            this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
         }
     }
 
@@ -46,7 +46,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
             try {
                 await this.userService.delete(id);
             } catch (error) {
-                this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
+                this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
             }
             this.fetchUsers();
         }
@@ -99,7 +99,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
         try {
             users = await this.userService.fetchUsers();
         } catch (error) {
-            this.setState({ messages: [{ text: error.toString(), type: MessageType.ERROR }] });
+            this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
         }
         this.setState((prevState, props) => ({ users: users }));
     }
