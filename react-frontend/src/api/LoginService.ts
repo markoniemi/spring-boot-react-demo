@@ -1,5 +1,4 @@
 import { ILoginForm } from "../components/LoginForm";
-import User from "../domain/User";
 import Http from "./Http";
 import Jwt from "./Jwt";
 

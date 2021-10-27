@@ -1,3 +1,5 @@
+import Role from "./Role";
+
 export default class User {
     public id?: number;
     public username: string;

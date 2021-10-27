@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
+import Empty from "../domain/Empty";
 
 export interface UserProps {
     user: User;
@@ -12,7 +13,7 @@ export interface UserProps {
     deleteUser(id: number);
 }
 
-class UserRow extends React.Component<RouteComponentProps & UserProps, Readonly<{}>> {
+class UserRow extends React.Component<RouteComponentProps & UserProps, Empty> {
     constructor(props) {
         super(props);
         this.delete = this.delete.bind(this);

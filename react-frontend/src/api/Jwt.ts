@@ -13,7 +13,7 @@ export default class Jwt {
         return !(Jwt.getToken() === null);
     }
 
-    public static setToken(token: string) {
+    public static setToken(token: string): void {
         sessionStorage.setItem(Jwt.JWT_TOKEN_KEY, token);
     }
 
@@ -21,7 +21,7 @@ export default class Jwt {
         return sessionStorage.getItem(Jwt.JWT_TOKEN_KEY);
     }
 
-    public static clearToken() {
+    public static clearToken(): void {
         sessionStorage.removeItem(Jwt.JWT_TOKEN_KEY);
     }
 }

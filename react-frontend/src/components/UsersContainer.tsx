@@ -48,7 +48,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
             } catch (error) {
                 this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
             }
-            this.fetchUsers();
+            await this.fetchUsers();
         }
     }
 
@@ -101,7 +101,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
         } catch (error) {
             this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
         }
-        this.setState((prevState, props) => ({ users: users }));
+        this.setState(() => ({ users: users }));
     }
     private async logout() {
         await LoginService.logout();

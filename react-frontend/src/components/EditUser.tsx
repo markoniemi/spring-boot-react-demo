@@ -147,7 +147,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                                         value={this.state.user.role}
                                         onChange={this.onChange}
                                     >
-                                        <option value=""/>
+                                        <option value="" />
                                         <FormattedMessage id="role.ROLE_ADMIN">
                                             {(message) => <option value="ROLE_ADMIN">{message}</option>}
                                         </FormattedMessage>
@@ -175,7 +175,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
 
     private onChange(event: React.ChangeEvent<any>): void {
         const { name, value } = event.target;
-        this.setState((state) => ({ user: { ...this.state.user, [name]: value } }));
+        this.setState(() => ({ user: { ...this.state.user, [name]: value } }));
     }
 
     private async onKeyPress(event: any): Promise<void> {

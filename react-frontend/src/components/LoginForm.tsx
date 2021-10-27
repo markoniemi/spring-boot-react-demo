@@ -9,7 +9,6 @@ import Jwt from "../api/Jwt";
 import Message, { MessageType } from "../domain/Message";
 import { RouteParam } from "./EditUser";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import User from "../domain/User";
 
 // TODO separate form and state?
 export interface ILoginForm {
@@ -19,7 +18,7 @@ export interface ILoginForm {
 }
 
 class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginForm> {
-    constructor(props: any) {
+    constructor(props: RouteComponentProps<RouteParam>) {
         super(props);
         this.login = this.login.bind(this);
         this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -32,7 +31,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginF
         return (
             <Card>
                 <Row>
-                    <Col sm={1} md={{span:4, offset: 4}} >
+                    <Col sm={1} md={{ span: 4, offset: 4 }}>
                         <Card.Body>
                             <Card.Title>
                                 <FormattedMessage id="login" />
