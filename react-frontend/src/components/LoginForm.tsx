@@ -91,19 +91,19 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginF
         );
     }
 
-    private onChangeUsername(event: React.ChangeEvent<any>): void {
+    private onChangeUsername(event: React.ChangeEvent<HTMLInputElement>): void {
         this.setState({
             username: event.target.value,
         });
     }
 
-    private onChangePassword(event: React.ChangeEvent<any>): void {
+    private onChangePassword(event: React.ChangeEvent<HTMLInputElement>): void {
         this.setState({
             password: event.target.value,
         });
     }
 
-    private async onKeyPress(event: any): Promise<void> {
+    private async onKeyPress(event: React.KeyboardEvent<HTMLInputElement>): Promise<void> {
         if ("Enter" === event.key) {
             await this.login();
         }
