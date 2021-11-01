@@ -1,20 +1,33 @@
 import { assert } from "chai";
-import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
-import { Alert } from "react-bootstrap";
-import { MessageProps, Messages } from "../../src/components/Messages";
+import { Messages } from "../../src/components/Messages";
 import { messages } from "../messageList";
+import { configure, render, screen } from "@testing-library/react";
+import i18nConfig from "../../src/messages/messages";
+import { IntlProvider } from "react-intl";
 
 describe("Messages component", () => {
-    test("should not create error with empty user list", () => {
-        const wrapper: ShallowWrapper<MessageProps, {}> = shallow(<Messages messages={[]}/>);
-        assert.isNotNull(wrapper.find(Messages));
-        assert.equal(wrapper.find(Alert).length, 0);
+    beforeEach(() => {
+        configure({ testIdAttribute: "id" });
     });
-    test("should render messages", () => {
-        const wrapper: ShallowWrapper<MessageProps, {}> = shallow(<Messages messages={messages}/>);
-        assert.isNotNull(wrapper.find(Messages));
-        assert.isNotNull(wrapper.find(Alert));
-        assert(wrapper.find(Alert).at(0).text, "success");
+    test("should not create error with empty message list", async () => {
+        render(
+            <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
+                <Messages messages={[]} />
+            </IntlProvider>,
+        );
+        assert.isNull(await screen.queryByTestId("messages"));
+    });
+    test("should render messages", async () => {
+        render(
+            <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
+                <Messages messages={messages} />
+            </IntlProvider>,
+        );
+        assert.isNotNull(await screen.findByTestId("messages"));
+        assert.isNotNull(await screen.findAllByText("success"));
+        assert.isNotNull(await screen.findAllByText("info"));
+        assert.isNotNull(await screen.findAllByText("warn"));
+        assert.isNotNull(await screen.findAllByText("error"));
     });
 });

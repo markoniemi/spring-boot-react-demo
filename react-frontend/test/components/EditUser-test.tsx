@@ -1,44 +1,32 @@
 import { assert } from "chai";
 import * as dotenv from "dotenv";
-import { shallow, ShallowWrapper } from "enzyme";
 import * as React from "react";
-import { Button, FormControl } from "react-bootstrap";
-import EditUser, { EditUserState, RouteParam } from "../../src/components/EditUser";
+import EditUser from "../../src/components/EditUser";
 import { user1 } from "../userList";
-import { RouteComponentProps } from "react-router-dom";
 import createRouteComponentProps from "../RouteComponentPropsMock";
 import fetchMock from "fetch-mock";
 import sleep from "es7-sleep";
-import Messages from "../../src/components/Messages";
 import "isomorphic-fetch";
-import { render, fireEvent, screen, configure, act } from "@testing-library/react";
+import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
 
-function renderEditUser(routeComponentProps) {
-    render(
-        <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
-            <EditUser.WrappedComponent {...routeComponentProps} />
-        </IntlProvider>,
-    );
-}
-
-async function getValueById(id: string) {
+export async function getValueById(id: string) {
     return ((await screen.getByTestId(id)) as HTMLInputElement).value;
 }
 
-async function findButton(id: string) {
+export async function findButton(id: string) {
     return (await screen.getByTestId(id)) as HTMLInputElement;
 }
 
-async function setText(id: string, text: string) {
+export async function setText(id: string, text: string) {
     await fireEvent.change((await screen.getByTestId(id)) as HTMLInputElement, { target: { value: text } });
 }
 
 describe("EditUser component", () => {
     beforeEach(() => {
-        dotenv.config({ path: "config/development.env" });
         configure({ testIdAttribute: "id" });
+        dotenv.config({ path: "config/development.env" });
     });
     afterEach(() => {
         fetchMock.restore();
@@ -97,3 +85,11 @@ describe("EditUser component", () => {
         expect(routeComponentProps.history.push).toBeCalledWith("/users");
     });
 });
+
+function renderEditUser(routeComponentProps) {
+    render(
+        <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
+            <EditUser.WrappedComponent {...routeComponentProps} />
+        </IntlProvider>,
+    );
+}
