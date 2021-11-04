@@ -9,6 +9,8 @@ import Jwt from "../api/Jwt";
 import Message, { MessageType } from "../domain/Message";
 import { RouteParam } from "./EditUser";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import User from "../domain/User";
+import { Formik, Field, Form as FormikForm, FormikProps } from "formik";
 
 // TODO separate form and state?
 export interface ILoginForm {
@@ -20,10 +22,10 @@ export interface ILoginForm {
 class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginForm> {
     constructor(props: RouteComponentProps<RouteParam>) {
         super(props);
+        this.onSubmit = this.onSubmit.bind(this);
         this.login = this.login.bind(this);
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
+        this.renderForm = this.renderForm.bind(this);
         this.state = { username: "", password: "" };
     }
 
@@ -37,53 +39,13 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginF
                                 <FormattedMessage id="login" />
                             </Card.Title>
                             <Messages messages={this.state.messages} />
-                            <Form>
-                                <FormGroup>
-                                    <Form.Row>
-                                        <Col sm={4}>
-                                            <FormLabel>
-                                                <FormattedMessage id="username" />:
-                                            </FormLabel>
-                                        </Col>
-                                        <Col sm={4}>
-                                            <FormControl
-                                                id="username"
-                                                type="text"
-                                                size="sm"
-                                                autoFocus={true}
-                                                onChange={this.onChangeUsername}
-                                                value={this.state.username}
-                                            />
-                                        </Col>
-                                    </Form.Row>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Form.Row>
-                                        <Col sm={4}>
-                                            <FormLabel>
-                                                <FormattedMessage id="password" />:
-                                            </FormLabel>
-                                        </Col>
-                                        <Col sm={4}>
-                                            <FormControl
-                                                id="password"
-                                                type="password"
-                                                size="sm"
-                                                onKeyPress={this.onKeyPress}
-                                                onChange={this.onChangePassword}
-                                                value={this.state.password}
-                                            />
-                                        </Col>
-                                    </Form.Row>
-                                </FormGroup>
-                                <FormGroup>
-                                    <Col sm={5}>
-                                        <Button id="login" size="sm" className="pull-right" onClick={this.login}>
-                                            <FontAwesomeIcon icon={Icons.faCheckSquare} />
-                                        </Button>
-                                    </Col>
-                                </FormGroup>
-                            </Form>
+                            <Formik
+                                initialValues={this.state}
+                                onSubmit={this.onSubmit}
+                                enableReinitialize={true}
+                            >
+                                {this.renderForm}
+                            </Formik>
                         </Card.Body>
                     </Col>
                 </Row>
@@ -91,22 +53,70 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginF
         );
     }
 
-    private onChangeUsername(event: React.ChangeEvent<HTMLInputElement>): void {
-        this.setState({
-            username: event.target.value,
-        });
+    private renderForm(form?: FormikProps<ILoginForm>): React.ReactNode {
+        return (
+            <FormikForm>
+                <FormGroup>
+                    <Form.Row>
+                        <Col sm={4}>
+                            <FormLabel>
+                                <FormattedMessage id="username" />:
+                            </FormLabel>
+                        </Col>
+                        <Col sm={4}>
+                            <FormControl
+                                id="username"
+                                name="username"
+                                type="text"
+                                size="sm"
+                                autoFocus={true}
+                                onChange={form.handleChange}
+                                value={form.values.username}
+                            />
+                        </Col>
+                    </Form.Row>
+                </FormGroup>
+                <FormGroup>
+                    <Form.Row>
+                        <Col sm={4}>
+                            <FormLabel>
+                                <FormattedMessage id="password" />:
+                            </FormLabel>
+                        </Col>
+                        <Col sm={4}>
+                            <FormControl
+                                id="password"
+                                name="password"
+                                type="password"
+                                size="sm"
+                                onChange={form.handleChange}
+                                // onKeyPress={this.onKeyPress}
+                                value={form.values.password}
+                            />
+                        </Col>
+                    </Form.Row>
+                </FormGroup>
+                <FormGroup>
+                    <Col sm={5}>
+                        <Button id="login" size="sm" className="pull-right" type="submit">
+                            <FontAwesomeIcon icon={Icons.faCheckSquare} />
+                        </Button>
+                    </Col>
+                </FormGroup>
+            </FormikForm>
+        );
     }
-
-    private onChangePassword(event: React.ChangeEvent<HTMLInputElement>): void {
-        this.setState({
-            password: event.target.value,
-        });
-    }
-
     private async onKeyPress(event: React.KeyboardEvent<HTMLInputElement>): Promise<void> {
         if ("Enter" === event.key) {
             await this.login();
         }
+    }
+    public async onSubmit(values: ILoginForm) {
+        this.setState({
+            password: values.password,
+            username: values.username,
+        });
+        this.login();
     }
 
     private async login(): Promise<void> {

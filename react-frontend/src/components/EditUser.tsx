@@ -26,7 +26,6 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
     constructor(props) {
         super(props);
         // window.onbeforeunload = () => true;
-        this.onChange = this.onChange.bind(this);
         this.onKeyPress = this.onKeyPress.bind(this);
         this.submitUser = this.submitUser.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -187,18 +186,12 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
         );
     }
 
-    private onChange(event: React.ChangeEvent<HTMLInputElement>): void {
-        const { name, value } = event.target;
-        this.setState(() => ({ user: { ...this.state.user, [name]: value } }));
-    }
-
     private async onKeyPress(event: React.KeyboardEvent<HTMLInputElement>): Promise<void> {
         if ("Enter" === event.key) {
             await this.submitUser();
         }
     }
 
-    // TODO refactor
     public async onSubmit(values: User) {
         this.setState({ user: values });
         this.submitUser();
