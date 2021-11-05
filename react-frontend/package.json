@@ -36,7 +36,6 @@
   },
   "devDependencies": {
     "@types/chai": "4.2.21",
-    "@types/dotenv": "8.2.0",
     "@types/dotenv-webpack": "7.0.3",
     "@types/fetch-mock": "7.3.5",
     "@types/isomorphic-fetch": "0.0.35",
