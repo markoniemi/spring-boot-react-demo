@@ -6,7 +6,7 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
 import Message, { MessageType } from "../domain/Message";
-import { Button, Card, Col, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
+import { Button, Card, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import { Form as FormikForm, Formik, FormikProps } from "formik";
@@ -63,15 +63,15 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
         return (
             <FormikForm>
                 <Messages messages={this.state.messages} />
-                <FormGroup>
+                <Form.Group>
                     <Form.Row>
                         <Col sm={1}>
-                            <FormLabel>
+                            <Form.Label>
                                 <FormattedMessage id="id" />:
-                            </FormLabel>
+                            </Form.Label>
                         </Col>
                         <Col sm={4}>
-                            <FormControl
+                            <Form.Control
                                 data-testid
                                 id="id"
                                 name="id"
@@ -84,16 +84,16 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             />
                         </Col>
                     </Form.Row>
-                </FormGroup>
-                <FormGroup>
+                </Form.Group>
+                <Form.Group>
                     <Form.Row>
                         <Col sm={1}>
-                            <FormLabel>
+                            <Form.Label>
                                 <FormattedMessage id="username" />:
-                            </FormLabel>
+                            </Form.Label>
                         </Col>
                         <Col sm={4}>
-                            <FormControl
+                            <Form.Control
                                 id="username"
                                 name="username"
                                 type="text"
@@ -103,16 +103,16 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             />
                         </Col>
                     </Form.Row>
-                </FormGroup>
-                <FormGroup>
+                </Form.Group>
+                <Form.Group>
                     <Form.Row>
                         <Col sm={1}>
-                            <FormLabel>
+                            <Form.Label>
                                 <FormattedMessage id="email" />:
-                            </FormLabel>
+                            </Form.Label>
                         </Col>
                         <Col sm={4}>
-                            <FormControl
+                            <Form.Control
                                 id="email"
                                 name="email"
                                 type="text"
@@ -123,16 +123,16 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             />
                         </Col>
                     </Form.Row>
-                </FormGroup>
-                <FormGroup>
+                </Form.Group>
+                <Form.Group>
                     <Form.Row>
                         <Col sm={1}>
-                            <FormLabel>
+                            <Form.Label>
                                 <FormattedMessage id="password" />:
-                            </FormLabel>
+                            </Form.Label>
                         </Col>
                         <Col sm={4}>
-                            <FormControl
+                            <Form.Control
                                 id="password"
                                 name="password"
                                 // type="password"
@@ -143,16 +143,16 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             />
                         </Col>
                     </Form.Row>
-                </FormGroup>
-                <FormGroup>
+                </Form.Group>
+                <Form.Group>
                     <Form.Row>
                         <Col sm={1}>
-                            <FormLabel>
+                            <Form.Label>
                                 <FormattedMessage id="role" />:
-                            </FormLabel>
+                            </Form.Label>
                         </Col>
                         <Col sm={4}>
-                            <FormControl
+                            <Form.Control
                                 as="select"
                                 placeholder="select"
                                 id="role"
@@ -169,11 +169,11 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                                 <FormattedMessage id="role.ROLE_USER">
                                     {(message) => <option value="ROLE_USER">{message}</option>}
                                 </FormattedMessage>
-                            </FormControl>
+                            </Form.Control>
                         </Col>
                     </Form.Row>
-                </FormGroup>
-                <FormGroup>
+                </Form.Group>
+                <Form.Group>
                     <Form.Row>
                         <Col sm={5}>
                             <Button type="submit" id="saveUser" size="sm" className="pull-right">
@@ -181,7 +181,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             </Button>
                         </Col>
                     </Form.Row>
-                </FormGroup>
+                </Form.Group>
             </FormikForm>
         );
     }

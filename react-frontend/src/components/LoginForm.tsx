@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Card, Col, Form, FormControl, FormGroup, FormLabel, Row } from "react-bootstrap";
+import { Button, Card, Col, Form } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
 import LoginService from "../api/LoginService";
@@ -33,7 +33,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
     public render(): JSX.Element {
         return (
             <Card>
-                <Row>
+                <Form.Row>
                     <Col sm={1} md={{ span: 4, offset: 4 }}>
                         <Card.Body>
                             <Card.Title>
@@ -45,7 +45,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
                             </Formik>
                         </Card.Body>
                     </Col>
-                </Row>
+                </Form.Row>
             </Card>
         );
     }
@@ -53,15 +53,15 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
     private renderForm(form?: FormikProps<ILoginForm>): React.ReactNode {
         return (
             <FormikForm>
-                <FormGroup>
+                <Form.Group>
                     <Form.Row>
                         <Col sm={4}>
-                            <FormLabel>
+                            <Form.Label>
                                 <FormattedMessage id="username" />:
-                            </FormLabel>
+                            </Form.Label>
                         </Col>
                         <Col sm={4}>
-                            <FormControl
+                            <Form.Control
                                 id="username"
                                 name="username"
                                 type="text"
@@ -72,16 +72,16 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
                             />
                         </Col>
                     </Form.Row>
-                </FormGroup>
-                <FormGroup>
+                </Form.Group>
+                <Form.Group>
                     <Form.Row>
                         <Col sm={4}>
-                            <FormLabel>
+                            <Form.Label>
                                 <FormattedMessage id="password" />:
-                            </FormLabel>
+                            </Form.Label>
                         </Col>
                         <Col sm={4}>
-                            <FormControl
+                            <Form.Control
                                 id="password"
                                 name="password"
                                 type="password"
@@ -92,14 +92,14 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
                             />
                         </Col>
                     </Form.Row>
-                </FormGroup>
-                <FormGroup>
+                </Form.Group>
+                <Form.Group>
                     <Col sm={5}>
                         <Button id="login" size="sm" className="pull-right" type="submit">
                             <FontAwesomeIcon icon={Icons.faCheckSquare} />
                         </Button>
                     </Col>
-                </FormGroup>
+                </Form.Group>
             </FormikForm>
         );
     }
