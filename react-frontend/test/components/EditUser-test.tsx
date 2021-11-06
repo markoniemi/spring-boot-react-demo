@@ -11,16 +11,16 @@ import { act, configure, fireEvent, render, screen } from "@testing-library/reac
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
 
-export async function getValueById(id: string) {
+export async function getValueById(id: string): Promise<string> {
     return ((await screen.getByTestId(id)) as HTMLInputElement).value;
 }
 
-export async function findButton(id: string) {
+export async function findButton(id: string): Promise<HTMLInputElement> {
     return (await screen.getByTestId(id)) as HTMLInputElement;
 }
 
-export async function setText(id: string, text: string) {
-    await fireEvent.change((await screen.getByTestId(id)) as HTMLInputElement, { target: { value: text } });
+export async function setText(id: string, text: string): Promise<void> {
+    fireEvent.change((await screen.getByTestId(id)) as HTMLInputElement, { target: { value: text } });
 }
 
 describe("EditUser component", () => {
@@ -60,7 +60,7 @@ describe("EditUser component", () => {
         assert.equal(await getValueById("email"), "");
         fetchMock.postOnce("/api/rest/users/", 404);
         await act(async () => {
-            await fireEvent.click(await findButton("saveUser"));
+            fireEvent.keyPress(await screen.findByTestId("email"), { key: "Enter", code: "Enter", charCode: 13 });
             await sleep(100);
         });
         assert.isNotNull(await screen.getByText("Error saving user"));
@@ -74,12 +74,12 @@ describe("EditUser component", () => {
         assert.equal(await getValueById("username"), "user1");
         assert.equal(await getValueById("email"), "email1");
         await act(async () => {
-            setText("username", "newUsername");
-            setText("email", "newEmail");
+            await setText("username", "newUsername");
+            await setText("email", "newEmail");
             assert.equal(await getValueById("username"), "newUsername");
             assert.equal(await getValueById("email"), "newEmail");
             fetchMock.putOnce("/api/rest/users/1", { username: "newUsername", email: "newEmail" });
-            await fireEvent.click(await findButton("saveUser"));
+            fireEvent.click(await findButton("saveUser"));
             await sleep(100);
         });
         expect(routeComponentProps.history.push).toBeCalledWith("/users");

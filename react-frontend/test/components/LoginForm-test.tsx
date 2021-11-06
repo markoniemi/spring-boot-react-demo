@@ -1,8 +1,6 @@
 import { assert } from "chai";
 import * as dotenv from "dotenv";
 import * as React from "react";
-import EditUser from "../../src/components/EditUser";
-import { user1 } from "../userList";
 import createRouteComponentProps from "../RouteComponentPropsMock";
 import fetchMock from "fetch-mock";
 import sleep from "es7-sleep";
@@ -10,7 +8,7 @@ import "isomorphic-fetch";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
-import {findButton, getValueById, setText} from "./EditUser-test";
+import { findButton, getValueById, setText } from "./EditUser-test";
 import LoginForm from "../../src/components/LoginForm";
 
 describe("LoginForm component", () => {
@@ -34,11 +32,11 @@ describe("LoginForm component", () => {
         assert.equal(await getValueById("password"), "");
         fetchMock.postOnce("/api/rest/auth/login/", 200);
         await act(async () => {
-            setText("username", "user1");
-            setText("password", "user1");
+            await setText("username", "user1");
+            await setText("password", "user1");
             assert.equal(await getValueById("username"), "user1");
             assert.equal(await getValueById("password"), "user1");
-            await fireEvent.click(await findButton("login"));
+            fireEvent.keyPress(await screen.findByTestId("password"), { key: "Enter", code: "Enter", charCode: 13 });
             await sleep(100);
         });
         expect(routeComponentProps.history.push).toBeCalledWith("/users");
@@ -55,7 +53,7 @@ describe("LoginForm component", () => {
         assert.equal(await getValueById("password"), "");
         fetchMock.postOnce("/api/rest/auth/login/", 400);
         await act(async () => {
-            await fireEvent.click(await findButton("login"));
+            fireEvent.click(await findButton("login"));
             await sleep(100);
         });
         assert.isNotNull(await screen.getByText("Login error"));

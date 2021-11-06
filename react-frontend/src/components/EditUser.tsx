@@ -9,7 +9,7 @@ import Message, { MessageType } from "../domain/Message";
 import { Button, Card, Col, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
-import { Formik, Field, Form as FormikForm, FormikProps } from "formik";
+import { Form as FormikForm, Formik, FormikProps } from "formik";
 
 export interface RouteParam {
     id: string;
@@ -51,16 +51,14 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                     <Card.Title>
                         <FormattedMessage id="user" />
                     </Card.Title>
-                    <Formik
-                        initialValues={this.state.user}
-                        onSubmit={this.onSubmit}
-                        enableReinitialize={true}>
+                    <Formik initialValues={this.state.user} onSubmit={this.onSubmit} enableReinitialize={true}>
                         {this.renderForm}
                     </Formik>
                 </Card.Body>
             </Card>
         );
     }
+
     private renderForm(form?: FormikProps<User>): React.ReactNode {
         return (
             <FormikForm>
@@ -121,6 +119,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                                 size="sm"
                                 onChange={form.handleChange}
                                 value={form.values.email}
+                                onKeyPress={this.onKeyPress}
                             />
                         </Col>
                     </Form.Row>
@@ -140,6 +139,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                                 size="sm"
                                 onChange={form.handleChange}
                                 value={form.values.password}
+                                onKeyPress={this.onKeyPress}
                             />
                         </Col>
                     </Form.Row>
@@ -194,7 +194,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
 
     public async onSubmit(values: User) {
         this.setState({ user: values });
-        this.submitUser();
+        await this.submitUser();
     }
 
     private async submitUser(): Promise<void> {

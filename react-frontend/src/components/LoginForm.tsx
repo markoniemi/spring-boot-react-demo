@@ -9,17 +9,18 @@ import Jwt from "../api/Jwt";
 import Message, { MessageType } from "../domain/Message";
 import { RouteParam } from "./EditUser";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import User from "../domain/User";
-import { Formik, Field, Form as FormikForm, FormikProps } from "formik";
+import { Form as FormikForm, Formik, FormikProps } from "formik";
 
-// TODO separate form and state?
 export interface ILoginForm {
     username: string;
     password: string;
+}
+
+export interface ILoginState extends ILoginForm {
     messages?: ReadonlyArray<Message>;
 }
 
-class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginForm> {
+class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginState> {
     constructor(props: RouteComponentProps<RouteParam>) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
@@ -39,11 +40,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginF
                                 <FormattedMessage id="login" />
                             </Card.Title>
                             <Messages messages={this.state.messages} />
-                            <Formik
-                                initialValues={this.state}
-                                onSubmit={this.onSubmit}
-                                enableReinitialize={true}
-                            >
+                            <Formik initialValues={this.state} onSubmit={this.onSubmit} enableReinitialize={true}>
                                 {this.renderForm}
                             </Formik>
                         </Card.Body>
@@ -90,7 +87,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginF
                                 type="password"
                                 size="sm"
                                 onChange={form.handleChange}
-                                // onKeyPress={this.onKeyPress}
+                                onKeyPress={this.onKeyPress}
                                 value={form.values.password}
                             />
                         </Col>
@@ -106,17 +103,19 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginF
             </FormikForm>
         );
     }
+
     private async onKeyPress(event: React.KeyboardEvent<HTMLInputElement>): Promise<void> {
         if ("Enter" === event.key) {
             await this.login();
         }
     }
+
     public async onSubmit(values: ILoginForm) {
         this.setState({
             password: values.password,
             username: values.username,
         });
-        this.login();
+        await this.login();
     }
 
     private async login(): Promise<void> {
