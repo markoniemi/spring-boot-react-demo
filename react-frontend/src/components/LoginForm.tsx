@@ -9,7 +9,8 @@ import Jwt from "../api/Jwt";
 import Message, { MessageType } from "../domain/Message";
 import { RouteParam } from "./EditUser";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { Form as FormikForm, Formik, FormikProps } from "formik";
+import { ErrorMessage, Form as FormikForm, Formik, FormikProps } from "formik";
+import * as Yup from "yup";
 
 export interface ILoginForm {
     username: string;
@@ -21,6 +22,11 @@ export interface ILoginState extends ILoginForm {
 }
 
 class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginState> {
+    private schema = Yup.object().shape({
+        username: Yup.string().min(2).required("required"),
+        password: Yup.string().min(2).required("required"),
+    });
+
     constructor(props: RouteComponentProps<RouteParam>) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
@@ -40,7 +46,12 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
                                 <FormattedMessage id="login" />
                             </Card.Title>
                             <Messages messages={this.state.messages} />
-                            <Formik initialValues={this.state} onSubmit={this.onSubmit} enableReinitialize={true}>
+                            <Formik
+                                initialValues={this.state}
+                                onSubmit={this.onSubmit}
+                                enableReinitialize={true}
+                                validationSchema={this.schema}
+                            >
                                 {this.renderForm}
                             </Formik>
                         </Card.Body>
@@ -50,7 +61,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
         );
     }
 
-    private renderForm(form?: FormikProps<ILoginForm>): React.ReactNode {
+    private renderForm(form: FormikProps<ILoginForm>, errors): React.ReactNode {
         return (
             <FormikForm>
                 <Form.Group>
@@ -69,7 +80,9 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
                                 autoFocus={true}
                                 onChange={form.handleChange}
                                 value={form.values.username}
+                                isInvalid={errors?.username}
                             />
+                            <ErrorMessage name="username"/>
                         </Col>
                     </Form.Row>
                 </Form.Group>
@@ -90,6 +103,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
                                 onKeyPress={this.onKeyPress}
                                 value={form.values.password}
                             />
+                            <ErrorMessage name="password"/>
                         </Col>
                     </Form.Row>
                 </Form.Group>
