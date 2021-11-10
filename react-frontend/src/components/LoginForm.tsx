@@ -23,8 +23,8 @@ export interface ILoginState extends ILoginForm {
 
 class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginState> {
     private schema = Yup.object().shape({
-        username: Yup.string().min(2).required("required"),
-        password: Yup.string().min(2).required("required"),
+        username: Yup.string().required("username.required"),
+        password: Yup.string().required("password.required"),
     });
 
     constructor(props: RouteComponentProps<RouteParam>) {
@@ -61,7 +61,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
         );
     }
 
-    private renderForm(form: FormikProps<ILoginForm>, errors): React.ReactNode {
+    private renderForm(form: FormikProps<ILoginForm>): React.ReactNode {
         return (
             <FormikForm>
                 <Form.Group>
@@ -80,9 +80,11 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
                                 autoFocus={true}
                                 onChange={form.handleChange}
                                 value={form.values.username}
-                                isInvalid={errors?.username}
+                                isInvalid={form.errors.username != null}
                             />
-                            <ErrorMessage name="username"/>
+                            <ErrorMessage name="username">
+                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
+                            </ErrorMessage>
                         </Col>
                     </Form.Row>
                 </Form.Group>
@@ -102,8 +104,11 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
                                 onChange={form.handleChange}
                                 onKeyPress={this.onKeyPress}
                                 value={form.values.password}
+                                isInvalid={form.errors.password != null}
                             />
-                            <ErrorMessage name="password"/>
+                            <ErrorMessage name="password">
+                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
+                            </ErrorMessage>
                         </Col>
                     </Form.Row>
                 </Form.Group>

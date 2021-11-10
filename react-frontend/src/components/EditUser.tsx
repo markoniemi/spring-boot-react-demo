@@ -9,7 +9,8 @@ import Message, { MessageType } from "../domain/Message";
 import { Button, Card, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
-import { Form as FormikForm, Formik, FormikProps } from "formik";
+import { ErrorMessage, Form as FormikForm, Formik, FormikProps } from "formik";
+import * as Yup from "yup";
 
 export interface RouteParam {
     id: string;
@@ -22,6 +23,12 @@ export interface EditUserState {
 
 class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUserState> {
     private userService: UserService = new UserServiceImpl();
+    private schema = Yup.object().shape({
+        username: Yup.string().required("username.required"),
+        email: Yup.string().required("email.required"),
+        password: Yup.string().required("password.required"),
+        role: Yup.string().required("role.required"),
+    });
 
     constructor(props) {
         super(props);
@@ -51,7 +58,12 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                     <Card.Title>
                         <FormattedMessage id="user" />
                     </Card.Title>
-                    <Formik initialValues={this.state.user} onSubmit={this.onSubmit} enableReinitialize={true}>
+                    <Formik
+                        initialValues={this.state.user}
+                        onSubmit={this.onSubmit}
+                        enableReinitialize={true}
+                        validationSchema={this.schema}
+                    >
                         {this.renderForm}
                     </Formik>
                 </Card.Body>
@@ -100,7 +112,13 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                                 size="sm"
                                 onChange={form.handleChange}
                                 value={form.values.username}
+                                isInvalid={!!form.errors.username}
                             />
+                        </Col>
+                        <Col>
+                            <ErrorMessage name="username">
+                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
+                            </ErrorMessage>
                         </Col>
                     </Form.Row>
                 </Form.Group>
@@ -120,7 +138,13 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                                 onChange={form.handleChange}
                                 value={form.values.email}
                                 onKeyPress={this.onKeyPress}
+                                isInvalid={!!form.errors.email}
                             />
+                        </Col>
+                        <Col>
+                            <ErrorMessage name="email">
+                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
+                            </ErrorMessage>
                         </Col>
                     </Form.Row>
                 </Form.Group>
@@ -135,12 +159,18 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             <Form.Control
                                 id="password"
                                 name="password"
-                                // type="password"
+                                type="password"
                                 size="sm"
                                 onChange={form.handleChange}
                                 value={form.values.password}
                                 onKeyPress={this.onKeyPress}
+                                isInvalid={!!form.errors.password}
                             />
+                        </Col>
+                        <Col>
+                            <ErrorMessage name="password">
+                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
+                            </ErrorMessage>
                         </Col>
                     </Form.Row>
                 </Form.Group>
@@ -154,15 +184,15 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                         <Col sm={4}>
                             <Form.Control
                                 as="select"
-                                placeholder="select"
                                 id="role"
                                 name="role"
                                 type="select"
                                 size="sm"
                                 onChange={form.handleChange}
                                 value={form.values.role}
+                                isInvalid={!!form.errors.role}
                             >
-                                <option value="" />
+                                <option value={null} />
                                 <FormattedMessage id="role.ROLE_ADMIN">
                                     {(message) => <option value="ROLE_ADMIN">{message}</option>}
                                 </FormattedMessage>
@@ -170,6 +200,11 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                                     {(message) => <option value="ROLE_USER">{message}</option>}
                                 </FormattedMessage>
                             </Form.Control>
+                        </Col>
+                        <Col>
+                            <ErrorMessage name="role">
+                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
+                            </ErrorMessage>
                         </Col>
                     </Form.Row>
                 </Form.Group>

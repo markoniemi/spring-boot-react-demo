@@ -17,6 +17,10 @@ const i18nConfig = {
         "error.load.user": "Error loading user",
         "error.save.user": "Error saving user",
         "error.delete.user": "Error deleting user",
+        "username.required": "Username required",
+        "password.required": "Password required",
+        "email.required": "Email required",
+        "role.required": "Role required",
     },
 };
 export default i18nConfig;

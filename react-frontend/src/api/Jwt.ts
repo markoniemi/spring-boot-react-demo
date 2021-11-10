@@ -1,6 +1,6 @@
 export default class Jwt {
     // private static readonly debug: Debug.IDebugger = Debug("Jwt");
-    public static JWT_TOKEN_KEY = "jwt";
+    public static readonly JWT_TOKEN_KEY = "jwt";
 
     public static getHeaders(): Headers {
         const jwtToken: string = sessionStorage.getItem(Jwt.JWT_TOKEN_KEY);

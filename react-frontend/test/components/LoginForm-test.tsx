@@ -41,7 +41,7 @@ describe("LoginForm component", () => {
         });
         expect(routeComponentProps.history.push).toBeCalledWith("/users");
     });
-    test("should show an error with invalid credentials", async () => {
+    test("should show validation error with empty credentials", async () => {
         const routeComponentProps = createRouteComponentProps({});
         render(
             <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
@@ -51,8 +51,25 @@ describe("LoginForm component", () => {
         await sleep(100);
         assert.equal(await getValueById("username"), "");
         assert.equal(await getValueById("password"), "");
+        await act(async () => {
+            fireEvent.click(await findButton("login"));
+            await sleep(100);
+        });
+        assert.isNotNull(await screen.getByText("Username required"));
+        assert.isNotNull(await screen.getByText("Password required"));
+    });
+    test("should show an error with invalid credentials", async () => {
+        const routeComponentProps = createRouteComponentProps({});
+        render(
+            <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
+                <LoginForm.WrappedComponent {...routeComponentProps} />
+            </IntlProvider>,
+        );
+        await sleep(100);
         fetchMock.postOnce("/api/rest/auth/login/", 400);
         await act(async () => {
+            await setText("username", "invalid");
+            await setText("password", "invalid");
             fireEvent.click(await findButton("login"));
             await sleep(100);
         });

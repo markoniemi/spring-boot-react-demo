@@ -23,6 +23,10 @@ export async function setText(id: string, text: string): Promise<void> {
     fireEvent.change((await screen.getByTestId(id)) as HTMLInputElement, { target: { value: text } });
 }
 
+export async function selectOption(id: string, value: string): Promise<void> {
+    fireEvent.change((await screen.getByTestId(id)) as HTMLInputElement, { target: { value: value } });
+}
+
 describe("EditUser component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
@@ -47,7 +51,8 @@ describe("EditUser component", () => {
         await sleep(100);
         assert.isNotNull(await screen.getByText("Error loading user"));
     });
-    test("should show an error with empty user", async () => {
+    test.todo("should add a user");
+    test("should show validation error with empty user", async () => {
         const routeComponentProps = createRouteComponentProps({});
         render(
             <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
@@ -58,9 +63,31 @@ describe("EditUser component", () => {
         assert.equal(await getValueById("id"), "");
         assert.equal(await getValueById("username"), "");
         assert.equal(await getValueById("email"), "");
+        await act(async () => {
+            fireEvent.click(await findButton("saveUser"));
+            await sleep(100);
+        });
+        assert.isNotNull(await screen.getByText("Username required"));
+        assert.isNotNull(await screen.getByText("Password required"));
+        assert.isNotNull(await screen.getByText("Email required"));
+        // TODO Role does not show error text
+        // assert.isNotNull(await screen.getByText("Role required"));
+    });
+    test("should show an error with invalid user", async () => {
+        const routeComponentProps = createRouteComponentProps({});
+        render(
+            <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
+                <EditUser.WrappedComponent {...routeComponentProps} />
+            </IntlProvider>,
+        );
+        await sleep(100);
         fetchMock.postOnce("/api/rest/users/", 404);
         await act(async () => {
-            fireEvent.keyPress(await screen.findByTestId("email"), { key: "Enter", code: "Enter", charCode: 13 });
+            await setText("username", "invalid");
+            await setText("password", "invalid");
+            await setText("email", "invalid");
+            await selectOption("role", "ROLE_ADMIN");
+            fireEvent.click(await findButton("saveUser"));
             await sleep(100);
         });
         assert.isNotNull(await screen.getByText("Error saving user"));
@@ -79,7 +106,7 @@ describe("EditUser component", () => {
             assert.equal(await getValueById("username"), "newUsername");
             assert.equal(await getValueById("email"), "newEmail");
             fetchMock.putOnce("/api/rest/users/1", { username: "newUsername", email: "newEmail" });
-            fireEvent.click(await findButton("saveUser"));
+            fireEvent.keyPress(await screen.findByTestId("email"), { key: "Enter", code: "Enter", charCode: 13 });
             await sleep(100);
         });
         expect(routeComponentProps.history.push).toBeCalledWith("/users");
