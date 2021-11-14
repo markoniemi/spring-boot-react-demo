@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import { ErrorMessage, Form as FormikForm, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
+import InputField from "./InputField";
 
 export interface RouteParam {
     id: string;
@@ -33,7 +34,6 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
     constructor(props) {
         super(props);
         // window.onbeforeunload = () => true;
-        this.onKeyPress = this.onKeyPress.bind(this);
         this.submitUser = this.submitUser.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.renderForm = this.renderForm.bind(this);
@@ -71,144 +71,29 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
         );
     }
 
-    private renderForm(form?: FormikProps<User>): React.ReactNode {
+    private renderForm(form: FormikProps<User>): React.ReactNode {
         return (
             <FormikForm>
                 <Messages messages={this.state.messages} />
                 <Form.Group>
-                    <Form.Row>
-                        <Col sm={1}>
-                            <Form.Label>
-                                <FormattedMessage id="id" />:
-                            </Form.Label>
-                        </Col>
-                        <Col sm={4}>
-                            <Form.Control
-                                data-testid
-                                id="id"
-                                name="id"
-                                disabled={true}
-                                type="text"
-                                size="sm"
-                                autoFocus={true}
-                                value={form.values.id ? form.values.id.toString() : ""}
-                                onChange={form.handleChange}
-                            />
-                        </Col>
-                    </Form.Row>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Row>
-                        <Col sm={1}>
-                            <Form.Label>
-                                <FormattedMessage id="username" />:
-                            </Form.Label>
-                        </Col>
-                        <Col sm={4}>
-                            <Form.Control
-                                id="username"
-                                name="username"
-                                type="text"
-                                size="sm"
-                                onChange={form.handleChange}
-                                value={form.values.username}
-                                isInvalid={!!form.errors.username}
-                            />
-                        </Col>
-                        <Col>
-                            <ErrorMessage name="username">
-                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
-                            </ErrorMessage>
-                        </Col>
-                    </Form.Row>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Row>
-                        <Col sm={1}>
-                            <Form.Label>
-                                <FormattedMessage id="email" />:
-                            </Form.Label>
-                        </Col>
-                        <Col sm={4}>
-                            <Form.Control
-                                id="email"
-                                name="email"
-                                type="text"
-                                size="sm"
-                                onChange={form.handleChange}
-                                value={form.values.email}
-                                onKeyPress={this.onKeyPress}
-                                isInvalid={!!form.errors.email}
-                            />
-                        </Col>
-                        <Col>
-                            <ErrorMessage name="email">
-                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
-                            </ErrorMessage>
-                        </Col>
-                    </Form.Row>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Row>
-                        <Col sm={1}>
-                            <Form.Label>
-                                <FormattedMessage id="password" />:
-                            </Form.Label>
-                        </Col>
-                        <Col sm={4}>
-                            <Form.Control
-                                id="password"
-                                name="password"
-                                type="password"
-                                size="sm"
-                                onChange={form.handleChange}
-                                value={form.values.password}
-                                onKeyPress={this.onKeyPress}
-                                isInvalid={!!form.errors.password}
-                            />
-                        </Col>
-                        <Col>
-                            <ErrorMessage name="password">
-                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
-                            </ErrorMessage>
-                        </Col>
-                    </Form.Row>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Row>
-                        <Col sm={1}>
-                            <Form.Label>
-                                <FormattedMessage id="role" />:
-                            </Form.Label>
-                        </Col>
-                        <Col sm={4}>
-                            <Form.Control
-                                as="select"
-                                id="role"
-                                name="role"
-                                type="select"
-                                size="sm"
-                                onChange={form.handleChange}
-                                value={form.values.role}
-                                isInvalid={!!form.errors.role}
-                            >
-                                <option value={null} />
-                                <FormattedMessage id="role.ROLE_ADMIN">
-                                    {(message) => <option value="ROLE_ADMIN">{message}</option>}
-                                </FormattedMessage>
-                                <FormattedMessage id="role.ROLE_USER">
-                                    {(message) => <option value="ROLE_USER">{message}</option>}
-                                </FormattedMessage>
-                            </Form.Control>
-                        </Col>
-                        <Col>
-                            <ErrorMessage name="role">
-                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
-                            </ErrorMessage>
-                        </Col>
-                    </Form.Row>
-                </Form.Group>
-                <Form.Group>
+                    <InputField
+                        name="id"
+                        disabled={true}
+                        value={form.values.id ? form.values.id.toString() : ""}
+                        form={form}
+                    />
+                    <InputField name="username" form={form} />
+                    <InputField name="email" form={form} />
+                    <InputField name="password" type="password" form={form} />
+                    <InputField name="role" type="select" as="select" form={form}>
+                        <option value={null} />
+                        <FormattedMessage id="role.ROLE_ADMIN">
+                            {(message) => <option value="ROLE_ADMIN">{message}</option>}
+                        </FormattedMessage>
+                        <FormattedMessage id="role.ROLE_USER">
+                            {(message) => <option value="ROLE_USER">{message}</option>}
+                        </FormattedMessage>
+                    </InputField>
                     <Form.Row>
                         <Col sm={5}>
                             <Button type="submit" id="saveUser" size="sm" className="pull-right">
@@ -219,12 +104,6 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                 </Form.Group>
             </FormikForm>
         );
-    }
-
-    private async onKeyPress(event: React.KeyboardEvent<HTMLInputElement>): Promise<void> {
-        if ("Enter" === event.key) {
-            await this.submitUser();
-        }
     }
 
     public async onSubmit(values: User) {

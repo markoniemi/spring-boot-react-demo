@@ -11,6 +11,7 @@ import { RouteParam } from "./EditUser";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { ErrorMessage, Form as FormikForm, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
+import InputField from "./InputField";
 
 export interface ILoginForm {
     username: string;
@@ -31,7 +32,6 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.login = this.login.bind(this);
-        this.onKeyPress = this.onKeyPress.bind(this);
         this.renderForm = this.renderForm.bind(this);
         this.state = { username: "", password: "" };
     }
@@ -65,54 +65,8 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
         return (
             <FormikForm>
                 <Form.Group>
-                    <Form.Row>
-                        <Col sm={4}>
-                            <Form.Label>
-                                <FormattedMessage id="username" />:
-                            </Form.Label>
-                        </Col>
-                        <Col sm={4}>
-                            <Form.Control
-                                id="username"
-                                name="username"
-                                type="text"
-                                size="sm"
-                                autoFocus={true}
-                                onChange={form.handleChange}
-                                value={form.values.username}
-                                isInvalid={form.errors.username != null}
-                            />
-                            <ErrorMessage name="username">
-                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
-                            </ErrorMessage>
-                        </Col>
-                    </Form.Row>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Row>
-                        <Col sm={4}>
-                            <Form.Label>
-                                <FormattedMessage id="password" />:
-                            </Form.Label>
-                        </Col>
-                        <Col sm={4}>
-                            <Form.Control
-                                id="password"
-                                name="password"
-                                type="password"
-                                size="sm"
-                                onChange={form.handleChange}
-                                onKeyPress={this.onKeyPress}
-                                value={form.values.password}
-                                isInvalid={form.errors.password != null}
-                            />
-                            <ErrorMessage name="password">
-                                {(message) => <FormattedMessage id={message} defaultMessage={message} />}
-                            </ErrorMessage>
-                        </Col>
-                    </Form.Row>
-                </Form.Group>
-                <Form.Group>
+                    <InputField name="username" form={form} />
+                    <InputField name="password" type="password" form={form} />
                     <Col sm={5}>
                         <Button id="login" size="sm" className="pull-right" type="submit">
                             <FontAwesomeIcon icon={Icons.faCheckSquare} />
@@ -121,12 +75,6 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
                 </Form.Group>
             </FormikForm>
         );
-    }
-
-    private async onKeyPress(event: React.KeyboardEvent<HTMLInputElement>): Promise<void> {
-        if ("Enter" === event.key) {
-            await this.login();
-        }
     }
 
     public async onSubmit(values: ILoginForm) {
