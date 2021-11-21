@@ -9,8 +9,8 @@ import createRouteComponentProps from "../RouteComponentPropsMock";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
-import { findButton } from "./EditUser-test";
 import { Table } from "react-bootstrap";
+import AbstractPage from "../pages/AbstractPage";
 
 describe("UserRow component", () => {
     beforeEach(() => {
@@ -35,11 +35,12 @@ describe("UserRow component", () => {
         const routeComponentProps = createRouteComponentProps(null);
         renderUserRow(user1, deleteUser, routeComponentProps);
         await act(async () => {
-            await fireEvent.click(await findButton("delete"));
+            await fireEvent.click(await AbstractPage.findButton("delete"));
         });
         expect(deleteUser).toBeCalledWith(1);
     });
 });
+
 function renderUserRow(
     user: User,
     deleteUser: (id: number) => void,

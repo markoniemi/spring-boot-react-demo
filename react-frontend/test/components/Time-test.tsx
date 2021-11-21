@@ -5,7 +5,7 @@ import fetchMock from "fetch-mock";
 import sleep from "es7-sleep";
 import Time from "../../src/components/Time";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
-import { findButton } from "./EditUser-test";
+import AbstractPage from "../pages/AbstractPage";
 
 describe("Hello component", () => {
     beforeEach(() => {
@@ -28,7 +28,7 @@ describe("Hello component", () => {
         await sleep(100);
         assert.equal((await screen.findByTestId("message")).textContent, "response1");
         await act(async () => {
-            await fireEvent.click(await findButton("fetchMessage"));
+            await fireEvent.click(await AbstractPage.findButton("fetchMessage"));
             await sleep(100);
         });
         assert.equal((await screen.findByTestId("message")).textContent, "response2");

@@ -13,7 +13,7 @@ import * as process from "process";
 import i18nConfig from "../../src/messages/messages";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import { IntlProvider } from "react-intl";
-import { findButton } from "./EditUser-test";
+import AbstractPage from "../pages/AbstractPage";
 
 describe("UsersContainer component", () => {
     beforeEach(() => {
@@ -39,7 +39,7 @@ describe("UsersContainer component", () => {
         renderUsersContainer(routeComponentProps);
         await act(async () => {
             await sleep(100);
-            await fireEvent.click(await findButton("addUser"));
+            await fireEvent.click(await AbstractPage.findButton("addUser"));
             await sleep(100);
         });
         expect(routeComponentProps.history.push).toBeCalledWith("/users/new");

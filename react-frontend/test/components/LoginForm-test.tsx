@@ -8,7 +8,7 @@ import "isomorphic-fetch";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
-import { findButton, getValueById, setText } from "./EditUser-test";
+import AbstractPage from "../pages/AbstractPage";
 import LoginForm from "../../src/components/LoginForm";
 
 describe("LoginForm component", () => {
@@ -28,14 +28,14 @@ describe("LoginForm component", () => {
             </IntlProvider>,
         );
         await sleep(100);
-        assert.equal(await getValueById("username"), "");
-        assert.equal(await getValueById("password"), "");
+        assert.equal(await AbstractPage.getValueById("username"), "");
+        assert.equal(await AbstractPage.getValueById("password"), "");
         fetchMock.postOnce("/api/rest/auth/login/", 200);
         await act(async () => {
-            await setText("username", "user1");
-            await setText("password", "user1");
-            assert.equal(await getValueById("username"), "user1");
-            assert.equal(await getValueById("password"), "user1");
+            await AbstractPage.setText("username", "user1");
+            await AbstractPage.setText("password", "user1");
+            assert.equal(await AbstractPage.getValueById("username"), "user1");
+            assert.equal(await AbstractPage.getValueById("password"), "user1");
             fireEvent.keyPress(await screen.findByTestId("password"), { key: "Enter", code: "Enter", charCode: 13 });
             await sleep(100);
         });
@@ -49,10 +49,10 @@ describe("LoginForm component", () => {
             </IntlProvider>,
         );
         await sleep(100);
-        assert.equal(await getValueById("username"), "");
-        assert.equal(await getValueById("password"), "");
+        assert.equal(await AbstractPage.getValueById("username"), "");
+        assert.equal(await AbstractPage.getValueById("password"), "");
         await act(async () => {
-            fireEvent.click(await findButton("login"));
+            fireEvent.click(await AbstractPage.findButton("login"));
             await sleep(100);
         });
         assert.isNotNull(await screen.getByText("Username required"));
@@ -68,9 +68,9 @@ describe("LoginForm component", () => {
         await sleep(100);
         fetchMock.postOnce("/api/rest/auth/login/", 400);
         await act(async () => {
-            await setText("username", "invalid");
-            await setText("password", "invalid");
-            fireEvent.click(await findButton("login"));
+            await AbstractPage.setText("username", "invalid");
+            await AbstractPage.setText("password", "invalid");
+            fireEvent.click(await AbstractPage.findButton("login"));
             await sleep(100);
         });
         assert.isNotNull(await screen.getByText("Login error"));
