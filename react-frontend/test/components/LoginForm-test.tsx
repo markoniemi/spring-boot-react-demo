@@ -10,6 +10,7 @@ import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
 import AbstractPage from "../pages/AbstractPage";
 import LoginForm from "../../src/components/LoginForm";
+import LoginPage from "../pages/LoginPage";
 
 describe("LoginForm component", () => {
     beforeEach(() => {
@@ -22,23 +23,21 @@ describe("LoginForm component", () => {
     test("should change page with valid credentials", async () => {
         const routeComponentProps = createRouteComponentProps({});
         routeComponentProps.history.push = jest.fn();
-        render(
-            <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
-                <LoginForm.WrappedComponent {...routeComponentProps} />
-            </IntlProvider>,
-        );
-        await sleep(100);
-        assert.equal(await AbstractPage.getValueById("username"), "");
-        assert.equal(await AbstractPage.getValueById("password"), "");
+        LoginPage.render(routeComponentProps);
+        LoginPage.setUser("","");
         fetchMock.postOnce("/api/rest/auth/login/", 200);
-        await act(async () => {
-            await AbstractPage.setText("username", "user1");
-            await AbstractPage.setText("password", "user1");
-            assert.equal(await AbstractPage.getValueById("username"), "user1");
-            assert.equal(await AbstractPage.getValueById("password"), "user1");
-            fireEvent.keyPress(await screen.findByTestId("password"), { key: "Enter", code: "Enter", charCode: 13 });
-            await sleep(100);
-        });
+        LoginPage.setUser("user1","user1");
+        LoginPage.assertLogin("user1","user1");
+        LoginPage.pressEnter();
+
+        // await act(async () => {
+        //     await AbstractPage.setText("username", "user1");
+        //     await AbstractPage.setText("password", "user1");
+        //     assert.equal(await AbstractPage.getValueById("username"), "user1");
+        //     assert.equal(await AbstractPage.getValueById("password"), "user1");
+        //     fireEvent.keyPress(await screen.findByTestId("password"), { key: "Enter", code: "Enter", charCode: 13 });
+        //     await sleep(100);
+        // });
         expect(routeComponentProps.history.push).toBeCalledWith("/users");
     });
     test("should show validation error with empty credentials", async () => {
