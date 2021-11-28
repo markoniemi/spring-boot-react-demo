@@ -23,12 +23,12 @@ describe("LoginForm component", () => {
     test("should change page with valid credentials", async () => {
         const routeComponentProps = createRouteComponentProps({});
         routeComponentProps.history.push = jest.fn();
-        LoginPage.render(routeComponentProps);
-        LoginPage.setUser("","");
+        await LoginPage.render(routeComponentProps);
+        await LoginPage.setUser("", "");
         fetchMock.postOnce("/api/rest/auth/login/", 200);
-        LoginPage.setUser("user1","user1");
-        LoginPage.assertLogin("user1","user1");
-        LoginPage.pressEnter();
+        await LoginPage.setUser("user1", "user1");
+        await LoginPage.assertLogin("user1", "user1");
+        await LoginPage.pressEnter();
 
         // await act(async () => {
         //     await AbstractPage.setText("username", "user1");
