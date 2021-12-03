@@ -43,7 +43,7 @@ export default class EditUserPage extends AbstractPage {
 
     public static async clickSaveUser(): Promise<void> {
         await act(async () => {
-            fireEvent.click(await EditUserPage.findButton("saveUser"));
+            fireEvent.click(await AbstractPage.findButton("saveUser"));
             await sleep(100);
         });
     }
