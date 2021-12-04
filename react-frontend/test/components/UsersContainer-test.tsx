@@ -4,8 +4,6 @@ import { users } from "../userList";
 import createRouteComponentProps from "../RouteComponentPropsMock";
 import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
-import log, { LogLevelDesc } from "loglevel";
-import * as process from "process";
 import { configure, screen } from "@testing-library/react";
 import UsersPage from "../pages/UsersPage";
 import User from "../../src/domain/User";
@@ -15,7 +13,6 @@ describe("UsersContainer component", () => {
         configure({ testIdAttribute: "id" });
         fetchMock.postOnce("/api/rest/time", "message");
         dotenv.config({ path: "config/development.env" });
-        log.setLevel(process.env.LOG_LEVEL as LogLevelDesc);
     });
     afterEach(() => {
         fetchMock.restore();
