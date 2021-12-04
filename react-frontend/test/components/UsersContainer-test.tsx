@@ -51,6 +51,7 @@ describe("UsersContainer component", () => {
         window.confirm = jest.fn();
         fetchMock.getOnce("/api/rest/users/", users);
         fetchMock.deleteOnce("/api/rest/users/1", 200);
+        fetchMock.getOnce("/api/rest/users/", users);
         await UsersPage.render(createRouteComponentProps(null));
         await UsersPage.clickDelete("user1");
         assert.isTrue(fetchMock.done());
