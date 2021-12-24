@@ -1,6 +1,6 @@
-import { createLocation, createMemoryHistory } from "history";
+import { createLocation, createMemoryHistory, History } from "history";
 
-export default function createHistory(location?: string) {
+export default function createHistory(location?: string): History {
     const history = createMemoryHistory();
     history.location = createLocation(!!location ? location : "/");
     return history;

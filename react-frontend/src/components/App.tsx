@@ -14,7 +14,7 @@ export interface AppProps {
 
 class App extends React.Component<AppProps, Empty> {
     private history;
-    constructor(props) {
+    constructor(props: AppProps) {
         super(props);
         this.history = !!this.props.history ? history : createBrowserHistory();
     }

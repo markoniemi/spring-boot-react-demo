@@ -18,7 +18,7 @@ export default class UsersPage extends AbstractPage {
             await sleep(100);
         });
     }
-    public static async clickAddUser(username: string): Promise<void> {
+    public static async clickAddUser(): Promise<void> {
         await act(async () => {
             fireEvent.click(await AbstractPage.findButton("addUser"));
             await sleep(100);
