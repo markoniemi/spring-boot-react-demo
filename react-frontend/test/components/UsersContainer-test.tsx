@@ -39,7 +39,7 @@ describe("UsersContainer component", () => {
         const history = createHistory("/users");
         history.push = jest.fn();
         await UsersPage.render(history);
-        await UsersPage.clickAddUser("user1");
+        await UsersPage.clickAddUser();
         expect(history.push).toBeCalledWith("/users/new");
     });
     test("should render error message", async () => {

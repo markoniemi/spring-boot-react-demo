@@ -9,7 +9,7 @@ import Message, { MessageType } from "../domain/Message";
 import { Button, Card, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
-import { ErrorMessage, Form as FormikForm, Formik, FormikProps } from "formik";
+import { Form as FormikForm, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import InputField from "./InputField";
 

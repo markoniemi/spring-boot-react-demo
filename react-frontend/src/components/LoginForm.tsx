@@ -9,7 +9,7 @@ import Jwt from "../api/Jwt";
 import Message, { MessageType } from "../domain/Message";
 import { RouteParam } from "./EditUser";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { ErrorMessage, Form as FormikForm, Formik, FormikProps } from "formik";
+import { Form as FormikForm, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import InputField from "./InputField";
 
