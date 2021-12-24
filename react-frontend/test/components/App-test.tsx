@@ -4,7 +4,7 @@ import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
 import { configure } from "@testing-library/react";
 
-describe("App component", () => {
+describe.skip("App component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: "config/development.env" });

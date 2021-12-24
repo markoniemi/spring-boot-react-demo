@@ -12,7 +12,7 @@ import { IntlProvider } from "react-intl";
 import { Table } from "react-bootstrap";
 import AbstractPage from "../pages/AbstractPage";
 
-describe("UserRow component", () => {
+describe.skip("UserRow component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: "config/development.env" });

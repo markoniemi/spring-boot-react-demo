@@ -1,23 +1,10 @@
 import AbstractPage from "./AbstractPage";
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import { IntlProvider } from "react-intl";
-import i18nConfig from "../../src/messages/messages";
-import EditUser from "../../src/components/EditUser";
+import { act, fireEvent, screen } from "@testing-library/react";
 import * as React from "react";
 import { assert } from "chai";
 import sleep from "es7-sleep";
-import { RouteComponentProps } from "react-router-dom";
 
 export default class EditUserPage extends AbstractPage {
-    public static async render(routeComponentProps: RouteComponentProps<any>): Promise<void> {
-        render(
-            <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
-                <EditUser.WrappedComponent {...routeComponentProps} />
-            </IntlProvider>,
-        );
-        await sleep(100);
-    }
-
     public static async assertUser(id: string, username: string, email: string, role: string): Promise<void> {
         assert.equal(await this.getValueById("id"), id);
         assert.equal(await this.getValueById("username"), username);

@@ -1,6 +1,14 @@
-import { fireEvent, screen } from "@testing-library/react";
+import App from "../../src/components/App";
+import sleep from "es7-sleep";
+import { History } from "history";
+import { fireEvent, render, screen } from "@testing-library/react";
+import * as React from "react";
 
 export default class AbstractPage {
+    public static async render(history: History): Promise<void> {
+        render(<App history={history} />);
+        await sleep(100);
+    }
     public static async getValueById(id: string): Promise<string> {
         return ((await screen.getByTestId(id)) as HTMLInputElement).value;
     }
