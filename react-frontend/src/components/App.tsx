@@ -13,15 +13,10 @@ export interface AppProps {
 }
 
 class App extends React.Component<AppProps, Empty> {
-    private history;
-    constructor(props: AppProps) {
-        super(props);
-        this.history = !!this.props.history ? this.props.history : createBrowserHistory();
-    }
     public override render(): React.ReactNode {
         return (
             <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
-                <Router history={this.history}>
+                <Router history={!!this.props.history ? this.props.history : createBrowserHistory()}>
                     <Switch>
                         <Redirect exact from="/" to="/login" />
                         <Route exact path="/login" component={LoginForm} />
