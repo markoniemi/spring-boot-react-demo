@@ -43,8 +43,6 @@ public class ReactDemoApplicationIT {
         webDriver.get(loginUrl);
         loginPage.login("admin", "admin");
         usersPage.clickAddUser();
-//        editUserPage.validateUser();
-//        usersPage.clickAddUser();
         editUserPage.addUser("admin_user","another", "admin_user@test.com" , "Admin");
         usersPage.assertUser("admin_user", "admin_user@test.com","Admin");
         usersPage.clickAddUser();
