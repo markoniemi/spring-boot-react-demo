@@ -19,6 +19,7 @@
                 <executions>
                     <execution>
                         <id>install node and npm</id>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
@@ -31,7 +32,7 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
-                        <phase>process-resources</phase>
+                        <phase>generate-resources</phase>
                         <configuration>
                             <arguments>install</arguments>
                         </configuration>
@@ -56,7 +57,7 @@
                             <arguments>test</arguments>
                         </configuration>
                     </execution>
-                </executions>
+                </executions> 
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
