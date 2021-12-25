@@ -33,8 +33,7 @@ describe("EditUser component", () => {
         assert.isNotNull(await screen.getByText("Username required"));
         assert.isNotNull(await screen.getByText("Password required"));
         assert.isNotNull(await screen.getByText("Email required"));
-        // TODO Role does not show error text
-        // assert.isNotNull(await screen.getByText("Role required"));
+        assert.isNotNull(await screen.getByText("Role required"));
     });
     test("should show an error with invalid user", async () => {
         await EditUserPage.render(createHistory("/users/new"));

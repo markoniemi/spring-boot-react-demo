@@ -33,11 +33,10 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
 
     constructor(props) {
         super(props);
-        // window.onbeforeunload = () => true;
         this.submitUser = this.submitUser.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.renderForm = this.renderForm.bind(this);
-        this.state = { user: new User("", "", "") };
+        this.state = { user: new User("", "", "", null) };
     }
 
     public override async componentDidMount(): Promise<void> {
