@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import * as dotenv from "dotenv";
-import { users } from "../userList";
+import { user1, users } from "../userList";
 import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
 import { configure, screen } from "@testing-library/react";
@@ -31,8 +31,9 @@ describe("UsersContainer component", () => {
     });
     test("should not create error with empty list", async () => {
         fetchMock.getOnce("/api/rest/users/", []);
-        await UsersPage.render(createHistory());
-        // TODO what to assert?
+        await UsersPage.render(createHistory("/users"));
+        assert.isNotNull(await screen.getByText("Username"));
+        assert.isNotNull(await screen.getByText("Email"));
     });
     test("should add user", async () => {
         fetchMock.getOnce("/api/rest/users/", users);
@@ -47,8 +48,15 @@ describe("UsersContainer component", () => {
         await UsersPage.render(createHistory("/users"));
         assert.isNotNull(await screen.getByText("Error loading users"));
     });
-    test("should delete user", async () => {
+    test("should edit user", async () => {
         window.confirm = jest.fn();
+        fetchMock.getOnce("/api/rest/users/", users);
+        fetchMock.getOnce("/api/rest/users/1", user1);
+        await UsersPage.render(createHistory("/users"));
+        await UsersPage.clickEdit("user1");
+        assert.isTrue(fetchMock.done());
+    });
+    test("should delete user", async () => {
         fetchMock.getOnce("/api/rest/users/", users);
         fetchMock.deleteOnce("/api/rest/users/1", 200);
         fetchMock.getOnce("/api/rest/users/", users);

@@ -26,7 +26,6 @@ describe("EditUser component", () => {
         await EditUserPage.render(createHistory("/users/1"));
         assert.isNotNull(await screen.getByText("Error loading user"));
     });
-    test.todo("should add a user");
     test("should show validation error with empty user", async () => {
         await EditUserPage.render(createHistory("/users/1"));
         await EditUserPage.assertUser("", "", "", "");
@@ -44,6 +43,17 @@ describe("EditUser component", () => {
         await EditUserPage.clickSaveUser();
         assert.isNotNull(await screen.getByText("Error saving user"));
     });
+    test("should add a user", async () => {
+        const history = createHistory("/users/new");
+        history.push = jest.fn();
+        await EditUserPage.render(history);
+        await EditUserPage.assertUser("", "", "", "");
+        await EditUserPage.setUser("user", "password", "email", "ROLE_USER");
+        fetchMock.postOnce("/api/rest/users/", { username: "user", email: "email" });
+        await EditUserPage.clickSaveUser();
+        expect(history.push).toBeCalledWith("/users");
+        assert.isTrue(fetchMock.done());
+    });
     test("should edit a user", async () => {
         fetchMock.getOnce("/api/rest/users/1", user1);
         const history = createHistory("/users/1");
@@ -55,5 +65,6 @@ describe("EditUser component", () => {
         fetchMock.putOnce("/api/rest/users/1", { username: "newUsername", email: "newEmail" });
         await EditUserPage.pressEnter();
         expect(history.push).toBeCalledWith("/users");
+        assert.isTrue(fetchMock.done());
     });
 });
