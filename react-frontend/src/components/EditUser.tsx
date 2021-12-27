@@ -52,7 +52,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
 
     public override render(): React.ReactNode {
         return (
-            <Card>
+            <Card id="EditUser">
                 <Card.Body>
                     <Card.Title>
                         <FormattedMessage id="user" />

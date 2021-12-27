@@ -5,12 +5,15 @@ import { assert } from "chai";
 import sleep from "es7-sleep";
 
 export default class LoginPage extends AbstractPage {
+    public static async assertPageLoaded() {
+        assert.isNotNull(await this.findById("LoginForm"));
+    }
     public static async assertLogin(username: string, password: string): Promise<void> {
         assert.equal(await this.getValueById("username"), username);
         assert.equal(await this.getValueById("password"), password);
     }
 
-    public static async setUser(username: string, password: string): Promise<void> {
+    public static async setLogin(username: string, password: string): Promise<void> {
         await act(async () => {
             await this.setText("username", username);
             await this.setText("password", password);

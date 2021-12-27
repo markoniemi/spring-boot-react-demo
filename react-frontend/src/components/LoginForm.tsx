@@ -38,9 +38,9 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
 
     public render(): JSX.Element {
         return (
-            <Card>
+            <Card id="LoginForm">
                 <Form.Row>
-                    <Col sm={1} md={{ span: 4, offset: 4 }}>
+                    <Col md={{ span: 10, offset: 4 }}>
                         <Card.Body>
                             <Card.Title>
                                 <FormattedMessage id="login" />

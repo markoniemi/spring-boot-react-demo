@@ -19,9 +19,9 @@ describe("LoginForm component", () => {
         const history = createHistory();
         history.push = jest.fn();
         await LoginPage.render(history);
-        await LoginPage.setUser("", "");
+        await LoginPage.setLogin("", "");
         fetchMock.postOnce("/api/rest/auth/login/", 200);
-        await LoginPage.setUser("user1", "user1");
+        await LoginPage.setLogin("user1", "user1");
         await LoginPage.assertLogin("user1", "user1");
         await LoginPage.pressEnter();
         expect(history.push).toBeCalledWith("/users");
@@ -35,7 +35,7 @@ describe("LoginForm component", () => {
     });
     test("should show an error with invalid credentials", async () => {
         await LoginPage.render(createHistory());
-        await LoginPage.setUser("invalid", "invalid");
+        await LoginPage.setLogin("invalid", "invalid");
         fetchMock.postOnce("/api/rest/auth/login/", 400);
         await LoginPage.clickLogin();
         assert.isNotNull(await screen.getByText("Login error"));

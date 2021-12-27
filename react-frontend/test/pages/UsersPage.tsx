@@ -5,6 +5,9 @@ import { assert } from "chai";
 import sleep from "es7-sleep";
 
 export default class UsersPage extends AbstractPage {
+    public static async assertPageLoaded() {
+        assert.isNotNull(await this.findById("UsersContainer"));
+    }
     public static async assertUser(username: string, email?: string, role?: string): Promise<void> {
         assert.isTrue((await this.getTextsById("username")).includes(username));
         if (!!email) {
