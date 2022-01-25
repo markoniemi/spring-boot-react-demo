@@ -3,8 +3,19 @@ import { act, fireEvent, screen } from "@testing-library/react";
 import * as React from "react";
 import { assert } from "chai";
 import sleep from "es7-sleep";
+import {users} from "../userList";
+import fetchMock from "fetch-mock";
 
 export default class LoginPage extends AbstractPage {
+    public static async login(username: string, password: string) {
+        await LoginPage.assertPageLoaded();
+        await LoginPage.setLogin(username, password);
+        await LoginPage.assertLogin(username, password);
+        fetchMock.postOnce("/api/rest/auth/login/", 200);
+        fetchMock.getOnce("/api/rest/users/", users);
+        fetchMock.postOnce("/api/rest/time", "message");
+        await LoginPage.clickLogin();
+    }
     public static async assertPageLoaded() {
         assert.isNotNull(await this.findById("LoginForm"));
     }
