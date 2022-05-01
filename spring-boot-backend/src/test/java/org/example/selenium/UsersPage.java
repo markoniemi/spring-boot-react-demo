@@ -1,6 +1,7 @@
 package org.example.selenium;
 
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -23,9 +24,9 @@ public class UsersPage extends AbstractPage {
     }
 
     public void assertUser(String username, String email, String role) {
-        Assert.assertEquals(username, getText(By.xpath("//tr[@id='" + username + "']//td[@id='username']")));
-        Assert.assertEquals(email, getText(By.xpath("//tr[@id='" + username + "']//td[@id='email']")));
-        Assert.assertEquals(role, getText(By.xpath("//tr[@id='" + username + "']//td[@id='role']")));
+        assertEquals(username, getText(By.xpath("//tr[@id='" + username + "']//td[@id='username']")));
+        assertEquals(email, getText(By.xpath("//tr[@id='" + username + "']//td[@id='email']")));
+        assertEquals(role, getText(By.xpath("//tr[@id='" + username + "']//td[@id='role']")));
     }
 
     public void logout() {
