@@ -1,5 +1,8 @@
 package org.example;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -11,20 +14,19 @@ import javax.xml.ws.Service;
 import org.example.config.IntegrationTestConfig;
 import org.example.model.user.User;
 import org.example.service.user.UserService;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-@Ignore
-@RunWith(SpringRunner.class)
+@Disabled
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = ReactDemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @ContextHierarchy(@ContextConfiguration(classes = IntegrationTestConfig.class))
 public class UserServiceWsIT {
@@ -33,8 +35,8 @@ public class UserServiceWsIT {
     public void findAll() throws JsonParseException, JsonMappingException, IOException {
         UserService userService = getUserClient();
         List<User> users = userService.findAll();
-        Assert.assertNotNull(users);
-        Assert.assertEquals(6, users.size());
+        assertNotNull(users);
+        assertEquals(6, users.size());
     }
 
     public UserService getUserClient() throws MalformedURLException {

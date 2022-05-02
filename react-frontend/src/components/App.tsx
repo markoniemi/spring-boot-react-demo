@@ -1,17 +1,22 @@
 import React from "react";
 import UserContainer from "./UsersContainer";
 import EditUser from "./EditUser";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Router, Switch } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 import i18nConfig from "../messages/messages";
 import LoginForm from "./LoginForm";
 import Empty from "../domain/Empty";
+import { createBrowserHistory, History } from "history";
 
-class App extends React.Component<Empty, Empty> {
+export interface AppProps {
+    history?: History;
+}
+
+class App extends React.Component<AppProps, Empty> {
     public override render(): React.ReactNode {
         return (
             <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
-                <BrowserRouter>
+                <Router history={!!this.props.history ? this.props.history : createBrowserHistory()}>
                     <Switch>
                         <Redirect exact from="/" to="/login" />
                         <Route exact path="/login" component={LoginForm} />
@@ -19,7 +24,7 @@ class App extends React.Component<Empty, Empty> {
                         <Route path="/users/new" component={EditUser} />
                         <Route path="/users/:id" component={EditUser} />
                     </Switch>
-                </BrowserRouter>
+                </Router>
             </IntlProvider>
         );
     }

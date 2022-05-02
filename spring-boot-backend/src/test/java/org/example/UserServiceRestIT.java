@@ -1,5 +1,8 @@
 package org.example;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,8 +10,7 @@ import org.example.model.user.Role;
 import org.example.model.user.User;
 import org.example.service.user.UserRestClient;
 import org.example.service.user.ValidationError;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -21,36 +23,36 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
     @Test
     public void findAll() throws JsonProcessingException {
         List<User> users = userService.findAll();
-        Assert.assertNotNull(users);
-        Assert.assertEquals(6, users.size());
+        assertNotNull(users);
+        assertEquals(6, users.size());
     }
 
     @Test
     public void find() throws JsonProcessingException {
         List<User> users = userService.findAll();
-        Assert.assertNotNull(users);
+        assertNotNull(users);
         log.info(Arrays.toString(users.toArray()));
-        Assert.assertEquals(6, users.size());
+        assertEquals(6, users.size());
         users = userService.findByEmail("email0");
-        Assert.assertNotNull(users);
+        assertNotNull(users);
         log.info(Arrays.toString(users.toArray()));
-        Assert.assertEquals(1, users.size());
-        Assert.assertEquals("email0", users.get(0).getEmail());
+        assertEquals(1, users.size());
+        assertEquals("email0", users.get(0).getEmail());
         users = userService.findByUsername("username0");
-        Assert.assertNotNull(users);
-        Assert.assertEquals(1, users.size());
-        Assert.assertEquals("username0", users.get(0).getUsername());
+        assertNotNull(users);
+        assertEquals(1, users.size());
+        assertEquals("username0", users.get(0).getUsername());
     }
 
     @Test
     public void create() throws JsonProcessingException {
         User user = new User("username", "password", "email", Role.ROLE_USER);
         user = userService.create(user);
-        Assert.assertNotNull(user);
-        Assert.assertNotNull(user.getId());
+        assertNotNull(user);
+        assertNotNull(user.getId());
         user = userService.find(user.getId());
-        Assert.assertNotNull(user);
-        Assert.assertNotNull(user.getId());
+        assertNotNull(user);
+        assertNotNull(user.getId());
         userService.delete(user.getId());
     }
 
@@ -58,12 +60,12 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
     public void createWithValidationError() throws JsonProcessingException {
         String userJson = "{\"username\":null}";
         List<ValidationError> validationErrors = userService.create(userJson, 400);
-        Assert.assertEquals(1, validationErrors.size());
+        assertEquals(1, validationErrors.size());
         ValidationError validationError = validationErrors.get(0);
         log.debug(validationError);
-        Assert.assertEquals("user", validationError.getObjectName());
-        Assert.assertEquals("username", validationError.getField());
-        Assert.assertEquals("field.required", validationError.getCode());
+        assertEquals("user", validationError.getObjectName());
+        assertEquals("username", validationError.getField());
+        assertEquals("field.required", validationError.getCode());
     }
 
     @Test
@@ -71,11 +73,11 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
         String userJson = "{\"id\":1, \"username\":null}";
         List<ValidationError> validationErrors = userService.update(userJson, 1, 400);
         log.debug(Arrays.toString(validationErrors.toArray()));
-//        Assert.assertEquals(1, validationErrors.size());
+//        assertEquals(1, validationErrors.size());
         ValidationError validationError = validationErrors.get(0);
-        Assert.assertEquals("User", validationError.getObjectName());
-//        Assert.assertEquals("username", validationError.getField());
-        Assert.assertEquals("field.required", validationError.getCode());
+        assertEquals("User", validationError.getObjectName());
+//        assertEquals("username", validationError.getField());
+        assertEquals("field.required", validationError.getCode());
     }
 
     @Test

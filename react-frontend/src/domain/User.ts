@@ -7,10 +7,11 @@ export default class User {
     public email: string;
     public role?: Role;
 
-    constructor(username?: string, password?: string, email?: string, id?: number) {
+    constructor(username?: string, password?: string, email?: string, id?: number, role?: Role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = role;
     }
 }

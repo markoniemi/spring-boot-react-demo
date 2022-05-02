@@ -9,7 +9,7 @@ import Jwt from "../api/Jwt";
 import Message, { MessageType } from "../domain/Message";
 import { RouteParam } from "./EditUser";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { ErrorMessage, Form as FormikForm, Formik, FormikProps } from "formik";
+import { Form as FormikForm, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import InputField from "./InputField";
 
@@ -38,9 +38,9 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
 
     public render(): JSX.Element {
         return (
-            <Card>
+            <Card id="LoginForm">
                 <Form.Row>
-                    <Col sm={1} md={{ span: 4, offset: 4 }}>
+                    <Col md={{ span: 10, offset: 4 }}>
                         <Card.Body>
                             <Card.Title>
                                 <FormattedMessage id="login" />
@@ -78,18 +78,12 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
     }
 
     public async onSubmit(values: ILoginForm) {
-        this.setState({
-            password: values.password,
-            username: values.username,
-        });
+        this.setState({ ...values });
         await this.login();
     }
 
     private async login(): Promise<void> {
-        const loginForm: ILoginForm = {
-            password: this.state.password,
-            username: this.state.username,
-        };
+        const loginForm: ILoginForm = { ...this.state };
         try {
             const token = await LoginService.login(loginForm);
             Jwt.setToken(token);

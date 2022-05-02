@@ -60,7 +60,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
             ));
         }
         return (
-            <Card>
+            <Card id="UsersContainer">
                 <Card.Body>
                     <Card.Title>
                         <FormattedMessage id="users" />

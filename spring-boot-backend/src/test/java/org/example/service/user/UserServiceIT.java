@@ -1,5 +1,8 @@
 package org.example.service.user;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,27 +19,26 @@ import javax.xml.ws.handler.MessageContext;
 import org.example.ReactDemoApplication;
 import org.example.config.IntegrationTestConfig;
 import org.example.model.user.User;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = ReactDemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @ContextHierarchy(@ContextConfiguration(classes = IntegrationTestConfig.class))
-@Ignore
+@Disabled
 public class UserServiceIT {
     private TestRestTemplate testRestTemplate = new TestRestTemplate();
     private String url = "http://localhost:8080";
@@ -60,24 +62,24 @@ public class UserServiceIT {
     @Test
     public void getUsersRest() throws JsonParseException, JsonMappingException, IOException {
         ResponseEntity<String> responseString = testRestTemplate.getForEntity(url + "/api/rest/users", String.class);
-        Assert.assertNotNull(responseString);
+        assertNotNull(responseString);
         List<User> users = parseResponse(responseString);
-        Assert.assertNotNull(users);
-        Assert.assertEquals(6, users.size());
+        assertNotNull(users);
+        assertEquals(6, users.size());
     }
 
     @Test
     public void getUserRest() throws JsonParseException, JsonMappingException, IOException {
         User user = testRestTemplate.getForObject(url + "/api/rest/users/username/admin1", User.class);
-        Assert.assertEquals("admin1", user.getUsername());
+        assertEquals("admin1", user.getUsername());
     }
 
     @Test
     public void getUsersWs() throws JsonParseException, JsonMappingException, IOException {
         UserService userService = getUserWsClient();
         List<User> users = userService.findAll();
-        Assert.assertNotNull(users);
-        Assert.assertEquals(6, users.size());
+        assertNotNull(users);
+        assertEquals(6, users.size());
     }
 
     private List<User> parseResponse(ResponseEntity<String> responseString)

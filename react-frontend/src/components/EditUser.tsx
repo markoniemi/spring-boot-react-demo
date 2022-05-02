@@ -9,7 +9,7 @@ import Message, { MessageType } from "../domain/Message";
 import { Button, Card, Col, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
-import { ErrorMessage, Form as FormikForm, Formik, FormikProps } from "formik";
+import { Form as FormikForm, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import InputField from "./InputField";
 
@@ -33,11 +33,10 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
 
     constructor(props) {
         super(props);
-        // window.onbeforeunload = () => true;
         this.submitUser = this.submitUser.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.renderForm = this.renderForm.bind(this);
-        this.state = { user: new User("", "", "") };
+        this.state = { user: new User("", "", "", null) };
     }
 
     public override async componentDidMount(): Promise<void> {
@@ -53,7 +52,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
 
     public override render(): React.ReactNode {
         return (
-            <Card>
+            <Card id="EditUser">
                 <Card.Body>
                     <Card.Title>
                         <FormattedMessage id="user" />

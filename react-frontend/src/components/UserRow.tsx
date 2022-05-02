@@ -42,10 +42,10 @@ class UserRow extends React.Component<RouteComponentProps & UserProps, Empty> {
                     <FormattedMessage id={"role." + user.role} />
                 </td>
                 <td>
-                    <Button id="edit" size="sm" onClick={this.editUser}>
+                    <Button id={`edit.${user.username}`} size="sm" onClick={this.editUser}>
                         <FontAwesomeIcon icon={Icons.faEdit} />
                     </Button>
-                    <Button id="delete" size="sm" onClick={this.delete}>
+                    <Button id={`delete.${user.username}`} size="sm" onClick={this.delete}>
                         <FontAwesomeIcon icon={Icons.faTrashAlt} />
                     </Button>
                 </td>

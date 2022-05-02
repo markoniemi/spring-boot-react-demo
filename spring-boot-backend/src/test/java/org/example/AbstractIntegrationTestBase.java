@@ -1,25 +1,26 @@
 package org.example;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.example.config.IntegrationTestConfig;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Base class for integration tests, enables running multiple tests
  * with @SpringBootTest
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = ReactDemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @ContextHierarchy(@ContextConfiguration(classes = IntegrationTestConfig.class))
 public class AbstractIntegrationTestBase {
     @Test
     public void dummy() {
-        Assert.assertTrue(true);
+        assertTrue(true);
     }
 }

@@ -1,78 +1,43 @@
 import { assert } from "chai";
 import * as dotenv from "dotenv";
-import * as React from "react";
-import createRouteComponentProps from "../RouteComponentPropsMock";
 import fetchMock from "fetch-mock";
-import sleep from "es7-sleep";
 import "isomorphic-fetch";
-import { act, configure, fireEvent, render, screen } from "@testing-library/react";
-import i18nConfig from "../../src/messages/messages";
-import { IntlProvider } from "react-intl";
-import { findButton, getValueById, setText } from "./EditUser-test";
-import LoginForm from "../../src/components/LoginForm";
+import { configure, screen } from "@testing-library/react";
+import LoginPage from "../pages/LoginPage";
+import createHistory from "../HistoryMock";
 
 describe("LoginForm component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: "config/development.env" });
+        fetchMock.postOnce("/api/rest/time", "message");
     });
     afterEach(() => {
         fetchMock.restore();
     });
     test("should change page with valid credentials", async () => {
-        const routeComponentProps = createRouteComponentProps({});
-        routeComponentProps.history.push = jest.fn();
-        render(
-            <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
-                <LoginForm.WrappedComponent {...routeComponentProps} />
-            </IntlProvider>,
-        );
-        await sleep(100);
-        assert.equal(await getValueById("username"), "");
-        assert.equal(await getValueById("password"), "");
+        const history = createHistory();
+        history.push = jest.fn();
+        await LoginPage.render(history);
+        await LoginPage.setLogin("", "");
         fetchMock.postOnce("/api/rest/auth/login/", 200);
-        await act(async () => {
-            await setText("username", "user1");
-            await setText("password", "user1");
-            assert.equal(await getValueById("username"), "user1");
-            assert.equal(await getValueById("password"), "user1");
-            fireEvent.keyPress(await screen.findByTestId("password"), { key: "Enter", code: "Enter", charCode: 13 });
-            await sleep(100);
-        });
-        expect(routeComponentProps.history.push).toBeCalledWith("/users");
+        await LoginPage.setLogin("user1", "user1");
+        await LoginPage.assertLogin("user1", "user1");
+        await LoginPage.pressEnter();
+        expect(history.push).toBeCalledWith("/users");
     });
     test("should show validation error with empty credentials", async () => {
-        const routeComponentProps = createRouteComponentProps({});
-        render(
-            <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
-                <LoginForm.WrappedComponent {...routeComponentProps} />
-            </IntlProvider>,
-        );
-        await sleep(100);
-        assert.equal(await getValueById("username"), "");
-        assert.equal(await getValueById("password"), "");
-        await act(async () => {
-            fireEvent.click(await findButton("login"));
-            await sleep(100);
-        });
+        await LoginPage.render(createHistory());
+        await LoginPage.assertLogin("", "");
+        await LoginPage.clickLogin();
         assert.isNotNull(await screen.getByText("Username required"));
         assert.isNotNull(await screen.getByText("Password required"));
     });
     test("should show an error with invalid credentials", async () => {
-        const routeComponentProps = createRouteComponentProps({});
-        render(
-            <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
-                <LoginForm.WrappedComponent {...routeComponentProps} />
-            </IntlProvider>,
-        );
-        await sleep(100);
+        await LoginPage.render(createHistory());
+        await LoginPage.setLogin("invalid", "invalid");
         fetchMock.postOnce("/api/rest/auth/login/", 400);
-        await act(async () => {
-            await setText("username", "invalid");
-            await setText("password", "invalid");
-            fireEvent.click(await findButton("login"));
-            await sleep(100);
-        });
+        await LoginPage.clickLogin();
         assert.isNotNull(await screen.getByText("Login error"));
     });
 });

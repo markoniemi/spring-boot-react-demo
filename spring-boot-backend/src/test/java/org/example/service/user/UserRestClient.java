@@ -9,7 +9,8 @@ import org.example.security.JwtToken;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
-import io.restassured.mapper.TypeRef;
+import io.restassured.common.mapper.TypeRef;
+
 
 public class UserRestClient {
     private String url = "http://localhost:8080/api/rest";

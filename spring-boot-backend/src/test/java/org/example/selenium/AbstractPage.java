@@ -1,6 +1,7 @@
 package org.example.selenium;
 
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -26,7 +27,7 @@ public abstract class AbstractPage {
     }
 
     protected void assertTitle(String title) {
-        Assert.assertEquals(webDriver.getPageSource(), title, webDriver.getTitle());
+        assertEquals(webDriver.getPageSource(), title, webDriver.getTitle());
     }
 
     protected void selectByValue(By by, String value) {
