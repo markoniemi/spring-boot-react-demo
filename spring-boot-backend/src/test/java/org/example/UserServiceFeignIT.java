@@ -19,7 +19,7 @@ import org.springframework.validation.BindException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-public class UserServiceFeignIT extends AbstractIntegrationTestBase{
+public class UserServiceFeignIT extends AbstractIntegrationTestBase {
     @Resource
     private UserService userService;
 

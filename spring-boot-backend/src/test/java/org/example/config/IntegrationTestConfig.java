@@ -8,7 +8,7 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import feign.RequestInterceptor;
 
 @Configuration
-@Import({ SeleniumConfig.class })
+@Import({  SeleniumConfig.class })
 public class IntegrationTestConfig {
 
     @Bean

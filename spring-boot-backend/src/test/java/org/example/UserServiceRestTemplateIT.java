@@ -8,21 +8,14 @@ import java.util.Collections;
 
 import javax.annotation.Resource;
 
-import org.example.config.IntegrationTestConfig;
 import org.example.config.RestRequestInterceptor;
 import org.example.model.user.Role;
 import org.example.model.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.ContextHierarchy;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -31,11 +24,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import lombok.extern.log4j.Log4j2;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = ReactDemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
-@ContextHierarchy(@ContextConfiguration(classes = IntegrationTestConfig.class))
 @Log4j2
-public class UserServiceRestTemplateIT {
+public class UserServiceRestTemplateIT extends AbstractIntegrationTestBase {
     private TestRestTemplate testRestTemplate = new TestRestTemplate();
     private String url = "http://localhost:8080";
     @Resource
@@ -45,7 +35,6 @@ public class UserServiceRestTemplateIT {
     public void setUp() {
         testRestTemplate.getRestTemplate().setInterceptors(Collections.singletonList(requestInterceptor));
     }
-
 
     @Test
     public void findAll() throws JsonParseException, JsonMappingException, IOException {
