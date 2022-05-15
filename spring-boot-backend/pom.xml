@@ -14,7 +14,6 @@
     <org.apache.cxf.version>3.5.2</org.apache.cxf.version>
     <spring.boot.version>2.6.6</spring.boot.version>
     <spring-cloud.version>2021.0.1</spring-cloud.version>
-    <selenium.version>3.13.0</selenium.version>
     <docker.image.prefix>markoniemi</docker.image.prefix>
   </properties>
   <dependencies>
@@ -136,8 +135,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.10.1</version>
         <configuration>
+          <release>${java.version}</release>
           <source>${java.version}</source>
           <target>${java.version}</target>
         </configuration>
@@ -218,13 +218,6 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>org.jboss.arquillian.selenium</groupId>
-        <artifactId>selenium-bom</artifactId>
-        <version>${selenium.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-parent</artifactId>
         <version>${org.apache.cxf.version}</version>
@@ -233,18 +226,18 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <repositories>
-    <repository>
-      <id>spring-release</id>
-      <name>Spring release</name>
-      <url>https://repo.spring.io/release</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>spring-release</id>
-      <name>Spring release</name>
-      <url>https://repo.spring.io/release</url>
-    </pluginRepository>
-  </pluginRepositories>
+<!--   <repositories> -->
+<!--     <repository> -->
+<!--       <id>spring-release</id> -->
+<!--       <name>Spring release</name> -->
+<!--       <url>https://repo.spring.io/release</url> -->
+<!--     </repository> -->
+<!--   </repositories> -->
+<!--   <pluginRepositories> -->
+<!--     <pluginRepository> -->
+<!--       <id>spring-release</id> -->
+<!--       <name>Spring release</name> -->
+<!--       <url>https://repo.spring.io/release</url> -->
+<!--     </pluginRepository> -->
+<!--   </pluginRepositories> -->
 </project>
