@@ -1,12 +1,12 @@
 import type { Config } from "jest";
 
 const config: Config = {
+    preset: "ts-jest",
     testEnvironment: "jsdom",
-    setupFiles: ["./test/jest.setup.js", "jest-localstorage-mock"],
+    setupFiles: ["./test/jest.setup.ts", "jest-localstorage-mock"],
     moduleFileExtensions: ["ts", "tsx", "js"],
     transform: {
         "^.+\\.tsx?$": "ts-jest",
-        "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
     },
     testRegex: "(/test/.*-(test|it))\\.tsx?",
     testPathIgnorePatterns: ["__snapshots__"],

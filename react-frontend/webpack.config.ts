@@ -29,7 +29,6 @@ const webpackConfig: webpack.Configuration = {
     module: {
         rules: [
             { test: /\.tsx?$/, use: ["ts-loader"] },
-            { test: /\.js$/, exclude: /node_modules/, use: ["babel-loader"] },
             { test: /\.css$/, use: ["style-loader", "css-loader"] },
             { test: /\.json$/, use: ["json-loader"] },
             {
