@@ -33,7 +33,8 @@
     "start": "tsc && webpack serve --mode development --config dist/webpack.config.js",
     "test": "jest --coverage --config jest.config.json",
     "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN"
+    "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN",
+    "dependency-tree": "npm ls -a > dependencyTree.txt"
   },
   "devDependencies": {
     "@types/chai": "4.2.21",
@@ -62,7 +63,7 @@
     "dotenv": "10.0.0",
     "dotenv-webpack": "7.0.3",
     "es7-sleep": "1.0.0",
-    "eslint": "7.32.0",
+    "eslint": "8.30.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.31.11",
