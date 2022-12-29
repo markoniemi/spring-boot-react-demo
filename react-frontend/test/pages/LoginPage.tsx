@@ -1,9 +1,8 @@
 import AbstractPage from "./AbstractPage";
 import { act, fireEvent, screen } from "@testing-library/react";
-import * as React from "react";
 import { assert } from "chai";
 import sleep from "es7-sleep";
-import {users} from "../userList";
+import { users } from "../userList";
 import fetchMock from "fetch-mock";
 
 export default class LoginPage extends AbstractPage {
@@ -16,9 +15,11 @@ export default class LoginPage extends AbstractPage {
         fetchMock.postOnce("/api/rest/time", "message");
         await LoginPage.clickLogin();
     }
+
     public static async assertPageLoaded() {
         assert.isNotNull(await this.findById("LoginForm"));
     }
+
     public static async assertLogin(username: string, password: string): Promise<void> {
         assert.equal(await this.getValueById("username"), username);
         assert.equal(await this.getValueById("password"), password);
@@ -30,6 +31,7 @@ export default class LoginPage extends AbstractPage {
             await this.setText("password", password);
         });
     }
+
     public static async pressEnter(): Promise<void> {
         await act(async () => {
             fireEvent.keyPress(await screen.findByTestId("password"), { key: "Enter", code: "Enter", charCode: 13 });

@@ -1,23 +1,25 @@
 import AbstractPage from "./AbstractPage";
 import { act, fireEvent, screen } from "@testing-library/react";
-import * as React from "react";
 import { assert } from "chai";
 import sleep from "es7-sleep";
-import { user1, users } from "../userList";
+import { users } from "../userList";
 import EditUserPage from "./EditUserPage";
 import User from "../../src/domain/User";
 import fetchMock from "fetch-mock";
 
 export default class UsersPage extends AbstractPage {
-    static async deleteUser(user:User) {
+    static async deleteUser(user: User) {
         await UsersPage.assertPageLoaded();
-        fetchMock.deleteOnce("/api/rest/users/"+user.id, 200);
+        fetchMock.deleteOnce("/api/rest/users/" + user.id, 200);
         fetchMock.getOnce("/api/rest/users/", users);
         await UsersPage.clickDelete(user.username);
     }
+
     public static async assertPageLoaded() {
         assert.isNotNull(await this.findById("UsersContainer"));
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public static async assertUser(username: string, email?: string, role?: string): Promise<void> {
         assert.isTrue((await this.getTextsById("username")).includes(username));
         if (!!email) {
@@ -31,12 +33,14 @@ export default class UsersPage extends AbstractPage {
             await sleep(100);
         });
     }
+
     public static async clickAddUser(): Promise<void> {
         await act(async () => {
             fireEvent.click(await AbstractPage.findButton("addUser"));
             await sleep(100);
         });
     }
+
     public static async clickDelete(username: string): Promise<void> {
         await act(async () => {
             window.confirm = jest.fn().mockImplementation(() => true);
@@ -45,6 +49,7 @@ export default class UsersPage extends AbstractPage {
             await sleep(100);
         });
     }
+
     public static async clickEdit(username: string): Promise<void> {
         await act(async () => {
             fireEvent.click(screen.getByTestId(`edit.${username}`));

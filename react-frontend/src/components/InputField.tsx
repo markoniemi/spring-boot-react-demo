@@ -14,6 +14,7 @@ export default class InputField extends React.Component<InputProps, Empty> {
         super(props);
         this.onKeyPress = this.onKeyPress.bind(this);
     }
+
     public override render(): React.ReactNode {
         const { name, form, children } = this.props;
         return (
@@ -45,6 +46,7 @@ export default class InputField extends React.Component<InputProps, Empty> {
             </Form.Row>
         );
     }
+
     private async onKeyPress(event: React.KeyboardEvent<HTMLInputElement>): Promise<void> {
         if ("Enter" === event.key) {
             await this.props.form.submitForm();

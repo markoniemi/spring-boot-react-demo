@@ -103,6 +103,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
         }
         this.setState(() => ({ users: users }));
     }
+
     private async logout() {
         await LoginService.logout();
         this.props.history.push("/");

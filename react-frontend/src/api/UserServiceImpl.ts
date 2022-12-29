@@ -4,6 +4,7 @@ import Http from "./Http";
 
 export default class UserServiceImpl implements UserService {
     private readonly url = `/api/rest/users/`;
+
     public async fetchUsers(): Promise<User[]> {
         const response: Response = await Http.get(this.url);
         if (response.ok) {

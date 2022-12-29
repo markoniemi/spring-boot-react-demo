@@ -10,6 +10,7 @@ export default class TimeServiceImpl implements TimeService {
             throw new Error("error.time");
         }
     }
+
     public getApiUrl(): string {
         return "/api/rest/time";
     }

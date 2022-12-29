@@ -9,12 +9,15 @@ export default class AbstractPage {
         render(<App history={history} />);
         await sleep(100);
     }
+
     public static async getValueById(id: string): Promise<string> {
         return ((await screen.getByTestId(id)) as HTMLInputElement).value;
     }
+
     public static async findById(id: string): Promise<HTMLElement> {
-        return ((await screen.getByTestId(id)) as HTMLElement);
+        return (await screen.getByTestId(id)) as HTMLElement;
     }
+
     public static async getTextsById(id: string): Promise<string[]> {
         const elements = (await screen.getAllByTestId(id)) as HTMLInputElement[];
         return elements.map((element) => element.textContent);
