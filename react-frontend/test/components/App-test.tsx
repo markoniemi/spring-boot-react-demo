@@ -1,12 +1,15 @@
 import * as dotenv from "dotenv";
 import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
-import { configure } from "@testing-library/react";
+import { configure, render } from "@testing-library/react";
 import LoginPage from "../pages/LoginPage";
 import createHistory from "../HistoryMock";
 import UsersPage from "../pages/UsersPage";
 import { user1, user2, users } from "../userList";
 import EditUserPage from "../pages/EditUserPage";
+import App from "../../src/components/App";
+import * as React from "react";
+import sleep from "es7-sleep";
 
 describe("App component", () => {
     beforeEach(() => {
@@ -15,6 +18,11 @@ describe("App component", () => {
     });
     afterEach(() => {
         fetchMock.restore();
+    });
+    test("should show login page", async () => {
+        render(<App history={createHistory()} />);
+        await sleep(100);
+        LoginPage.assertPageLoaded();
     });
     test("app test", async () => {
         LoginPage.render(createHistory());

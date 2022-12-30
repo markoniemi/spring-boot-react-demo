@@ -11,6 +11,7 @@ const i18nConfig = {
         role: "Role",
         "role.ROLE_USER": "User",
         "role.ROLE_ADMIN": "Admin",
+        "role.undefined": " ",
         "error.login": "Login error",
         "error.time": "Error loading time",
         "error.load.users": "Error loading users",

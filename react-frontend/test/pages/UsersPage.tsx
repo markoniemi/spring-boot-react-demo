@@ -71,4 +71,10 @@ export default class UsersPage extends AbstractPage {
         fetchMock.postOnce("/api/rest/time", "message");
         await EditUserPage.clickSaveUser();
     }
+    static async clickLogout(): Promise<void> {
+        await act(async () => {
+            fireEvent.click(await AbstractPage.findButton("logout"));
+            await sleep(100);
+        });
+    }
 }

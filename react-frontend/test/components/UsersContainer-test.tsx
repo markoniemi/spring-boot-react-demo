@@ -64,4 +64,13 @@ describe("UsersContainer component", () => {
         await UsersPage.clickDelete("user1");
         assert.isTrue(fetchMock.done());
     });
+    test("should log out", async () => {
+        fetchMock.getOnce("/api/rest/users/", users);
+        const history = createHistory("/users");
+        history.push = jest.fn();
+        await UsersPage.render(history);
+        await UsersPage.clickLogout();
+        assert.isTrue(fetchMock.done());
+        expect(history.push).toBeCalledWith("/");
+    });
 });
