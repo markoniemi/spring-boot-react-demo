@@ -1,3 +1,4 @@
+import { assert } from "chai";
 import * as dotenv from "dotenv";
 import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
@@ -19,12 +20,12 @@ describe("App component", () => {
     afterEach(() => {
         fetchMock.restore();
     });
-    test("should show login page", async () => {
+    test("shows login page", async () => {
         render(<App history={createHistory()} />);
         await sleep(100);
         LoginPage.assertPageLoaded();
     });
-    test("app test", async () => {
+    test("login, edit, delete and add user", async () => {
         LoginPage.render(createHistory());
         // login
         await LoginPage.login("user1", "user1");
@@ -37,13 +38,14 @@ describe("App component", () => {
         await UsersPage.deleteUser(user2);
         // add user
         await UsersPage.assertPageLoaded();
-        fetchMock.getOnce("/users/new", 200);
         await UsersPage.clickAddUser();
         await EditUserPage.assertUser("", "", "", "");
-        await EditUserPage.setUser("user", "password", "email", "ROLE_USER");
-        fetchMock.postOnce("/api/rest/users/", { username: "user", email: "email" });
+        await EditUserPage.setUser("newUser", "password", "email", "ROLE_USER");
+        fetchMock.postOnce("/api/rest/users/", { username: "newUser", email: "email" });
         fetchMock.getOnce("/api/rest/users/", users);
         fetchMock.postOnce("/api/rest/time", "message");
         await EditUserPage.clickSaveUser();
+        sleep(100);
+        assert.isTrue(fetchMock.done());
     });
 });

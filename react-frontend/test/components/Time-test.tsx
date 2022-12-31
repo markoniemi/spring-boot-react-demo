@@ -15,13 +15,13 @@ describe.skip("Hello component", () => {
     afterEach(() => {
         fetchMock.restore();
     });
-    test("should render text", async () => {
+    test("renders text", async () => {
         fetchMock.post("/api/rest/time", "response");
         render(<Time />);
         await sleep(100);
         assert.equal((await screen.findByTestId("message")).textContent, "response");
     });
-    test.skip("should update text after button press", async () => {
+    test.skip("updates text after button press", async () => {
         fetchMock.postOnce("/api/rest/time", "response1");
         fetchMock.postOnce("/api/rest/time", "response2");
         render(<Time />);

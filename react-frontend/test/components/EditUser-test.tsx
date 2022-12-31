@@ -16,17 +16,17 @@ describe("EditUser component", () => {
     afterEach(() => {
         fetchMock.restore();
     });
-    test("should render a user", async () => {
+    test("renders a user", async () => {
         fetchMock.getOnce("/api/rest/users/1", user1);
         await EditUserPage.render(createHistory("/users/1"));
         await EditUserPage.assertUser(user1.id.toString(), user1.username, user1.email, user1.role.toString());
     });
-    test("should show an error", async () => {
+    test("shows an error", async () => {
         fetchMock.getOnce("/api/rest/users/1", 401);
         await EditUserPage.render(createHistory("/users/1"));
         assert.isNotNull(await screen.getByText("Error loading user"));
     });
-    test("should show validation error with empty user", async () => {
+    test("shows validation error with empty user", async () => {
         await EditUserPage.render(createHistory("/users/1"));
         await EditUserPage.assertUser("", "", "", "");
         await EditUserPage.clickSaveUser();
@@ -35,14 +35,14 @@ describe("EditUser component", () => {
         assert.isNotNull(await screen.getByText("Email required"));
         assert.isNotNull(await screen.getByText("Role required"));
     });
-    test("should show an error with invalid user", async () => {
+    test("shows an error with invalid user", async () => {
         await EditUserPage.render(createHistory("/users/new"));
         fetchMock.postOnce("/api/rest/users/", 404);
         await EditUserPage.setUser("invalid", "invalid", "invalid", "ROLE_ADMIN");
         await EditUserPage.clickSaveUser();
         assert.isNotNull(await screen.getByText("Error saving user"));
     });
-    test("should add a user", async () => {
+    test("adds a user", async () => {
         const history = createHistory("/users/new");
         history.push = jest.fn();
         await EditUserPage.render(history);
@@ -53,7 +53,7 @@ describe("EditUser component", () => {
         expect(history.push).toBeCalledWith("/users");
         assert.isTrue(fetchMock.done());
     });
-    test("should edit a user", async () => {
+    test("edits a user", async () => {
         fetchMock.getOnce("/api/rest/users/1", user1);
         const history = createHistory("/users/1");
         history.push = jest.fn();

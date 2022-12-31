@@ -15,7 +15,7 @@ describe("LoginForm component", () => {
     afterEach(() => {
         fetchMock.restore();
     });
-    test("should change page with valid credentials", async () => {
+    test("opens users page with valid credentials", async () => {
         const history = createHistory();
         history.push = jest.fn();
         await LoginPage.render(history);
@@ -26,14 +26,14 @@ describe("LoginForm component", () => {
         await LoginPage.pressEnter();
         expect(history.push).toBeCalledWith("/users");
     });
-    test("should show validation error with empty credentials", async () => {
+    test("shows validation error with empty credentials", async () => {
         await LoginPage.render(createHistory());
         await LoginPage.assertLogin("", "");
         await LoginPage.clickLogin();
         assert.isNotNull(await screen.getByText("Username required"));
         assert.isNotNull(await screen.getByText("Password required"));
     });
-    test("should show an error with invalid credentials", async () => {
+    test("shows an error with invalid credentials", async () => {
         await LoginPage.render(createHistory());
         await LoginPage.setLogin("invalid", "invalid");
         fetchMock.postOnce("/api/rest/auth/login/", 400);

@@ -10,7 +10,7 @@ describe("Messages component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
     });
-    test("should not create error with empty message list", async () => {
+    test("creates no error with empty message list", async () => {
         render(
             <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
                 <Messages messages={[]} />
@@ -18,7 +18,7 @@ describe("Messages component", () => {
         );
         assert.isNull(await screen.queryByTestId("messages"));
     });
-    test("should render messages", async () => {
+    test("renders messages", async () => {
         render(
             <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
                 <Messages messages={messages} />

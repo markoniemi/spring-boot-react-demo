@@ -17,20 +17,20 @@ describe.skip("UserRow component", () => {
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: "config/development.env" });
     });
-    test("should render a user", async () => {
+    test("renders a user", async () => {
         const routeComponentProps = createRouteComponentProps(null);
         renderUserRow(user1, null, routeComponentProps);
         assert.equal((await screen.findByTestId("username")).textContent, "user1");
         assert.equal((await screen.findByTestId("email")).textContent, "email1");
     });
-    test("should not create error with empty user", async () => {
+    test("creates no error with empty user", async () => {
         const emptyUser = new User();
         const routeComponentProps = createRouteComponentProps(null);
         renderUserRow(emptyUser, null, routeComponentProps);
         assert.equal((await screen.findByTestId("username")).textContent, "");
         assert.equal((await screen.findByTestId("email")).textContent, "");
     });
-    test("should delete a user", async () => {
+    test("deletes a user", async () => {
         const deleteUser = jest.fn();
         const routeComponentProps = createRouteComponentProps(null);
         renderUserRow(user1, deleteUser, routeComponentProps);
