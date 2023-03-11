@@ -10,6 +10,7 @@
         <Root level="INFO">
             <AppenderRef ref="Console" />
         </Root>
+    <Logger name="org.apache.cxf.jaxb.JAXBContextInitializer" level="WARN"/>
 		<Logger name="org.example" level="WARN"/>
 		<Logger name="org.springframework" level="WARN"/>
 		<Logger name="org.springframework.web.servlet.mvc" level="WARN"/>

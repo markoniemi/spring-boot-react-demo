@@ -13,15 +13,12 @@ import javax.xml.ws.Service;
 
 import org.example.model.user.User;
 import org.example.service.user.UserService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-@Disabled
 public class UserServiceWsIT extends AbstractIntegrationTestBase {
-
     @Test
     public void findAll() throws JsonParseException, JsonMappingException, IOException {
         UserService userService = getUserClient();

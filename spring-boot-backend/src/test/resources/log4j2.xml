@@ -2,7 +2,9 @@
 <Configuration status="ERROR">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%msg%n" />
+<!--             <PatternLayout pattern="%d %msg%n" /> -->
+<!--             <PatternLayout pattern="%msg%n" /> -->
+            <PatternLayout pattern="%-5level %logger - %msg%n" />
 <!--             <PatternLayout pattern="%-5level %logger{36} - %msg%n" /> -->
         </Console>
     </Appenders>
@@ -10,6 +12,7 @@
         <Root level="INFO">
             <AppenderRef ref="Console" />
         </Root>
+		<Logger name="org.apache.cxf.jaxb.JAXBContextInitializer" level="WARN"/>
 		<Logger name="org.example" level="DEBUG"/>
 		<Logger name="org.springframework" level="WARN"/>
 		<Logger name="org.springframework.web.servlet.mvc" level="WARN"/>
