@@ -12,8 +12,8 @@
   <properties>
     <java.version>11</java.version>
     <org.apache.cxf.version>3.5.2</org.apache.cxf.version>
-    <spring-cloud.version>2021.0.3</spring-cloud.version>
-    <spring.boot.version>2.7.5</spring.boot.version>
+    <spring-cloud.version>2021.0.5</spring-cloud.version>
+    <spring.boot.version>2.7.9</spring.boot.version>
     <docker.image.prefix>markoniemi</docker.image.prefix>
   </properties>
   <dependencies>
@@ -145,7 +145,7 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.7.0</version>
+        <version>${spring.boot.version}</version>
       </plugin>
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
