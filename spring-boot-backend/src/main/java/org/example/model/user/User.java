@@ -32,7 +32,7 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "username")
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
-@XmlRootElement
+@XmlRootElement(name="User")
 @XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("PMD.UnusedPrivateField")
 public class User {

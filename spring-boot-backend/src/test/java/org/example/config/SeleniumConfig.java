@@ -22,7 +22,7 @@ public class SeleniumConfig {
         options.addArguments("proxy-server='direct://'");
         options.addArguments("proxy-bypass-list=*");
         ChromeDriver chromeDriver = new ChromeDriver(options);
-        chromeDriver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);
+        chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         return chromeDriver;
     }
 }

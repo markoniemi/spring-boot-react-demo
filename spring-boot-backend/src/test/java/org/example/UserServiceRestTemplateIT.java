@@ -12,7 +12,6 @@ import org.example.config.RestRequestInterceptor;
 import org.example.model.user.Role;
 import org.example.model.user.User;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
@@ -56,7 +55,6 @@ public class UserServiceRestTemplateIT extends AbstractIntegrationTestBase {
     }
 
     @Test
-    @Disabled
     public void create() throws JsonProcessingException {
         User user = new User("test", "test", "email", Role.ROLE_USER);
         User savedUser = testRestTemplate.postForObject(url + "/api/rest/users", new HttpEntity<User>(user),

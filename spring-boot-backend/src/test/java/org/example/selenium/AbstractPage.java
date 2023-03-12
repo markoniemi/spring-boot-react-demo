@@ -1,13 +1,12 @@
 package org.example.selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public abstract class AbstractPage {
-    protected static final int SLEEP_TIME = 2000;
     protected WebDriver webDriver;
 
     public AbstractPage(WebDriver webDriver) {
@@ -35,12 +34,5 @@ public abstract class AbstractPage {
     }
     protected void selectByText(By by, String value) {
         new Select(webDriver.findElement(by)).selectByVisibleText(value);
-    }
-    protected void sleep() {
-        try {
-            Thread.sleep(SLEEP_TIME);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
