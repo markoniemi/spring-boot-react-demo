@@ -18,9 +18,5 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(classes = ReactDemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @ExtendWith(SpringExtension.class)
 @ContextHierarchy(@ContextConfiguration(classes = IntegrationTestConfig.class))
-public class AbstractIntegrationTestBase {
-    @Test
-    public void dummy() {
-        assertTrue(true);
-    }
+public abstract class AbstractIntegrationTestBase {
 }

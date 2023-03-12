@@ -9,12 +9,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Value;
 
 public class ReactDemoApplicationIT extends AbstractIntegrationTestBase {
     @Resource
     protected WebDriver webDriver;
-//    @Resource(name = "loginUrl")
-    private String loginUrl = "http://localhost:8080/";
+    @Value("${loginUrl:http://localhost:8080}")
+    private String loginUrl;
     private UsersPage usersPage;
     private EditUserPage editUserPage;
     private LoginPage loginPage;
