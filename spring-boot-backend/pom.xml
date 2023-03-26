@@ -122,6 +122,10 @@
       <artifactId>guava</artifactId>
       <version>31.1-jre</version>
     </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
