@@ -1,6 +1,6 @@
 package org.example.config;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,8 +21,9 @@ public class SeleniumConfig {
         options.addArguments("no-sandbox");
         options.addArguments("proxy-server='direct://'");
         options.addArguments("proxy-bypass-list=*");
+        options.addArguments("remote-allow-origins=*");
         ChromeDriver chromeDriver = new ChromeDriver(options);
-        chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return chromeDriver;
     }
 }

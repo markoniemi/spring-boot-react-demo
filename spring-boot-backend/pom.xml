@@ -11,9 +11,9 @@
   <artifactId>spring-boot-backend</artifactId>
   <properties>
     <java.version>11</java.version>
-    <org.apache.cxf.version>3.5.2</org.apache.cxf.version>
-    <spring-cloud.version>2021.0.5</spring-cloud.version>
-    <spring.boot.version>2.7.9</spring.boot.version>
+    <org.apache.cxf.version>3.5.5</org.apache.cxf.version>
+    <spring-cloud.version>2021.0.6</spring-cloud.version>
+    <spring.boot.version>2.7.10</spring.boot.version>
     <docker.image.prefix>markoniemi</docker.image.prefix>
   </properties>
   <dependencies>
@@ -110,14 +110,7 @@
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
-      <version>5.2.2</version>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>ch.qos.logback</groupId>
-          <artifactId>logback-classic</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
@@ -223,6 +216,17 @@
         <version>${org.apache.cxf.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.github.bonigarcia</groupId>
+        <artifactId>webdrivermanager</artifactId>
+        <version>5.2.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
     </dependencies>
   </dependencyManagement>
