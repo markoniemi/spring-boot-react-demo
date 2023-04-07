@@ -1,16 +1,13 @@
 package org.example.config;
 
 import javax.annotation.Resource;
-
 import org.example.security.JwtAuthorizationFilter;
 import org.example.security.UserRepositoryAuthenticationProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -28,24 +25,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     UserRepositoryAuthenticationProvider userRepositoryAuthenticationProvider;
     @Resource
     UserDetailsService userDetailsService;
+    String[] ignoredPaths = {"/*", "/login","/api/rest/auth/login/**", "/h2-console/**"};
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/*", "/login", "/api/**", "/h2-console/**");
-    }
-
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable();
-        http.authorizeRequests().anyRequest().authenticated();
-        http.addFilter(new JwtAuthorizationFilter(authenticationManager()));
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    protected void configure(HttpSecurity http) throws Exception {
+      http.cors().and().csrf().disable();
+      http.authorizeRequests().regexMatchers(".*\\?wsdl").permitAll()//
+          .antMatchers(ignoredPaths).permitAll()//
+          .anyRequest().authenticated()//
+          .and()//
+//          .addFilter(new JwtAuthenticationFilter(authenticationManager()))//
+          .addFilter(new JwtAuthorizationFilter(authenticationManager()));
+      // this disables session creation on Spring Security
+      http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         // TODO replace encoder with BCryptPasswordEncoder
-        auth.userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance())//
+        .and()//
+        .authenticationProvider(userRepositoryAuthenticationProvider);
     }
 
     @Bean
@@ -55,8 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(userRepositoryAuthenticationProvider);
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//    }
 }

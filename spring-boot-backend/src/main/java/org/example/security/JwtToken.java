@@ -32,6 +32,6 @@ public class JwtToken {
     }
 
     public static boolean hasToken(String header) {
-        return header != null && header.startsWith(TOKEN_PREFIX);
+        return StringUtils.startsWith(header, TOKEN_PREFIX);
     }
 }
