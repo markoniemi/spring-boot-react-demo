@@ -24,8 +24,6 @@ public class SeleniumConfig {
         options.addArguments("remote-allow-origins=*");
         ChromeDriver chromeDriver = new ChromeDriver(options);
         chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        chromeDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-        chromeDriver.manage().timeouts().setScriptTimeout(Duration.ofSeconds(30));
         return chromeDriver;
     }
 }
