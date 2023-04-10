@@ -1,12 +1,11 @@
 package org.example.selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class UsersPage extends AbstractPage {
   public UsersPage(WebDriver webDriver) {
     super(webDriver);
@@ -26,10 +25,9 @@ public class UsersPage extends AbstractPage {
   }
 
   public void assertUser(String username, String email, String role) {
-    WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-    wait.until(ExpectedConditions
-        .visibilityOfElementLocated(By.xpath("//tr[@id='" + username + "']//td[@id='username']")));
-    assertEquals(username, getText(By.xpath("//tr[@id='" + username + "']//td[@id='username']")));
+    sleep(1000);
+    webDriver.navigate().refresh();
+    assertEquals(username, getText(By.xpath("//tr[@id='" + username + "']//td[@id='username']")), webDriver.findElement(By.tagName("body")).getText());
     assertEquals(email, getText(By.xpath("//tr[@id='" + username + "']//td[@id='email']")));
     assertEquals(role, getText(By.xpath("//tr[@id='" + username + "']//td[@id='role']")));
   }

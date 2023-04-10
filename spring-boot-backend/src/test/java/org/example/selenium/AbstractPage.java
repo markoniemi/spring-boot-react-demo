@@ -12,6 +12,13 @@ public abstract class AbstractPage {
     public AbstractPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
+    protected void sleep(int ms) {
+      try {
+        Thread.sleep(ms);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
 
     protected String getText(By by) {
         return webDriver.findElement(by).getText();
@@ -26,7 +33,7 @@ public abstract class AbstractPage {
     }
 
     protected void assertTitle(String title) {
-        assertEquals(webDriver.getPageSource(), title, webDriver.getTitle());
+        assertEquals(title, webDriver.getTitle());
     }
 
     protected void selectByValue(By by, String value) {
