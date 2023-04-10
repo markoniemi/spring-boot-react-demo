@@ -29,15 +29,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   UserDetailsService userDetailsService;
   String[] ignoredPaths = {"/*", "/login", "/api/rest/auth/login/**", "/h2-console/**"};
 
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers(ignoredPaths);
-  }
+//  @Override
+//  public void configure(WebSecurity web) throws Exception {
+//    web.ignoring().antMatchers(ignoredPaths);
+//  }
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.cors().and().csrf().disable();
     http.authorizeRequests().regexMatchers(".*\\?wsdl").permitAll()//
-//        .antMatchers(ignoredPaths).permitAll()//
+        .antMatchers(ignoredPaths).permitAll()//
         .anyRequest().authenticated()//
         .and()//
         .addFilter(new JwtAuthenticationFilter(authenticationManager()))//
