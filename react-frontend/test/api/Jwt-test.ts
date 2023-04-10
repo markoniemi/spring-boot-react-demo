@@ -1,4 +1,4 @@
-import { assert } from "chai";
+import {assert} from "chai";
 import Jwt from "../../src/api/Jwt";
 
 describe("Jwt", () => {
@@ -9,12 +9,23 @@ describe("Jwt", () => {
         Jwt.setToken("token");
         sessionStorage.setItem(Jwt.JWT_TOKEN_KEY, "token");
         assert.isTrue(Jwt.isAuthenticated());
-        assert.equal(sessionStorage.getItem(Jwt.JWT_TOKEN_KEY), "token");
     });
     test("isAuthenticated returns false if sessionStorage is cleared", () => {
         sessionStorage.setItem(Jwt.JWT_TOKEN_KEY, "token");
         Jwt.clearToken();
         assert.isFalse(Jwt.isAuthenticated());
-        assert.isNull(sessionStorage.getItem(Jwt.JWT_TOKEN_KEY));
+    });
+    test("getToken returns null if sessionStorage does not have token", () => {
+        assert.isNull(Jwt.getToken());
+    });
+    test("getToken returns token if sessionStorage has token", () => {
+        Jwt.setToken("token");
+        sessionStorage.setItem(Jwt.JWT_TOKEN_KEY, "token");
+        assert.equal(Jwt.getToken(), "token");
+    });
+    test("getToken returns null if sessionStorage is cleared", () => {
+        sessionStorage.setItem(Jwt.JWT_TOKEN_KEY, "token");
+        Jwt.clearToken();
+        assert.isNull(Jwt.getToken());
     });
 });
