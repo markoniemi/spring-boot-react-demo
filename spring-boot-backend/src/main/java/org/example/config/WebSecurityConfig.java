@@ -1,6 +1,7 @@
 package org.example.config;
 
 import javax.annotation.Resource;
+import org.example.security.JwtAuthenticationFilter;
 import org.example.security.JwtAuthorizationFilter;
 import org.example.security.UserRepositoryAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
@@ -21,41 +22,37 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Resource
-    UserRepositoryAuthenticationProvider userRepositoryAuthenticationProvider;
-    @Resource
-    UserDetailsService userDetailsService;
-    String[] ignoredPaths = {"/*", "/login","/api/rest/auth/login/**", "/h2-console/**"};
+  @Resource
+  UserRepositoryAuthenticationProvider userRepositoryAuthenticationProvider;
+  @Resource
+  UserDetailsService userDetailsService;
+  String[] ignoredPaths = {"/*", "/login", "/api/rest/auth/login/**", "/h2-console/**"};
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http.cors().and().csrf().disable();
-      http.authorizeRequests().regexMatchers(".*\\?wsdl").permitAll()//
-          .antMatchers(ignoredPaths).permitAll()//
-          .anyRequest().authenticated()//
-          .and()//
-//          .addFilter(new JwtAuthenticationFilter(authenticationManager()))//
-          .addFilter(new JwtAuthorizationFilter(authenticationManager()));
-      // this disables session creation on Spring Security
-      http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    }
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.cors().and().csrf().disable();
+    http.authorizeRequests().regexMatchers(".*\\?wsdl").permitAll()//
+        .antMatchers(ignoredPaths).permitAll()//
+        .anyRequest().authenticated()//
+        .and()//
+        .addFilter(new JwtAuthenticationFilter(authenticationManager()))//
+        .addFilter(new JwtAuthorizationFilter(authenticationManager()));
+    // this disables session creation on Spring Security
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+  }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // TODO replace encoder with BCryptPasswordEncoder
-        auth.userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance())//
+  @Override
+  public void configure(AuthenticationManagerBuilder auth) throws Exception {
+    // TODO replace encoder with BCryptPasswordEncoder
+    auth.userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance())//
         .and()//
         .authenticationProvider(userRepositoryAuthenticationProvider);
-    }
+  }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-        return source;
-    }
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//    }
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
+    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+    return source;
+  }
 }

@@ -28,43 +28,46 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class UserServiceWsIT extends AbstractIntegrationTestBase {
   private UserService userService;
+
   @BeforeEach
   public void setUp() throws MalformedURLException {
     userService = getUserService();
     setAuthorizationHeader(userService, "Bearer " + JwtToken.createToken("admin1"));
   }
-    @Test
-    public void findAll() throws JsonParseException, JsonMappingException, IOException {
-        UserService userService = getUserService();
-        List<User> users = userService.findAll();
-        assertNotNull(users);
-        assertEquals(6, users.size());
-    }
 
-    @Test
-    public void getUsersWithoutAuthorizationFails()
-        throws JsonParseException, JsonMappingException, IOException {
-      setAuthorizationHeader(userService, null);
-      try {
-        List<User> users = userService.findAll();
-        fail();
-      } catch (WebServiceException e) {
-        assertInstanceOf(HTTPException.class, e.getCause());
-      }
+  @Test
+  public void findAll() throws JsonParseException, JsonMappingException, IOException {
+    List<User> users = userService.findAll();
+    assertNotNull(users);
+    assertEquals(6, users.size());
+  }
+
+  @Test
+  public void getUsersWithoutAuthorizationFails()
+      throws JsonParseException, JsonMappingException, IOException {
+    setAuthorizationHeader(userService, null);
+    try {
+      List<User> users = userService.findAll();
+      fail();
+    } catch (WebServiceException e) {
+      assertInstanceOf(HTTPException.class, e.getCause());
     }
-    public UserService getUserService() throws MalformedURLException {
-        URL wsdlURL = new URL("http://localhost:8080/api/soap/users?wsdl");
-        QName qname = new QName("http://user.service.example.org/", "UserService");
-        Service service = Service.create(wsdlURL, qname);
-        UserService port = service.getPort(UserService.class);
-        return port;
+  }
+
+  public UserService getUserService() throws MalformedURLException {
+    URL wsdlURL = new URL("http://localhost:8080/api/soap/users?wsdl");
+    QName qname = new QName("http://user.service.example.org/", "UserService");
+    Service service = Service.create(wsdlURL, qname);
+    UserService port = service.getPort(UserService.class);
+    return port;
+  }
+
+  public static void setAuthorizationHeader(Object service, String jwtHeader) {
+    Map<String, List<String>> requestHeaders = new HashMap<>();
+    if (jwtHeader != null) {
+      requestHeaders.put("Authorization", Arrays.asList(jwtHeader));
     }
-    public static void setAuthorizationHeader(Object service, String jwtHeader) {
-      Map<String, List<String>> requestHeaders = new HashMap<>();
-      if (jwtHeader != null) {
-        requestHeaders.put("Authorization", Arrays.asList(jwtHeader));
-      }
-      ((BindingProvider) service).getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS,
-          requestHeaders);
-    }
+    ((BindingProvider) service).getRequestContext().put(MessageContext.HTTP_REQUEST_HEADERS,
+        requestHeaders);
+  }
 }
