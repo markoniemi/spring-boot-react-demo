@@ -23,6 +23,8 @@ public class UsersPage extends AbstractPage {
   }
 
   public void assertUser(String username, String email, String role) {
+    sleep(1000);
+    webDriver.navigate().refresh();
     assertEquals(username, getText(By.xpath("//tr[@id='" + username + "']//td[@id='username']")), webDriver.findElement(By.tagName("body")).getText());
     assertEquals(email, getText(By.xpath("//tr[@id='" + username + "']//td[@id='email']")));
     assertEquals(role, getText(By.xpath("//tr[@id='" + username + "']//td[@id='role']")));
