@@ -1,10 +1,15 @@
 package org.example.selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.time.Duration;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AbstractPage {
   protected WebDriver webDriver;
@@ -19,6 +24,19 @@ public abstract class AbstractPage {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  protected void waitForPageLoad() {
+    WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(5));
+    ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
+      @Override
+      public Boolean apply(WebDriver input) {
+        return ((JavascriptExecutor) webDriver).executeScript("return document.readyState")
+            .equals("complete");
+      }
+    };
+    wait.until(pageLoadCondition);
+
   }
 
   protected String getText(By by) {
