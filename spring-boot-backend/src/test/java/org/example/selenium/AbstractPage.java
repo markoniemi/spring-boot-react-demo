@@ -7,10 +7,12 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import lombok.extern.log4j.Log4j2;
+@Log4j2
 public abstract class AbstractPage {
   protected WebDriver webDriver;
 
@@ -36,7 +38,10 @@ public abstract class AbstractPage {
       }
     };
     wait.until(pageLoadCondition);
-
+  }
+  
+  protected void handleError(WebDriverException e) {
+    log.warn(webDriver.findElement(By.tagName("body")).getText(), e);
   }
 
   protected String getText(By by) {

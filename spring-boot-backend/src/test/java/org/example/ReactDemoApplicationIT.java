@@ -45,9 +45,9 @@ public class ReactDemoApplicationIT extends AbstractIntegrationTestBase {
         usersPage.logout();
         loginPage.login("admin", "admin");
         usersPage.clickEditUser("username");
-        editUserPage.editUser("newUsername", "newPassword", "newEmail", "User");
-        usersPage.assertUser("newUsername", "newEmail", "User");
-        usersPage.deleteUser("newUsername");
+        editUserPage.editUser("username", "newPassword", "newEmail", "User");
+        usersPage.assertUser("username", "newEmail", "User");
+        usersPage.deleteUser("username");
         // TODO assert user deleted
     }
 }
