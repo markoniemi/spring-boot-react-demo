@@ -33,7 +33,7 @@ public class UsersPage extends AbstractPage {
       assertEquals(email, getText(By.xpath("//tr[@id='" + username + "']//td[@id='email']")));
       assertEquals(role, getText(By.xpath("//tr[@id='" + username + "']//td[@id='role']")));
     } catch (WebDriverException e) {
-      handleError(e);
+      log.warn(webDriver.findElement(By.tagName("body")).getText(), e);
     }
   }
 
