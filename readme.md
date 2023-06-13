@@ -1,6 +1,6 @@
 ## SpringBoot application with React UI
 
-<a href="https://dev.azure.com/markoniemi/markoniemi/_apis/build/status/markoniemi.spring-boot-react-demo?branchName=master">
+<a href="https://dev.azure.com/markoniemi/markoniemi/_build?definitionId=14">
 <image src="https://dev.azure.com/markoniemi/markoniemi/_apis/build/status/markoniemi.spring-boot-react-demo?branchName=master"/>
 </a>
 
