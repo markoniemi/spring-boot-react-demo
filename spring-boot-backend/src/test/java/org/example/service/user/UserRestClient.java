@@ -1,70 +1,64 @@
 package org.example.service.user;
 
-import java.util.Arrays;
+import static org.example.RestClient.get;
+import static org.example.RestClient.post;
+import static org.example.RestClient.put;
+import static org.example.security.JwtToken.createToken;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+
 import java.util.List;
 
+import org.example.RestClient;
 import org.example.model.user.User;
-import org.example.security.JwtToken;
+import org.springframework.http.HttpStatus;
 
-import io.restassured.RestAssured;
-import io.restassured.http.Header;
-import io.restassured.http.Headers;
 import io.restassured.common.mapper.TypeRef;
 
-
 public class UserRestClient {
-    private String url = "http://localhost:8080/api/rest";
+	private String url = "http://localhost:8080/api/rest";
 
-    public List<User> findAll() {
-        return RestAssured.given().headers(createHeaders()).get(url + "/users/").then().statusCode(200).extract()
-                .as(userListType());
-    }
+	public List<User> findAll() {
+		return get(url + "/users/", userListType(), createToken("admin"));
+	}
 
-    public List<User> findByEmail(String email) {
-        return RestAssured.given().headers(createHeaders()).get(url + "/users?email=" + email).then().statusCode(200)
-                .extract().as(userListType());
-    }
+	public List<User> findByEmail(String email) {
+		return get(url + "/users?email=" + email, userListType(), createToken("admin"));
+	}
 
-    public List<User> findByUsername(String username) {
-        return RestAssured.given().headers(createHeaders()).get(url + "/users?username=" + username).then()
-                .statusCode(200).extract().as(userListType());
-    }
+	public List<User> findByUsername(String username) {
+		return get(url + "/users?username=" + username, userListType(), createToken("admin"));
+	}
 
-    public User create(User user) {
-        return RestAssured.given().body(user).headers(createHeaders()).post(url + "/users").then().statusCode(200)
-                .extract().as(User.class);
-    }
+	public User create(User user) {
+		return post(url + "/users", user, User.class, createToken("admin"));
+	}
 
-    public List<ValidationError> create(String userJson, int statusCode) {
-        return RestAssured.given().body(userJson).headers(createHeaders()).post(url + "/users").then()
-                .statusCode(statusCode).extract().body().jsonPath().getList(".", ValidationError.class);
-    }
+	public List<ValidationError> create(String userJson, HttpStatus httpStatus) {
+		return post(url + "/users", userJson, errorListType(), createToken("admin"), httpStatus);
+	}
 
-    public List<ValidationError> update(String userJson, long id, int statusCode) {
-        return RestAssured.given().body(userJson).headers(createHeaders()).put(url + "/users/" + id).then()
-                .statusCode(statusCode).extract().body().jsonPath().getList(".", ValidationError.class);
-    }
+	public List<ValidationError> update(String userJson, long id, HttpStatus httpStatus) {
+		return put(url + "/users/" + id, userJson, errorListType(), createToken("admin"), httpStatus);
+	}
 
-    public User find(Long id) {
-        return RestAssured.given().headers(createHeaders()).get(url + "/users/" + id).then().statusCode(200).extract()
-                .as(User.class);
-    }
+	public User find(Long id) {
+		return get(url + "/users/" + id, User.class, createToken("admin"));
+	}
 
-    public void delete(Long id) {
-        delete(id, 204);
-    }
+	public void delete(Long id) {
+		delete(id, NO_CONTENT);
+	}
 
-    public void delete(Long id, int statusCode) {
-        RestAssured.given().headers(createHeaders()).delete(url + "/users/" + id).then().statusCode(statusCode);
-    }
+	public void delete(Long id, HttpStatus httpStatus) {
+		RestClient.delete(url + "/users/" + id, createToken("admin"), httpStatus);
+	}
 
-    private TypeRef<List<User>> userListType() {
-        return new TypeRef<List<User>>() {
-        };
-    }
-
-    private Headers createHeaders() {
-        return new Headers(Arrays.asList(new Header("Authorization", "Bearer " + JwtToken.createToken("admin")),
-                new Header("Content-Type", "application/json"), new Header("Accept", "application/json")));
-    }
+	private TypeRef<List<User>> userListType() {
+		return new TypeRef<List<User>>() {
+		};
+	}
+	private TypeRef<List<ValidationError>> errorListType() {
+		return new TypeRef<List<ValidationError>>() {
+		};
+	}
 }

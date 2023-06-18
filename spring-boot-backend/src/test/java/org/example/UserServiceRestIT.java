@@ -2,6 +2,8 @@ package org.example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import java.util.Arrays;
 import java.util.List;
@@ -59,7 +61,7 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
     @Test
     public void createWithValidationError() throws JsonProcessingException {
         String userJson = "{\"username\":null}";
-        List<ValidationError> validationErrors = userService.create(userJson, 400);
+        List<ValidationError> validationErrors = userService.create(userJson, BAD_REQUEST);
         assertEquals(1, validationErrors.size());
         ValidationError validationError = validationErrors.get(0);
         log.debug(validationError);
@@ -71,17 +73,17 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
     @Test
     public void updateWithValidationError() throws JsonProcessingException {
         String userJson = "{\"id\":1, \"username\":null}";
-        List<ValidationError> validationErrors = userService.update(userJson, 1, 400);
+        List<ValidationError> validationErrors = userService.update(userJson, 1, BAD_REQUEST);
         log.debug(Arrays.toString(validationErrors.toArray()));
-//        assertEquals(1, validationErrors.size());
+        assertEquals(2, validationErrors.size());
         ValidationError validationError = validationErrors.get(0);
         assertEquals("User", validationError.getObjectName());
-//        assertEquals("username", validationError.getField());
+//        assertEquals("password", validationError.getField());
         assertEquals("field.required", validationError.getCode());
     }
 
     @Test
     public void deleteNonExistent() {
-        userService.delete(1000L, 404);
+        userService.delete(1000L, NOT_FOUND);
     }
 }
