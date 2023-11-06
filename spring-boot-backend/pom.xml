@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.example</groupId>
@@ -12,9 +13,12 @@
   <properties>
     <java.version>11</java.version>
     <org.apache.cxf.version>3.5.5</org.apache.cxf.version>
-    <spring-cloud.version>2021.0.6</spring-cloud.version>
-    <spring.boot.version>2.7.10</spring.boot.version>
+    <spring-cloud.version>2021.0.8</spring-cloud.version>
+    <spring.boot.version>2.7.17</spring.boot.version>
     <docker.image.prefix>markoniemi</docker.image.prefix>
+    <webdrivermanager.version>5.2.1</webdrivermanager.version>
+    <java-jwt.version>3.19.3</java-jwt.version>
+    <guava.version>31.1-jre</guava.version>
   </properties>
   <dependencies>
     <dependency>
@@ -72,7 +76,7 @@
     <dependency>
       <groupId>com.auth0</groupId>
       <artifactId>java-jwt</artifactId>
-      <version>3.19.3</version>
+      <version>${java-jwt.version}</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -120,7 +124,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>31.1-jre</version>
+      <version>${guava.version}</version>
     </dependency>
     <dependency>
       <groupId>org.flywaydb</groupId>
@@ -224,7 +228,7 @@
       <dependency>
         <groupId>io.github.bonigarcia</groupId>
         <artifactId>webdrivermanager</artifactId>
-        <version>5.2.2</version>
+        <version>${webdrivermanager.version}</version>
         <exclusions>
           <exclusion>
             <groupId>ch.qos.logback</groupId>
