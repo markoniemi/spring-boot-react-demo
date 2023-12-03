@@ -11,13 +11,24 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/react-frontend/0.0.1-SNAPSHOT/");
     }
-
+    
     @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        // direct all paths except /api to index.html
-        // this does not work in spring 2.6 unless spring.mvc.pathmatch.matching-strategy=ant_path_matcher is set in application.properties
+    public void addViewControllers(ViewControllerRegistry registry){
         registry.addViewController("/").setViewName("forward:/index.html");
-        registry.addViewController("/{x:[\\w\\-]+}").setViewName("forward:/index.html");
-        registry.addViewController("/{x:^(?!api$).*$}/**/{y:[\\w\\-]+}").setViewName("forward:/index.html");
+        registry.addViewController("/{spring:\\w+}")
+                .setViewName("forward:/");
+//        registry.addViewController("/**/{spring:\\w+}")
+//                .setViewName("forward:/");
+//        registry.addViewController("/{spring:\\w+}/**{spring:?!(\\.js|\\.css)$}")
+//                .setViewName("forward:/");
     }    
+
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        // direct all paths except /api to index.html
+//        // this does not work in spring 2.6 unless spring.mvc.pathmatch.matching-strategy=ant_path_matcher is set in application.properties
+//        registry.addViewController("/").setViewName("forward:/index.html");
+//        registry.addViewController("/{x:[\\w\\-]+}").setViewName("forward:/index.html");
+//        registry.addViewController("/{x:^(?!api$).*$}/**/{y:[\\w\\-]+}").setViewName("forward:/index.html");
+//    }    
 }

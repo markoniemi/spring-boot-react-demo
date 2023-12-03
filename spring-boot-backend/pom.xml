@@ -16,7 +16,7 @@
     <spring-cloud.version>2021.0.8</spring-cloud.version>
     <spring.boot.version>2.7.17</spring.boot.version>
     <docker.image.prefix>markoniemi</docker.image.prefix>
-    <webdrivermanager.version>5.2.1</webdrivermanager.version>
+    <webdrivermanager.version>5.5.2</webdrivermanager.version>
     <java-jwt.version>3.19.3</java-jwt.version>
     <guava.version>31.1-jre</guava.version>
   </properties>
@@ -127,9 +127,16 @@
       <version>${guava.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.flywaydb</groupId>
-      <artifactId>flyway-core</artifactId>
-    </dependency>
+	    <groupId>org.apache.httpcomponents.client5</groupId>
+	    <artifactId>httpclient5</artifactId>
+	    <version>5.2.1</version>
+	    <scope>test</scope>
+    </dependency>      
+    
+<!--    <dependency>-->
+<!--      <groupId>org.flywaydb</groupId>-->
+<!--      <artifactId>flyway-core</artifactId>-->
+<!--    </dependency>-->
   </dependencies>
   <build>
     <plugins>

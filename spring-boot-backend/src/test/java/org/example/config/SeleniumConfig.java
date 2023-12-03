@@ -16,7 +16,7 @@ public class SeleniumConfig {
     public WebDriver getWebDriver() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("headless");
+        options.addArguments("headless=new");
         options.addArguments("window-size=1200x800");
         options.addArguments("no-sandbox");
         options.addArguments("proxy-server='direct://'");
