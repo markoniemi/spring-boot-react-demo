@@ -27,13 +27,13 @@ public class WebSecurityConfig {
   @Resource
   UserDetailsService userDetailsService;  
   AuthenticationManager authenticationManager;
-  String[] ignoredPaths = {"/*", "/login", "/api/rest/auth/login/**", "/h2-console/**"};
-  @Bean
-  public WebSecurityCustomizer webSecurityCustomizer() {
-      return (web) -> web
-        .ignoring()
-        .antMatchers(this.ignoredPaths);
-  }  
+  String[] ignoredPaths = {"/*", "/login", "/api/rest/auth/login/**", "/h2-console/**","/users/**"};
+//  @Bean
+//  public WebSecurityCustomizer webSecurityCustomizer() {
+//      return (web) -> web
+//        .ignoring()
+//        .antMatchers(this.ignoredPaths);
+//  }  
   @Bean
   public AuthenticationManager authenticationManager(HttpSecurity http,  UserDetailsService userDetailsService) 
     throws Exception {
@@ -50,7 +50,7 @@ public class WebSecurityConfig {
       http.cors().and().csrf().disable() //
         .authorizeRequests()
         .regexMatchers(".*\\?wsdl").permitAll()//        
-//        .antMatchers(ignoredPaths).anonymous()// 
+        .antMatchers(ignoredPaths).anonymous()//
         .anyRequest().authenticated()
         .and()
         .addFilter(new JwtAuthenticationFilter(authenticationManager))
