@@ -5,13 +5,12 @@ import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.example.rest.BindExceptionMapper;
 import org.example.rest.ConstraintViolationExceptionMapper;
 import org.example.rest.EntityNotFoundExceptionMapper;
-
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonXmlBindJsonProvider;
 
 public class RestServiceFactory extends JAXRSServerFactoryBean {
     public RestServiceFactory() {
         // settings that can be overridden
-        setProvider(new JacksonJaxbJsonProvider());
+        setProvider(new JacksonXmlBindJsonProvider());
     }
 
     @Override

@@ -2,9 +2,9 @@ package org.example.service.user;
 
 import java.util.Date;
 
-import javax.jws.WebParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import jakarta.jws.WebParam;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
 
 import org.springframework.stereotype.Component;
 

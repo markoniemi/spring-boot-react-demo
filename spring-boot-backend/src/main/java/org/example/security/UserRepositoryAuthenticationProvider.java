@@ -3,7 +3,7 @@ package org.example.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.example.model.user.User;
 import org.example.service.user.UserService;

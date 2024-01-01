@@ -1,7 +1,7 @@
 package org.example.config;
 
-import javax.annotation.Resource;
-import javax.xml.ws.Endpoint;
+import jakarta.annotation.Resource;
+import jakarta.xml.ws.Endpoint;
 
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;

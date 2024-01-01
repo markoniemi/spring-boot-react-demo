@@ -2,7 +2,7 @@ package org.example.security;
 
 import static java.util.Collections.emptyList;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.example.service.user.UserService;
 import org.springframework.security.core.userdetails.User;

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
-
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +13,6 @@ import org.example.model.user.User;
 import org.example.service.user.UserRestClient;
 import org.example.service.user.ValidationError;
 import org.junit.jupiter.api.Test;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import lombok.extern.log4j.Log4j2;
@@ -84,6 +83,6 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
 
     @Test
     public void deleteNonExistent() {
-        userService.delete(1000L, NOT_FOUND);
+        userService.delete(1000L, NO_CONTENT);
     }
 }

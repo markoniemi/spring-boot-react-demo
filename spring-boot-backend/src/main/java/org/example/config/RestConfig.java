@@ -1,6 +1,6 @@
 package org.example.config;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.endpoint.Server;

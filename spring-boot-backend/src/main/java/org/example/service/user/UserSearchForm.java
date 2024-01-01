@@ -1,7 +1,7 @@
 package org.example.service.user;
 
-import javax.ws.rs.FormParam;
-import javax.ws.rs.QueryParam;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.QueryParam;
 
 import org.example.model.user.Role;
 

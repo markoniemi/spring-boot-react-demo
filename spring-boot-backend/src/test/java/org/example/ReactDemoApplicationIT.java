@@ -1,6 +1,6 @@
 package org.example;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.example.selenium.EditUserPage;
 import org.example.selenium.LoginPage;
