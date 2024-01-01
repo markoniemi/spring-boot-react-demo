@@ -1,8 +1,8 @@
 package org.example.rest;
 
-import javax.persistence.EntityNotFoundException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
 
 public class EntityNotFoundExceptionMapper implements ExceptionMapper<EntityNotFoundException> {
 

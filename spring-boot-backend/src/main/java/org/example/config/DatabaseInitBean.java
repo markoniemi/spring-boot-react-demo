@@ -1,6 +1,6 @@
 package org.example.config;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.example.model.user.Role;
 import org.example.model.user.User;
