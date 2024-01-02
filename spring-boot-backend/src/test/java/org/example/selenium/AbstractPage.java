@@ -1,17 +1,9 @@
 package org.example.selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.time.Duration;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import lombok.extern.log4j.Log4j2;
 
 
 public abstract class AbstractPage {

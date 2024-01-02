@@ -9,9 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Profile("disableSecurity")
 public class ApplicationNoSecurity {
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-            .requestMatchers("/**");
-    }
+  @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return (web) -> web.ignoring().requestMatchers("/**");
+  }
 }

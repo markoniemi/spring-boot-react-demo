@@ -2,7 +2,6 @@ package org.example.selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import lombok.extern.log4j.Log4j2;

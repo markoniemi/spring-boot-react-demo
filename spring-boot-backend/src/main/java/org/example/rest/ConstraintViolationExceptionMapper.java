@@ -17,33 +17,34 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Provider
-public class ConstraintViolationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
-    ObjectMapper objectMapper = new ObjectMapper();
+public class ConstraintViolationExceptionMapper
+    implements ExceptionMapper<ConstraintViolationException> {
+  ObjectMapper objectMapper = new ObjectMapper();
 
-    public Response toResponse(ConstraintViolationException exception) {
-        List<ValidationError> validationErrors = exception.getConstraintViolations().stream().map(this::createValidationError)
-                .collect(Collectors.toList());
-        return Response.status(Response.Status.BAD_REQUEST).entity(asJson(validationErrors))
-                .type(MediaType.APPLICATION_JSON).build();
-    }
+  public Response toResponse(ConstraintViolationException exception) {
+    List<ValidationError> validationErrors = exception.getConstraintViolations().stream()
+        .map(this::createValidationError).collect(Collectors.toList());
+    return Response.status(Response.Status.BAD_REQUEST).entity(asJson(validationErrors))
+        .type(MediaType.APPLICATION_JSON).build();
+  }
 
-    private String asJson(List<ValidationError> validationErrors) {
-        try {
-            return objectMapper.writeValueAsString(validationErrors);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
+  private String asJson(List<ValidationError> validationErrors) {
+    try {
+      return objectMapper.writeValueAsString(validationErrors);
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
     }
+    return null;
+  }
 
-    private ValidationError createValidationError(ConstraintViolation<?> violation) {
-        ValidationError validationError = new ValidationError();
-        validationError.setObjectName(violation.getLeafBean().getClass().getSimpleName());
-        for (Node node : violation.getPropertyPath()) {
-            validationError.setField(node.getName());
-        }
-        validationError.setCode(violation.getMessageTemplate());
-        validationError.setDefaultMessage(violation.getMessageTemplate());
-        return validationError;
+  private ValidationError createValidationError(ConstraintViolation<?> violation) {
+    ValidationError validationError = new ValidationError();
+    validationError.setObjectName(violation.getLeafBean().getClass().getSimpleName());
+    for (Node node : violation.getPropertyPath()) {
+      validationError.setField(node.getName());
     }
+    validationError.setCode(violation.getMessageTemplate());
+    validationError.setDefaultMessage(violation.getMessageTemplate());
+    return validationError;
+  }
 }

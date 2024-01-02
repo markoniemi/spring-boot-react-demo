@@ -2,11 +2,8 @@ package org.example;
 
 import static io.restassured.RestAssured.given;
 import static org.springframework.http.HttpStatus.OK;
-
 import java.util.Arrays;
-
 import org.springframework.http.HttpStatus;
-
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;

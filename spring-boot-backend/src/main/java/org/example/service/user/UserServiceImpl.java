@@ -3,7 +3,14 @@ package org.example.service.user;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.example.model.user.User;
+import org.example.repository.user.UserRepository;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.BindException;
 import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
 import jakarta.transaction.Transactional;
@@ -13,16 +20,6 @@ import jakarta.validation.Validator;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.xml.ws.WebServiceContext;
-
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.IterableUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.example.model.user.User;
-import org.example.repository.user.UserRepository;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
-import org.springframework.validation.BindException;
-
 import lombok.extern.log4j.Log4j2;
 
 @Primary

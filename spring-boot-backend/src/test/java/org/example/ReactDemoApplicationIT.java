@@ -1,7 +1,5 @@
 package org.example;
 
-import jakarta.annotation.Resource;
-
 import org.example.selenium.EditUserPage;
 import org.example.selenium.LoginPage;
 import org.example.selenium.UsersPage;
@@ -10,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Value;
+import jakarta.annotation.Resource;
 
 public class ReactDemoApplicationIT extends AbstractIntegrationTestBase {
     @Resource

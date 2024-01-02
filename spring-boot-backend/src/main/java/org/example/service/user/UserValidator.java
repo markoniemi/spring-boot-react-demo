@@ -9,17 +9,17 @@ import org.springframework.validation.Validator;
 @Component
 public class UserValidator implements Validator {
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return User.class.equals(clazz);
-    }
+  @Override
+  public boolean supports(Class<?> clazz) {
+    return User.class.equals(clazz);
+  }
 
-    @Override
-    public void validate(Object target, Errors errors) {
-        User user = (User) target;
-        if (user == null) {
-            errors.reject("user.null");
-        }
-        ValidationUtils.rejectIfEmpty(errors, "username", "field.required");
+  @Override
+  public void validate(Object target, Errors errors) {
+    User user = (User) target;
+    if (user == null) {
+      errors.reject("user.null");
     }
+    ValidationUtils.rejectIfEmpty(errors, "username", "field.required");
+  }
 }

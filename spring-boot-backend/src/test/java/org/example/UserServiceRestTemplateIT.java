@@ -2,12 +2,8 @@ package org.example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.io.IOException;
 import java.util.Collections;
-
-import jakarta.annotation.Resource;
-
 import org.example.config.RestRequestInterceptor;
 import org.example.model.user.Role;
 import org.example.model.user.User;
@@ -16,11 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.HttpClientErrorException;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-
+import jakarta.annotation.Resource;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2

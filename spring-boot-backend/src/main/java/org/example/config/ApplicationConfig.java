@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @ComponentScan(basePackages = "org.example")
 @EntityScan(basePackages = "org.example.model")
-@Import({ JpaConfig.class, WebServiceConfig.class, RestConfig.class })
+@Import({JpaConfig.class, WebServiceConfig.class, RestConfig.class})
 public class ApplicationConfig {
 }

@@ -13,15 +13,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Resource
-    private UserService userService;
+  @Resource
+  private UserService userService;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        org.example.model.user.User user = userService.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        return new User(user.getUsername(), user.getPassword(), emptyList());
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    org.example.model.user.User user = userService.findByUsername(username);
+    if (user == null) {
+      throw new UsernameNotFoundException(username);
     }
+    return new User(user.getUsername(), user.getPassword(), emptyList());
+  }
 }

@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ValidationError {
-    private String objectName;
-    private String field;
-    private String code;
-    private String defaultMessage;
-    private Object[] arguments;
+  private String objectName;
+  private String field;
+  private String code;
+  private String defaultMessage;
+  private Object[] arguments;
 }
