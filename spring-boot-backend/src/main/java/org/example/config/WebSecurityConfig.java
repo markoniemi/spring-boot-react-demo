@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -33,24 +35,22 @@ public class WebSecurityConfig {
   @Bean
   public AuthenticationManager authenticationManager(HttpSecurity http,
       UserDetailsService userDetailsService) throws Exception {
-    authenticationManager = http.getSharedObject(AuthenticationManagerBuilder.class)
-        .userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance())
-        .and().build();
+    AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
+    builder.userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+    authenticationManager = builder.build();
     return authenticationManager;
   }
 
   @DependsOn("authenticationManager")
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.cors().and().csrf().disable() //
-        .authorizeRequests().requestMatchers(RegexRequestMatcher.regexMatcher(".*\\?wsdl"))
-        .permitAll()//
-        .requestMatchers(ignoredPaths).anonymous()//
-        .anyRequest().authenticated()//
-        .and()//
-        .addFilter(new JwtAuthenticationFilter(authenticationManager))
-        .addFilter(new JwtAuthorizationFilter(authenticationManager)).sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    http.csrf(AbstractHttpConfigurer::disable);
+    http.authorizeHttpRequests((auth)->auth.requestMatchers(RegexRequestMatcher.regexMatcher(".*\\?wsdl")).permitAll());
+    http.authorizeHttpRequests((auth)->auth.requestMatchers(ignoredPaths).permitAll());
+    http.authorizeHttpRequests((auth)->auth.anyRequest().authenticated());
+    http.addFilter(new JwtAuthenticationFilter(authenticationManager));
+    http.addFilter(new JwtAuthorizationFilter(authenticationManager));
+    http.sessionManagement((auth)->auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     return http.build();
   }
 }
