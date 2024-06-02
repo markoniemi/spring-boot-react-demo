@@ -1,0 +1,1 @@
+set PATH=%PATH%;C:\Users\marko\Documents\Git\spring-boot-react-demo\react-frontend\node
