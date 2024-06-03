@@ -40,7 +40,7 @@
     "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN",
     "dependency-tree": "npm ls -a > dependencyTree.txt",
     "update": "npx dependency-time-machine --update --install --auto",
-    "audit fix": "npm audit fix"
+    "auditFix": "npm audit fix"
   },
   "devDependencies": {
     "@testing-library/react": "12.1.5",
@@ -81,9 +81,9 @@
     "ts-node": "10.9.2",
     "ts-jest": "29.1.4",
     "ts-loader": "9.5.1",
-    "typescript": "4.9.5",
-    "webpack": "5.54.0",
-    "webpack-cli": "4.10.0",
+    "typescript": "5.4.5",
+    "webpack": "5.91.0",
+    "webpack-cli": "5.1.4",
     "webpack-dev-server": "4.3.0"
   },
   "proxy": "http://localhost:8080",

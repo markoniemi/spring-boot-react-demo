@@ -57,9 +57,8 @@ describe("UsersContainer component", () => {
         assert.isTrue(fetchMock.done());
     });
     test("deletes user", async () => {
-        fetchMock.getOnce("/api/rest/users/", users);
+        fetchMock.get("/api/rest/users/", users);
         fetchMock.deleteOnce("/api/rest/users/1", 200);
-        fetchMock.getOnce("/api/rest/users/", users);
         await UsersPage.render(createHistory("/users"));
         await UsersPage.clickDelete("user1");
         assert.isTrue(fetchMock.done());
