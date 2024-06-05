@@ -13,8 +13,8 @@ import { Table } from "react-bootstrap";
 import EditUser from "../../src/components/EditUser";
 import InputField from "../../src/components/InputField";
 import { Formik, FormikProps } from "formik";
-import ObjectSchema from "yup/lib/object";
 import * as Yup from "yup";
+import { ObjectSchema } from "yup";
 
 describe("InputField component", () => {
     beforeEach(() => {
@@ -45,6 +45,7 @@ describe("InputField component", () => {
     //     expect(deleteUser).toBeCalledWith(1);
     // });
 });
+
 function renderInputField(user: User, schema: ObjectSchema<any>, onSubmit: () => void) {
     render(
         <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
