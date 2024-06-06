@@ -1,16 +1,11 @@
 import { assert } from "chai";
 import * as dotenv from "dotenv";
 import * as React from "react";
-import UserRow from "../../src/components/UserRow";
 import User from "../../src/domain/User";
 import { user1 } from "../userList";
-import { BrowserRouter, RouteComponentProps } from "react-router-dom";
-import createRouteComponentProps from "../RouteComponentPropsMock";
-import { act, configure, fireEvent, render, screen } from "@testing-library/react";
+import { configure, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
-import { Table } from "react-bootstrap";
-import EditUser from "../../src/components/EditUser";
 import InputField from "../../src/components/InputField";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
@@ -57,5 +52,5 @@ function renderInputField(user: User, schema: ObjectSchema<any>, onSubmit: () =>
 }
 
 function renderForm(form: FormikProps<User>): React.ReactNode {
-    return <InputField name="name" form={form} />;
+    return <InputField name="name" formikForm={form} />;
 }

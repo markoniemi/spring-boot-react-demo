@@ -6,7 +6,7 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
 import Message, { MessageType } from "../domain/Message";
-import { Button, Card, Col, Form } from "react-bootstrap";
+import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import { Form as FormikForm, Formik, FormikProps } from "formik";
@@ -79,12 +79,12 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                         name="id"
                         disabled={true}
                         value={form.values.id ? form.values.id.toString() : ""}
-                        form={form}
+                        formikForm={form}
                     />
-                    <InputField name="username" form={form} />
-                    <InputField name="email" form={form} />
-                    <InputField name="password" type="password" form={form} />
-                    <InputField name="role" type="select" as="select" form={form}>
+                    <InputField name="username" formikForm={form} />
+                    <InputField name="email" formikForm={form} />
+                    <InputField name="password" type="password" formikForm={form} />
+                    <InputField name="role" type="select" as="select" formikForm={form}>
                         <option value={null} />
                         <FormattedMessage id="role.ROLE_ADMIN">
                             {(message) => <option value="ROLE_ADMIN">{message}</option>}
@@ -93,13 +93,13 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                             {(message) => <option value="ROLE_USER">{message}</option>}
                         </FormattedMessage>
                     </InputField>
-                    <Form.Row>
+                    <Row>
                         <Col sm={5}>
                             <Button type="submit" id="saveUser" size="sm" className="pull-right">
                                 <FontAwesomeIcon icon={Icons.faCheckSquare} />
                             </Button>
                         </Col>
-                    </Form.Row>
+                    </Row>
                 </Form.Group>
             </FormikForm>
         );

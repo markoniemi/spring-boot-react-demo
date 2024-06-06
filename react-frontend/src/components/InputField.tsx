@@ -1,12 +1,12 @@
 import React from "react";
 import Empty from "../domain/Empty";
-import { Col, Form, FormControlProps } from "react-bootstrap";
+import {Col, Form, FormControlProps, Row} from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import { ErrorMessage, FormikProps, FormikValues } from "formik";
 
 interface InputProps extends FormControlProps {
     name: string;
-    form: FormikProps<FormikValues>;
+    formikForm: FormikProps<FormikValues>;
 }
 
 export default class InputField extends React.Component<InputProps, Empty> {
@@ -16,9 +16,9 @@ export default class InputField extends React.Component<InputProps, Empty> {
     }
 
     public override render(): React.ReactNode {
-        const { name, form, children } = this.props;
+        const { name, formikForm, children } = this.props;
         return (
-            <Form.Row className="mt-2">
+            <Row className="mt-2">
                 <Col sm={1}>
                     <Form.Label>
                         <FormattedMessage id={name} />:
@@ -29,10 +29,10 @@ export default class InputField extends React.Component<InputProps, Empty> {
                         id={name}
                         name={name}
                         size="sm"
-                        onChange={form.handleChange}
-                        value={form.values[name]}
+                        onChange={formikForm.handleChange}
+                        value={formikForm.values[name]}
                         onKeyPress={this.onKeyPress}
-                        isInvalid={form.errors[name] != null}
+                        isInvalid={formikForm.errors[name] != null}
                         {...this.props}
                     >
                         {children}
@@ -43,13 +43,13 @@ export default class InputField extends React.Component<InputProps, Empty> {
                         {(message) => <FormattedMessage id={message} defaultMessage={message} />}
                     </ErrorMessage>
                 </Col>
-            </Form.Row>
+            </Row>
         );
     }
 
     private async onKeyPress(event: React.KeyboardEvent<HTMLInputElement>): Promise<void> {
         if ("Enter" === event.key) {
-            await this.props.form.submitForm();
+            await this.props.formikForm.submitForm();
         }
     }
 }

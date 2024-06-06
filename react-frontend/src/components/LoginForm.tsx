@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Card, Col, Form } from "react-bootstrap";
+import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
 import LoginService from "../api/LoginService";
@@ -39,7 +39,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
     public render(): JSX.Element {
         return (
             <Card id="LoginForm">
-                <Form.Row>
+                <Row>
                     <Col md={{ span: 10, offset: 4 }}>
                         <Card.Body>
                             <Card.Title>
@@ -56,7 +56,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
                             </Formik>
                         </Card.Body>
                     </Col>
-                </Form.Row>
+                </Row>
             </Card>
         );
     }
@@ -65,8 +65,8 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
         return (
             <FormikForm>
                 <Form.Group>
-                    <InputField name="username" form={form} />
-                    <InputField name="password" type="password" form={form} />
+                    <InputField name="username" formikForm={form} />
+                    <InputField name="password" type="password" formikForm={form} />
                     <Col sm={5}>
                         <Button id="login" size="sm" className="pull-right" type="submit">
                             <FontAwesomeIcon icon={Icons.faCheckSquare} />
