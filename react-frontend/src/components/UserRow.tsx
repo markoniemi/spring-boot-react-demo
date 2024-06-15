@@ -1,19 +1,20 @@
 import React from "react";
 import User from "../domain/User";
-import { NavLink, RouteComponentProps, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import Empty from "../domain/Empty";
+import withRouter, { WithRouter } from "./withRouter";
 
-export interface UserProps {
+export interface UserProps extends WithRouter {
     user: User;
 
     deleteUser(id: number);
 }
 
-class UserRow extends React.Component<RouteComponentProps & UserProps, Empty> {
+class UserRow extends React.Component<UserProps, Empty> {
     constructor(props) {
         super(props);
         this.delete = this.delete.bind(this);
@@ -27,7 +28,7 @@ class UserRow extends React.Component<RouteComponentProps & UserProps, Empty> {
 
     public editUser(): void {
         const { id } = this.props.user;
-        this.props.history.push("/users/" + id);
+        this.props.router.navigate("/users/" + id);
     }
 
     public override render(): React.ReactNode {

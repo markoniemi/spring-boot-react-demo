@@ -3,58 +3,52 @@ import * as dotenv from "dotenv";
 import * as React from "react";
 import UserRow from "../../src/components/UserRow";
 import User from "../../src/domain/User";
-import { user1 } from "../userList";
-import { BrowserRouter, RouteComponentProps } from "react-router-dom";
-import createRouteComponentProps from "../RouteComponentPropsMock";
+import { user1 } from "../users";
+import { BrowserRouter } from "react-router-dom";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
 import { Table } from "react-bootstrap";
 import AbstractPage from "../pages/AbstractPage";
 
-describe.skip("UserRow component", () => {
+describe("UserRow component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: "config/development.env" });
     });
     test("renders a user", async () => {
-        const routeComponentProps = createRouteComponentProps(null);
-        renderUserRow(user1, null, routeComponentProps);
+        await renderUserRow(user1, null);
         assert.equal((await screen.findByTestId("username")).textContent, "user1");
         assert.equal((await screen.findByTestId("email")).textContent, "email1");
     });
     test("creates no error with empty user", async () => {
         const emptyUser = new User();
-        const routeComponentProps = createRouteComponentProps(null);
-        renderUserRow(emptyUser, null, routeComponentProps);
+        await renderUserRow(emptyUser, null);
         assert.equal((await screen.findByTestId("username")).textContent, "");
         assert.equal((await screen.findByTestId("email")).textContent, "");
     });
     test("deletes a user", async () => {
         const deleteUser = jest.fn();
-        const routeComponentProps = createRouteComponentProps(null);
-        renderUserRow(user1, deleteUser, routeComponentProps);
+        await renderUserRow(user1, deleteUser);
         await act(async () => {
-            await fireEvent.click(await AbstractPage.findButton("delete"));
+            await fireEvent.click(await AbstractPage.findButton("delete." + user1.username));
         });
         expect(deleteUser).toBeCalledWith(1);
     });
 });
 
-function renderUserRow(
-    user: User,
-    deleteUser: (id: number) => void,
-    routeComponentProps: RouteComponentProps<any>,
-): void {
-    render(
-        <Table>
-            <tbody>
-                <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
-                    <BrowserRouter>
-                        <UserRow.WrappedComponent user={user} deleteUser={deleteUser} {...routeComponentProps} />
-                    </BrowserRouter>
-                </IntlProvider>
-            </tbody>
-        </Table>,
-    );
+async function renderUserRow(user: User, deleteUser: (id: number) => void): Promise<void> {
+    await act(async () => {
+        render(
+            <Table>
+                <tbody>
+                    <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
+                        <BrowserRouter>
+                            <UserRow user={user} deleteUser={deleteUser} />
+                        </BrowserRouter>
+                    </IntlProvider>
+                </tbody>
+            </Table>,
+        );
+    });
 }

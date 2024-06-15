@@ -4,7 +4,7 @@ import "isomorphic-fetch";
 import UserService from "../../src/api/UserService";
 import UserServiceImpl from "../../src/api/UserServiceImpl";
 import fetchMock from "fetch-mock";
-import { user1, users } from "../userList";
+import { user1, users } from "../users";
 import User from "../../src/domain/User";
 
 const userService: UserService = new UserServiceImpl();

@@ -2,7 +2,7 @@ import AbstractPage from "./AbstractPage";
 import { act, fireEvent, screen } from "@testing-library/react";
 import { assert } from "chai";
 import sleep from "es7-sleep";
-import { users } from "../userList";
+import { users } from "../users";
 import EditUserPage from "./EditUserPage";
 import User from "../../src/domain/User";
 import fetchMock from "fetch-mock";
@@ -71,6 +71,7 @@ export default class UsersPage extends AbstractPage {
         fetchMock.postOnce("/api/rest/time", "message");
         await EditUserPage.clickSaveUser();
     }
+
     static async clickLogout(): Promise<void> {
         await act(async () => {
             fireEvent.click(await AbstractPage.findButton("logout"));

@@ -16,9 +16,6 @@ const webpackConfig: webpack.Configuration = {
         historyApiFallback: true,
         port: process.env.PORT,
     },
-    entry: {
-        app: ["react-hot-loader/patch", "./src/index"],
-    },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
     },

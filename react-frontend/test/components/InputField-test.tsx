@@ -2,7 +2,7 @@ import { assert } from "chai";
 import * as dotenv from "dotenv";
 import * as React from "react";
 import User from "../../src/domain/User";
-import { user1 } from "../userList";
+import { user1 } from "../users";
 import { configure, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
@@ -52,5 +52,5 @@ function renderInputField(user: User, schema: ObjectSchema<any>, onSubmit: () =>
 }
 
 function renderForm(form: FormikProps<User>): React.ReactNode {
-    return <InputField name="name" formikForm={form} />;
+    return <InputField name="name" formik={form} />;
 }

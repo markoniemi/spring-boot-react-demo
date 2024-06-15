@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import * as React from "react";
 import { Messages } from "../../src/components/Messages";
-import { messages } from "../messageList";
+import { messages } from "../messages";
 import { configure, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";

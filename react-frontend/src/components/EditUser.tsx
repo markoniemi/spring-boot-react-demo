@@ -2,18 +2,18 @@ import React from "react";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
-import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
 import Message, { MessageType } from "../domain/Message";
-import {Button, Card, Col, Form, Row} from "react-bootstrap";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import { Form as FormikForm, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import InputField from "./InputField";
+import withRouter, { WithRouter } from "./withRouter";
 
-export interface RouteParam {
+export interface RouteParam extends WithRouter {
     id: string;
 }
 
@@ -22,7 +22,7 @@ export interface EditUserState {
     messages?: ReadonlyArray<Message>;
 }
 
-class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUserState> {
+class EditUser extends React.Component<RouteParam, EditUserState> {
     private userService: UserService = new UserServiceImpl();
     private schema = Yup.object().shape({
         username: Yup.string().required("username.required"),
@@ -40,7 +40,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
     }
 
     public override async componentDidMount(): Promise<void> {
-        const id = Number(this.props.match.params.id);
+        const id = Number(this.props.router.params.id);
         if (id) {
             try {
                 this.setState({ user: await this.userService.findById(id) });
@@ -79,12 +79,12 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
                         name="id"
                         disabled={true}
                         value={form.values.id ? form.values.id.toString() : ""}
-                        formikForm={form}
+                        formik={form}
                     />
-                    <InputField name="username" formikForm={form} />
-                    <InputField name="email" formikForm={form} />
-                    <InputField name="password" type="password" formikForm={form} />
-                    <InputField name="role" type="select" as="select" formikForm={form}>
+                    <InputField name="username" formik={form} />
+                    <InputField name="email" formik={form} />
+                    <InputField name="password" type="password" formik={form} />
+                    <InputField name="role" type="select" as="select" formik={form}>
                         <option value={null} />
                         <FormattedMessage id="role.ROLE_ADMIN">
                             {(message) => <option value="ROLE_ADMIN">{message}</option>}
@@ -118,7 +118,7 @@ class EditUser extends React.Component<RouteComponentProps<RouteParam>, EditUser
             } else {
                 await this.userService.update(user);
             }
-            this.props.history.push("/users");
+            this.props.router.navigate("/users");
         } catch (error) {
             this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
         }

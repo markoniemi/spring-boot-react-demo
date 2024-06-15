@@ -2,14 +2,11 @@ import { assert } from "chai";
 import * as dotenv from "dotenv";
 import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
-import { configure, render } from "@testing-library/react";
+import { configure } from "@testing-library/react";
 import LoginPage from "../pages/LoginPage";
-import createHistory from "../HistoryMock";
 import UsersPage from "../pages/UsersPage";
-import { user1, user2, users } from "../userList";
+import { user1, user2, users } from "../users";
 import EditUserPage from "../pages/EditUserPage";
-import App from "../../src/components/App";
-import * as React from "react";
 import sleep from "es7-sleep";
 
 describe("App component", () => {
@@ -21,12 +18,12 @@ describe("App component", () => {
         fetchMock.restore();
     });
     test("shows login page", async () => {
-        render(<App history={createHistory()} />);
+        await LoginPage.render();
         await sleep(100);
         LoginPage.assertPageLoaded();
     });
     test("login, edit, delete and add user", async () => {
-        LoginPage.render(createHistory());
+        await LoginPage.render();
         // login
         await LoginPage.login("user1", "user1");
         await UsersPage.assertPageLoaded();

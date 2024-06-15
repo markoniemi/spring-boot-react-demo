@@ -1,4 +1,4 @@
-import {assert} from "chai";
+import { assert } from "chai";
 import Jwt from "../../src/api/Jwt";
 
 describe("Jwt", () => {

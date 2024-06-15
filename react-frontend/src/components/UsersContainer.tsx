@@ -2,7 +2,6 @@ import React from "react";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";
-import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { Button, Card, Table } from "react-bootstrap";
 import UserItem from "./UserRow";
@@ -12,13 +11,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import LoginService from "../api/LoginService";
 import Time from "./Time";
+import withRouter, { WithRouter } from "./withRouter";
 
 export interface UsersContainerState {
     users: User[];
     messages?: ReadonlyArray<Message>;
 }
 
-class UsersContainer extends React.Component<RouteComponentProps, UsersContainerState> {
+class UsersContainer extends React.Component<WithRouter, UsersContainerState> {
     private userService: UserService = new UserServiceImpl();
 
     constructor(props) {
@@ -38,7 +38,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
     }
 
     public addUser(): void {
-        this.props.history.push("/users/new");
+        this.props.router.navigate("/users/new");
     }
 
     public async deleteUser(id: number): Promise<void> {
@@ -106,7 +106,7 @@ class UsersContainer extends React.Component<RouteComponentProps, UsersContainer
 
     private async logout() {
         await LoginService.logout();
-        this.props.history.push("/");
+        this.props.router.navigate("/");
     }
 }
 

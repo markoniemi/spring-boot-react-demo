@@ -7,7 +7,7 @@ import Time from "../../src/components/Time";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import AbstractPage from "../pages/AbstractPage";
 
-describe.skip("Hello component", () => {
+describe("Time component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: "config/development.env" });
@@ -17,14 +17,18 @@ describe.skip("Hello component", () => {
     });
     test("renders text", async () => {
         fetchMock.post("/api/rest/time", "response");
-        render(<Time />);
+        await act(async () => {
+            await render(<Time />);
+        });
         await sleep(100);
         assert.equal((await screen.findByTestId("message")).textContent, "response");
     });
-    test.skip("updates text after button press", async () => {
+    test("updates text after button press", async () => {
         fetchMock.postOnce("/api/rest/time", "response1");
         fetchMock.postOnce("/api/rest/time", "response2");
-        render(<Time />);
+        await act(async () => {
+            await render(<Time />);
+        });
         await sleep(100);
         assert.equal((await screen.findByTestId("message")).textContent, "response1");
         await act(async () => {

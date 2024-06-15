@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Button, Card, Col, Form, Row} from "react-bootstrap";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import Messages from "./Messages";
 import LoginService from "../api/LoginService";
@@ -7,11 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import Jwt from "../api/Jwt";
 import Message, { MessageType } from "../domain/Message";
-import { RouteParam } from "./EditUser";
-import { RouteComponentProps, withRouter } from "react-router-dom";
 import { Form as FormikForm, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import InputField from "./InputField";
+import withRouter, { WithRouter } from "./withRouter";
 
 export interface ILoginForm {
     username: string;
@@ -22,13 +21,13 @@ export interface ILoginState extends ILoginForm {
     messages?: ReadonlyArray<Message>;
 }
 
-class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginState> {
+class LoginForm extends React.Component<WithRouter, ILoginState> {
     private schema = Yup.object().shape({
         username: Yup.string().required("username.required"),
         password: Yup.string().required("password.required"),
     });
 
-    constructor(props: RouteComponentProps<RouteParam>) {
+    constructor(props: WithRouter) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.login = this.login.bind(this);
@@ -65,8 +64,8 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
         return (
             <FormikForm>
                 <Form.Group>
-                    <InputField name="username" formikForm={form} />
-                    <InputField name="password" type="password" formikForm={form} />
+                    <InputField name="username" formik={form} />
+                    <InputField name="password" type="password" formik={form} />
                     <Col sm={5}>
                         <Button id="login" size="sm" className="pull-right" type="submit">
                             <FontAwesomeIcon icon={Icons.faCheckSquare} />
@@ -87,7 +86,7 @@ class LoginForm extends React.Component<RouteComponentProps<RouteParam>, ILoginS
         try {
             const token = await LoginService.login(loginForm);
             Jwt.setToken(token);
-            this.props.history.push("/users");
+            this.props.router.navigate("/users");
         } catch (error) {
             this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
         }

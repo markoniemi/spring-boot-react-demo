@@ -2,7 +2,7 @@ import AbstractPage from "./AbstractPage";
 import { act, fireEvent, screen } from "@testing-library/react";
 import { assert } from "chai";
 import sleep from "es7-sleep";
-import { users } from "../userList";
+import { users } from "../users";
 import fetchMock from "fetch-mock";
 
 export default class LoginPage extends AbstractPage {
