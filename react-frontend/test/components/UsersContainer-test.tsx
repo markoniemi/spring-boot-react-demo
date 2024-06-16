@@ -6,15 +6,12 @@ import "isomorphic-fetch";
 import { configure, screen } from "@testing-library/react";
 import UsersPage from "../pages/UsersPage";
 import User from "../../src/domain/User";
-import { setLocation } from "../HistoryMock";
-import * as router from "react-router";
+import { navigate, setLocation } from "../RouterMock";
 import sleep from "es7-sleep";
 
-const navigate = jest.fn();
 
 describe("UsersContainer component", () => {
     beforeEach(() => {
-        jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
         configure({ testIdAttribute: "id" });
         fetchMock.restore();
         fetchMock.postOnce("/api/rest/time", "message");

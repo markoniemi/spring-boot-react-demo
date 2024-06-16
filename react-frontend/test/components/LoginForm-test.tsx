@@ -4,15 +4,10 @@ import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
 import { configure, screen } from "@testing-library/react";
 import LoginPage from "../pages/LoginPage";
-import { setLocation } from "../HistoryMock";
-
-import * as router from "react-router";
-
-const navigate = jest.fn();
+import { navigate, setLocation } from "../RouterMock";
 
 describe("LoginForm component", () => {
     beforeEach(() => {
-        jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: "config/development.env" });
         fetchMock.postOnce("/api/rest/time", "message");

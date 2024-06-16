@@ -5,15 +5,11 @@ import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
 import { configure, screen } from "@testing-library/react";
 import EditUserPage from "../pages/EditUserPage";
-import { setLocation } from "../HistoryMock";
+import { navigate, setLocation } from "../RouterMock";
 import LoginPage from "../pages/LoginPage";
-import * as router from "react-router";
-
-const navigate = jest.fn();
 
 describe("EditUser component", () => {
     beforeEach(() => {
-        jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: "config/development.env" });
     });
