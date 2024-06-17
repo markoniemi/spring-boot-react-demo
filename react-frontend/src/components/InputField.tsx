@@ -21,7 +21,7 @@ export default class InputField extends React.Component<InputProps, Empty> {
             <Row className="mt-2">
                 <Col sm={1}>
                     <Form.Label>
-                        <FormattedMessage id={name} />:
+                        <FormattedMessage id={name}/>:
                     </Form.Label>
                 </Col>
                 <Col sm={4}>
