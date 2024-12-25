@@ -21,7 +21,7 @@ const webpackConfig: webpack.Configuration = {
     },
     output: {
         path: path.resolve(__dirname, "./dist"),
-        filename: "[name].js",
+        filename: "app.js",
     },
     module: {
         rules: [
