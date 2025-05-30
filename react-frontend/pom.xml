@@ -45,7 +45,7 @@
             </goals>
             <phase>compile</phase>
             <configuration>
-              <arguments>run compile</arguments>
+              <arguments>run build</arguments>
             </configuration>
           </execution>
           <execution>
