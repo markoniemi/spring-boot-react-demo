@@ -57,7 +57,7 @@ describe("UsersContainer component", () => {
         assert.isNotNull(await screen.getByText("Error loading users"));
     });
     test("edits user", async () => {
-        window.confirm = jest.fn();
+        window.confirm = vi.fn();
         fetchMock.getOnce("/api/rest/users/", users);
         setLocation("/users");
         await UsersPage.render();

@@ -43,7 +43,7 @@ export default class UsersPage extends AbstractPage {
 
     public static async clickDelete(username: string): Promise<void> {
         await act(async () => {
-            window.confirm = jest.fn().mockImplementation(() => true);
+            window.confirm = vi.fn().mockImplementation(() => true);
             fireEvent.click(screen.getByTestId(`delete.${username}`));
             expect(window.confirm).toBeCalled();
             await sleep(100);

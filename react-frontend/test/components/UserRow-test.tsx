@@ -28,7 +28,7 @@ describe("UserRow component", () => {
         assert.equal((await screen.findByTestId("email")).textContent, "");
     });
     test("deletes a user", async () => {
-        const deleteUser = jest.fn();
+        const deleteUser = vi.fn();
         await renderUserRow(user1, deleteUser);
         await act(async () => {
             await fireEvent.click(await AbstractPage.findButton("delete." + user1.username));

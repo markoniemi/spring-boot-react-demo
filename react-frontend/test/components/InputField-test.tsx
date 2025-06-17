@@ -17,7 +17,7 @@ describe("InputField component", () => {
         dotenv.config({ path: "config/development.env" });
     });
     test("renders an input field", async () => {
-        const onSubmit = jest.fn();
+        const onSubmit = vi.fn();
         const schema = Yup.object().shape({
             username: Yup.string().required("username.required"),
         });
@@ -25,7 +25,7 @@ describe("InputField component", () => {
         assert.equal(((await screen.findByTestId("username")) as HTMLInputElement).value, "user1");
     });
     test("shows and clears error", async () => {
-        const onSubmit = jest.fn();
+        const onSubmit = vi.fn();
         const schema = Yup.object().shape({
             username: Yup.string().required("username.required"),
         });
