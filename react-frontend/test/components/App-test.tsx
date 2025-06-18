@@ -8,11 +8,12 @@ import UsersPage from "../pages/UsersPage";
 import { user1, user2, users } from "../users";
 import EditUserPage from "../pages/EditUserPage";
 import sleep from "es7-sleep";
+import { afterEach, beforeEach, describe, test } from "vitest";
 
 describe("App component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
-        dotenv.config({ path: "config/development.env" });
+        dotenv.config({ path: ".env" });
     });
     afterEach(() => {
         fetchMock.restore();

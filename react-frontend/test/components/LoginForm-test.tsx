@@ -5,11 +5,12 @@ import "isomorphic-fetch";
 import { configure, screen } from "@testing-library/react";
 import LoginPage from "../pages/LoginPage";
 import { navigate, setLocation } from "../RouterMock";
+import {afterEach, beforeEach, describe, expect, test} from "vitest";
 
 describe("LoginForm component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
-        dotenv.config({ path: "config/development.env" });
+        dotenv.config({ path: ".env" });
         fetchMock.postOnce("/api/rest/time", "message");
         fetchMock.get("/api/rest/users/", 200);
     });

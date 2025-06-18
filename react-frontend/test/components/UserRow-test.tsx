@@ -10,11 +10,12 @@ import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
 import { Table } from "react-bootstrap";
 import AbstractPage from "../pages/AbstractPage";
+import { beforeEach, describe, expect, test } from "vitest";
 
 describe("UserRow component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
-        dotenv.config({ path: "config/development.env" });
+        dotenv.config({ path: ".env" });
     });
     test("renders a user", async () => {
         await renderUserRow(user1, null);

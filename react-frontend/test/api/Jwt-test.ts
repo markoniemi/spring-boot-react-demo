@@ -1,5 +1,6 @@
 import { assert } from "chai";
 import Jwt from "../../src/api/Jwt";
+import { describe, test } from "vitest";
 
 describe("Jwt", () => {
     test("isAuthenticated returns false if sessionStorage does not have token", () => {

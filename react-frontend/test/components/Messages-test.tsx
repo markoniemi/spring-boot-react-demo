@@ -5,6 +5,7 @@ import { messages } from "../messages";
 import { configure, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
+import { beforeEach, describe, test } from "vitest";
 
 describe("Messages component", () => {
     beforeEach(() => {

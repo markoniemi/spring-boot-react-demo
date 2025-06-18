@@ -7,11 +7,12 @@ import { configure, screen } from "@testing-library/react";
 import EditUserPage from "../pages/EditUserPage";
 import { navigate, setLocation } from "../RouterMock";
 import LoginPage from "../pages/LoginPage";
+import {afterEach, beforeEach, describe, expect, test} from "vitest";
 
 describe("EditUser component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
-        dotenv.config({ path: "config/development.env" });
+        dotenv.config({ path: ".env" });
     });
     afterEach(() => {
         fetchMock.restore();

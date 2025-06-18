@@ -10,11 +10,12 @@ import InputField from "../../src/components/InputField";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { ObjectSchema } from "yup";
+import {beforeEach, describe, test, vi} from "vitest";
 
 describe("InputField component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
-        dotenv.config({ path: "config/development.env" });
+        dotenv.config({ path: ".env" });
     });
     test("renders an input field", async () => {
         const onSubmit = vi.fn();

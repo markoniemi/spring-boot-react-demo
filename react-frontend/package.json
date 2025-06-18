@@ -8,8 +8,8 @@
   },
   "license": "MIT",
   "repository": "github:markoniemi/spring-boot-react-demo",
-  "engines" : {
-    "node" : "20.17.0",
+  "engines": {
+    "node": "20.17.0",
     "npm": "11.4.2"
   },
   "dependencies": {
@@ -35,7 +35,7 @@
     "test": "vitest --coverage",
     "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "sonarqube": "./node_modules/.bin/sonar-scanner -Dsonar.login=$SONAR_CLOUD_TOKEN",
-    "dependency-tree": "npm ls -a > dependencyTree.txt",
+    "dependency-tree": "npm ls -a > reports/dependencyTree.txt",
     "update": "npx dependency-time-machine --update --install --auto",
     "auditFix": "npm audit fix",
     "dev": "vite --debug",
@@ -46,8 +46,7 @@
     "@types/chai": "4.3.16",
     "@types/fetch-mock": "7.3.8",
     "@types/isomorphic-fetch": "0.0.39",
-    "@types/jest": "29.5.12",
-    "@types/node": "18.15.3",
+    "@types/node": "20.19.1",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@types/sinon": "17.0.3",
@@ -70,7 +69,6 @@
     "raf": "3.4.1",
     "shx": "0.3.4",
     "sinon": "18.0.0",
-    "ts-jest": "29.1.4",
     "typescript": "5.4.5",
     "vite": "6.3.5",
     "vitest": "3.2.3"

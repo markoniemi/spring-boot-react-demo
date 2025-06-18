@@ -8,14 +8,14 @@ import UsersPage from "../pages/UsersPage";
 import User from "../../src/domain/User";
 import { navigate, setLocation } from "../RouterMock";
 import sleep from "es7-sleep";
-
+import {afterEach, beforeEach, describe, expect, test, vi} from "vitest";
 
 describe("UsersContainer component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
         fetchMock.restore();
         fetchMock.postOnce("/api/rest/time", "message");
-        dotenv.config({ path: "config/development.env" });
+        dotenv.config({ path: ".env" });
     });
     afterEach(() => {
         fetchMock.restore();

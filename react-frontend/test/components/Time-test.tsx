@@ -6,11 +6,12 @@ import sleep from "es7-sleep";
 import Time from "../../src/components/Time";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import AbstractPage from "../pages/AbstractPage";
+import { afterEach, beforeEach, describe, test } from "vitest";
 
 describe("Time component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
-        dotenv.config({ path: "config/development.env" });
+        dotenv.config({ path: ".env" });
     });
     afterEach(() => {
         fetchMock.restore();
