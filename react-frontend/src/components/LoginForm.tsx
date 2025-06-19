@@ -33,6 +33,7 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
         this.login = this.login.bind(this);
         this.renderForm = this.renderForm.bind(this);
         this.state = { username: "", password: "" };
+        Jwt.clearToken();
     }
 
     public render(): JSX.Element {
