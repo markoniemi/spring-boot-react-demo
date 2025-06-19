@@ -77,12 +77,12 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
     }
 
     public async onSubmit(values: ILoginForm) {
-        this.setState({ ...values });
-        await this.login();
+        // this.setState({ ...values });
+        await this.login({ ...values });
     }
 
-    private async login(): Promise<void> {
-        const loginForm: ILoginForm = { ...this.state };
+    private async login(loginForm: ILoginForm): Promise<void> {
+        // const loginForm: ILoginForm = { "username": this.state.username,"password": this.state.password };
         try {
             const token = await LoginService.login(loginForm);
             Jwt.setToken(token);
