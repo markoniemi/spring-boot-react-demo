@@ -1,4 +1,3 @@
-import { assert } from "chai";
 import * as dotenv from "dotenv";
 import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
@@ -8,7 +7,7 @@ import UsersPage from "../pages/UsersPage";
 import { user1, user2, users } from "../users";
 import EditUserPage from "../pages/EditUserPage";
 import sleep from "es7-sleep";
-import { afterEach, beforeEach, describe, test } from "vitest";
+import { afterEach, assert, beforeEach, describe, test } from "vitest";
 
 describe("App component", () => {
     beforeEach(() => {

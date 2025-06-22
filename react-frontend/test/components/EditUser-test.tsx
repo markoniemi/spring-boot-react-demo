@@ -1,4 +1,3 @@
-import { assert } from "chai";
 import * as dotenv from "dotenv";
 import { user1 } from "../users";
 import fetchMock from "fetch-mock";
@@ -7,7 +6,7 @@ import { configure, screen } from "@testing-library/react";
 import EditUserPage from "../pages/EditUserPage";
 import { navigate, setLocation } from "../RouterMock";
 import LoginPage from "../pages/LoginPage";
-import {afterEach, beforeEach, describe, expect, test} from "vitest";
+import { afterEach, assert, beforeEach, describe, expect, test } from "vitest";
 
 describe("EditUser component", () => {
     beforeEach(() => {
