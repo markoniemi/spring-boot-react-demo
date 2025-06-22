@@ -36,7 +36,7 @@ public class ReactDemoApplicationIT extends AbstractIntegrationTestBase {
     @Test
     public void testUI() throws InterruptedException {
       log.debug("loginUrl: {}",loginUrl);
-        webDriver.navigate().to(loginUrl);
+        webDriver.get(loginUrl);
         log.debug(webDriver.getPageSource());
         loginPage.login("admin", "admin");
         usersPage.clickAddUser();
