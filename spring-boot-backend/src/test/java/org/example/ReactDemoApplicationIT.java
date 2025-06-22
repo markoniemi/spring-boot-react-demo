@@ -9,9 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Value;
 import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class ReactDemoApplicationIT extends AbstractIntegrationTestBase {
     @Resource
     protected WebDriver webDriver;
@@ -35,9 +33,7 @@ public class ReactDemoApplicationIT extends AbstractIntegrationTestBase {
 
     @Test
     public void testUI() throws InterruptedException {
-      log.debug("loginUrl: {}",loginUrl);
         webDriver.get(loginUrl);
-        log.debug(webDriver.getPageSource());
         loginPage.login("admin", "admin");
         usersPage.clickAddUser();
         editUserPage.editUser("username", "password", "email", "User");
