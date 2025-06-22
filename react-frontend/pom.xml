@@ -75,7 +75,7 @@
               <outputDirectory>${project.build.directory}/classes/META-INF/resources/webjars/${artifactId}/${project.version}</outputDirectory>
               <resources>
                 <resource>
-                  <directory>dist/build</directory>
+                  <directory>build</directory>
                   <filtering>false</filtering>
                 </resource>
               </resources>

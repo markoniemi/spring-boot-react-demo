@@ -30,7 +30,7 @@ public class WebSecurityConfig {
   UserDetailsService userDetailsService;
   AuthenticationManager authenticationManager;
   String[] ignoredPaths =
-      {"/*", "/login", "/api/rest/auth/login/**", "/h2-console/**", "/users/**"};
+      {"/*", "/login", "/api/rest/auth/login/**", "/h2-console/**", "/users/**","/assets/**"};
 
   @Bean
   public AuthenticationManager authenticationManager(HttpSecurity http,

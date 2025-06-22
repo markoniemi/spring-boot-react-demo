@@ -33,6 +33,7 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
         this.login = this.login.bind(this);
         this.renderForm = this.renderForm.bind(this);
         this.state = { username: "", password: "" };
+        Jwt.clearToken();
     }
 
     public render(): JSX.Element {
@@ -78,11 +79,10 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
 
     public async onSubmit(values: ILoginForm) {
         this.setState({ ...values });
-        await this.login();
+        await this.login({ ...values });
     }
 
-    private async login(): Promise<void> {
-        const loginForm: ILoginForm = { ...this.state };
+    private async login(loginForm: ILoginForm): Promise<void> {
         try {
             const token = await LoginService.login(loginForm);
             Jwt.setToken(token);

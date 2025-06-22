@@ -107,11 +107,10 @@ class EditUser extends React.Component<RouteParam, EditUserState> {
 
     public async onSubmit(values: User) {
         this.setState({ user: values });
-        await this.submitUser();
+        await this.submitUser(values);
     }
 
-    private async submitUser(): Promise<void> {
-        const user: User = this.state.user;
+    private async submitUser(user: User): Promise<void> {
         try {
             if (user.id == undefined) {
                 await this.userService.create(user);
