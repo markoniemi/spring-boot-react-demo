@@ -1,11 +1,10 @@
-import { assert } from "chai";
 import * as dotenv from "dotenv";
 import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
 import { configure, screen } from "@testing-library/react";
 import LoginPage from "../pages/LoginPage";
 import { navigate, setLocation } from "../RouterMock";
-import {afterEach, beforeEach, describe, expect, test} from "vitest";
+import { afterEach, assert, beforeEach, describe, expect, test } from "vitest";
 
 describe("LoginForm component", () => {
     beforeEach(() => {

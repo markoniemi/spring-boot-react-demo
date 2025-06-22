@@ -1,4 +1,3 @@
-import { assert } from "chai";
 import * as dotenv from "dotenv";
 import * as React from "react";
 import User from "../../src/domain/User";
@@ -10,7 +9,7 @@ import InputField from "../../src/components/InputField";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { ObjectSchema } from "yup";
-import {beforeEach, describe, test, vi} from "vitest";
+import { assert, beforeEach, describe, test, vi } from "vitest";
 
 describe("InputField component", () => {
     beforeEach(() => {

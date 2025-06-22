@@ -1,7 +1,7 @@
 import AbstractPage from "./AbstractPage";
 import { act, fireEvent, screen } from "@testing-library/react";
-import { assert } from "chai";
 import sleep from "es7-sleep";
+import { assert } from "vitest";
 
 export default class EditUserPage extends AbstractPage {
     public static async assertPageLoaded() {

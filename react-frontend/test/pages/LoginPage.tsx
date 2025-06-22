@@ -1,9 +1,9 @@
 import AbstractPage from "./AbstractPage";
 import { act, fireEvent, screen } from "@testing-library/react";
-import { assert } from "chai";
 import sleep from "es7-sleep";
 import { users } from "../users";
 import fetchMock from "fetch-mock";
+import { assert } from "vitest";
 
 export default class LoginPage extends AbstractPage {
     public static async login(username: string, password: string) {

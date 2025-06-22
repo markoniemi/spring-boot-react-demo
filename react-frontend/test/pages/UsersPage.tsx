@@ -1,11 +1,11 @@
 import AbstractPage from "./AbstractPage";
 import { act, fireEvent, screen } from "@testing-library/react";
-import { assert } from "chai";
 import sleep from "es7-sleep";
 import { users } from "../users";
 import EditUserPage from "./EditUserPage";
 import User from "../../src/domain/User";
 import fetchMock from "fetch-mock";
+import { assert, expect, vi } from "vitest";
 
 export default class UsersPage extends AbstractPage {
     static async deleteUser(user: User) {

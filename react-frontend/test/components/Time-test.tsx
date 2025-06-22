@@ -1,4 +1,3 @@
-import { assert } from "chai";
 import * as React from "react";
 import * as dotenv from "dotenv";
 import fetchMock from "fetch-mock";
@@ -6,7 +5,7 @@ import sleep from "es7-sleep";
 import Time from "../../src/components/Time";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import AbstractPage from "../pages/AbstractPage";
-import { afterEach, beforeEach, describe, test } from "vitest";
+import { afterEach, assert, beforeEach, describe, test } from "vitest";
 
 describe("Time component", () => {
     beforeEach(() => {

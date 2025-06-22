@@ -1,4 +1,3 @@
-import { assert } from "chai";
 import * as dotenv from "dotenv";
 import { users } from "../users";
 import fetchMock from "fetch-mock";
@@ -8,7 +7,7 @@ import UsersPage from "../pages/UsersPage";
 import User from "../../src/domain/User";
 import { navigate, setLocation } from "../RouterMock";
 import sleep from "es7-sleep";
-import {afterEach, beforeEach, describe, expect, test, vi} from "vitest";
+import {afterEach, assert, beforeEach, describe, expect, test, vi} from "vitest";
 
 describe("UsersContainer component", () => {
     beforeEach(() => {

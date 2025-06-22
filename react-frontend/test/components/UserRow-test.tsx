@@ -1,4 +1,3 @@
-import { assert } from "chai";
 import * as dotenv from "dotenv";
 import * as React from "react";
 import UserRow from "../../src/components/UserRow";
@@ -10,7 +9,7 @@ import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
 import { Table } from "react-bootstrap";
 import AbstractPage from "../pages/AbstractPage";
-import { beforeEach, describe, expect, test } from "vitest";
+import { assert, beforeEach, describe, expect, test, vi } from "vitest";
 
 describe("UserRow component", () => {
     beforeEach(() => {

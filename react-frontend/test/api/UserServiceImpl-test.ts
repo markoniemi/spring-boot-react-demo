@@ -1,4 +1,3 @@
-import { assert } from "chai";
 import * as dotenv from "dotenv";
 import "isomorphic-fetch";
 import UserService from "../../src/api/UserService";
@@ -6,7 +5,7 @@ import UserServiceImpl from "../../src/api/UserServiceImpl";
 import fetchMock from "fetch-mock";
 import { user1, users } from "../users";
 import User from "../../src/domain/User";
-import {afterEach, beforeEach, describe, expect, test} from "vitest";
+import { afterEach, assert, beforeEach, describe, expect, test } from "vitest";
 
 const userService: UserService = new UserServiceImpl();
 describe("UserService", () => {
