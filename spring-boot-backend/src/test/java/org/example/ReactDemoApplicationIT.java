@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ReactDemoApplicationIT extends AbstractIntegrationTestBase {
     @Resource
     protected WebDriver webDriver;
-    @Value("${loginUrl:http://localhost:8080/}")
+    @Value("${loginUrl:http://localhost:8080}")
     private String loginUrl;
     private UsersPage usersPage;
     private EditUserPage editUserPage;
