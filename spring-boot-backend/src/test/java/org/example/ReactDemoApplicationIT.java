@@ -36,6 +36,7 @@ public class ReactDemoApplicationIT extends AbstractIntegrationTestBase {
         webDriver.get(loginUrl);
         loginPage.login("admin", "admin");
         usersPage.clickAddUser();
+//        editUserPage.validateUser();
         editUserPage.editUser("username", "password", "email", "User");
         usersPage.assertUser("username", "email", "User");
         usersPage.logout();

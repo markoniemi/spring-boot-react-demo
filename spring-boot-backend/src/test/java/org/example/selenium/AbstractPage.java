@@ -37,4 +37,7 @@ public abstract class AbstractPage {
   protected void selectByText(By by, String value) {
     new Select(webDriver.findElement(by)).selectByVisibleText(value);
   }
+  protected void assertByText(String text) {
+    assertEquals(text, webDriver.findElement(By.xpath("//*[text()=\""+text+"\"]")).getText());
+  }
 }
