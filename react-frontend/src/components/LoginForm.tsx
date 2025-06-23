@@ -36,7 +36,7 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
         Jwt.clearToken();
     }
 
-    public render(): JSX.Element {
+    public render(): React.ReactNode {
         return (
             <Card id="LoginForm">
                 <Row>
