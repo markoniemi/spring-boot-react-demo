@@ -36,13 +36,15 @@
     "update": "npx dependency-time-machine --update --install --auto",
     "auditFix": "npm audit fix",
     "dev": "vite --debug",
-    "build": "vite build"
+    "build": "vite build",
+    "compile": "tsc --noEmit"
   },
   "devDependencies": {
     "@testing-library/react": "14.3.1",
     "@tsconfig/vite-react": "6.3.6",
     "@types/fetch-mock": "7.3.8",
     "@types/isomorphic-fetch": "0.0.39",
+    "@types/jsdom": "21.1.7",
     "@types/node": "20.19.1",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
@@ -60,6 +62,7 @@
     "eslint-plugin-react": "7.37.5",
     "fetch-mock": "12.5.3",
     "history": "4.10.1",
+    "jsdom": "26.1.0",
     "prettier": "3.3.1",
     "raf": "3.4.1",
     "shx": "0.3.4",
