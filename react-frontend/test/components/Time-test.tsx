@@ -11,9 +11,10 @@ describe("Time component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: ".env" });
+        fetchMock.mockGlobal();
     });
     afterEach(() => {
-        fetchMock.restore();
+        fetchMock.hardReset();
     });
     test("renders text", async () => {
         fetchMock.post("/api/rest/time", "response");

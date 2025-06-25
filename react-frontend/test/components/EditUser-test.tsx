@@ -12,9 +12,10 @@ describe("EditUser component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: ".env" });
+        fetchMock.mockGlobal();
     });
     afterEach(() => {
-        fetchMock.restore();
+        fetchMock.hardReset();
     });
     test("renders a user", async () => {
         fetchMock.getOnce("/api/rest/users/1", user1);
@@ -55,7 +56,7 @@ describe("EditUser component", () => {
         await EditUserPage.clickSaveUser();
         expect(navigate).toBeCalledWith("/users");
         // expect(history.push).toBeCalledWith("/users");
-        assert.isTrue(fetchMock.done());
+        assert.isTrue(fetchMock.callHistory.done());
     });
     test("edits a user", async () => {
         fetchMock.getOnce("/api/rest/users/1", user1);
@@ -68,6 +69,6 @@ describe("EditUser component", () => {
         await EditUserPage.pressEnter();
         expect(navigate).toBeCalledWith("/users");
         // expect(history.push).toBeCalledWith("/users");
-        assert.isTrue(fetchMock.done());
+        assert.isTrue(fetchMock.callHistory.done());
     });
 });

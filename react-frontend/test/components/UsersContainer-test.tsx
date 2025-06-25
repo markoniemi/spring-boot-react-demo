@@ -12,12 +12,12 @@ import {afterEach, assert, beforeEach, describe, expect, test, vi} from "vitest"
 describe("UsersContainer component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
-        fetchMock.restore();
+        fetchMock.mockGlobal();
         fetchMock.postOnce("/api/rest/time", "message");
         dotenv.config({ path: ".env" });
     });
     afterEach(() => {
-        fetchMock.restore();
+        fetchMock.hardReset();
     });
     test("renders userlist", async () => {
         fetchMock.getOnce("/api/rest/users/", users);
@@ -69,14 +69,14 @@ describe("UsersContainer component", () => {
         setLocation("/users");
         await UsersPage.render();
         await UsersPage.clickDelete("user1");
-        assert.isTrue(fetchMock.done());
+        assert.isTrue(fetchMock.callHistory.done());
     });
     test("logs out", async () => {
         fetchMock.getOnce("/api/rest/users/", users);
         setLocation("/users");
         await UsersPage.render();
         await UsersPage.clickLogout();
-        assert.isTrue(fetchMock.done());
+        assert.isTrue(fetchMock.callHistory.done());
         expect(navigate).toBeCalledWith("/");
     });
 });

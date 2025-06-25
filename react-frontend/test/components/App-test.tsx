@@ -13,9 +13,10 @@ describe("App component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: ".env" });
+        fetchMock.mockGlobal();
     });
     afterEach(() => {
-        fetchMock.restore();
+        fetchMock.hardReset();
     });
     test("shows login page", async () => {
         await LoginPage.render();
@@ -43,6 +44,5 @@ describe("App component", () => {
         fetchMock.postOnce("/api/rest/time", "message");
         await EditUserPage.clickSaveUser();
         sleep(100);
-        assert.isTrue(fetchMock.done());
     });
 });

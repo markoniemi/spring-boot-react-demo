@@ -11,9 +11,10 @@ const userService: UserService = new UserServiceImpl();
 describe("UserService", () => {
     beforeEach(() => {
         dotenv.config({ path: ".env" });
+        fetchMock.mockGlobal();
     });
     afterEach(() => {
-        fetchMock.restore();
+        fetchMock.hardReset();
     });
     test("fetchUsers", async () => {
         fetchMock.getOnce("/api/rest/users/", users);

@@ -10,11 +10,12 @@ describe("LoginForm component", () => {
     beforeEach(() => {
         configure({ testIdAttribute: "id" });
         dotenv.config({ path: ".env" });
+        fetchMock.mockGlobal();
         fetchMock.postOnce("/api/rest/time", "message");
         fetchMock.get("/api/rest/users/", 200);
     });
     afterEach(() => {
-        fetchMock.restore();
+        fetchMock.hardReset();
     });
     test("opens users page with valid credentials", async () => {
         setLocation();
