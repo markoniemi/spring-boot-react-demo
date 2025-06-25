@@ -30,7 +30,6 @@ public class EditUserPage extends AbstractPage {
         assertFieldError("Email required");
         assertFieldError("Password required");
 //        assertFieldError("Role required");
-        // TODO implement cancel button
         click(By.id("cancel"));
     }
 
