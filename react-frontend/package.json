@@ -21,10 +21,10 @@
     "isomorphic-fetch": "3.0.0",
     "loglevel": "1.9.1",
     "react": "18.3.1",
-    "react-bootstrap": "2.10.2",
+    "react-bootstrap": "2.10.4",
     "react-dom": "18.3.1",
     "react-intl": "7.1.11",
-    "react-router-dom": "6.23.1",
+    "react-router-dom": "6.24.1",
     "yup": "1.4.0"
   },
   "scripts": {
@@ -40,7 +40,7 @@
     "compile": "tsc --noEmit"
   },
   "devDependencies": {
-    "@testing-library/react": "14.3.1",
+    "@testing-library/react": "16.0.0",
     "@tsconfig/vite-react": "6.3.6",
     "@types/fetch-mock": "7.3.8",
     "@types/isomorphic-fetch": "0.0.39",
@@ -63,7 +63,7 @@
     "fetch-mock": "12.5.3",
     "history": "5.3.0",
     "jsdom": "26.1.0",
-    "prettier": "3.3.1",
+    "prettier": "3.3.2",
     "raf": "3.4.1",
     "shx": "0.3.4",
     "typescript": "5.8.3",
