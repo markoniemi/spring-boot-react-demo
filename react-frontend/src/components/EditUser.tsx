@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import User from "../domain/User";
 import UserService from "../api/UserService";
 import UserServiceImpl from "../api/UserServiceImpl";

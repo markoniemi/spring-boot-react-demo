@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import TimeServiceImpl from "../api/TimeServiceImpl";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

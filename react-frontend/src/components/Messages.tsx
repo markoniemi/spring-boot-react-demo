@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Alert, Toast, ToastBody, ToastHeader } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import Message, { MessageType, MessageVariant } from "../domain/Message";

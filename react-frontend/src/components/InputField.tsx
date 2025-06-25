@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Empty from "../domain/Empty";
 import { Col, Form, FormControlProps, Row } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
