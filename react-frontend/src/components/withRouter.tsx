@@ -1,5 +1,5 @@
 import { Location, NavigateFunction, Params, useLocation, useNavigate, useParams } from "react-router-dom";
-import React from "react";
+import * as React from "react";
 
 export interface RouterProps {
     location: Location;
