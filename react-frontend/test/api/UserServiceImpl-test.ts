@@ -1,16 +1,16 @@
 import * as dotenv from "dotenv";
 import "isomorphic-fetch";
-import UserService from "../../src/api/UserService";
+import type UserService from "../../src/api/UserService";
 import UserServiceImpl from "../../src/api/UserServiceImpl";
 import fetchMock from "fetch-mock";
-import { user1, users } from "../users";
+import {user1, users} from "../users";
 import User from "../../src/domain/User";
-import { afterEach, assert, beforeEach, describe, expect, test } from "vitest";
+import {afterEach, assert, beforeEach, describe, expect, test} from "vitest";
 
 const userService: UserService = new UserServiceImpl();
 describe("UserService", () => {
     beforeEach(() => {
-        dotenv.config({ path: ".env" });
+        dotenv.config({path: ".env"});
         fetchMock.mockGlobal();
     });
     afterEach(() => {
@@ -59,7 +59,7 @@ describe("UserService", () => {
     });
     test("delete", async () => {
         fetchMock.deleteOnce("/api/rest/users/2", 200);
-        const savedUser = await userService.delete(2);
+        await userService.delete(2);
     });
     test("delete fails", async () => {
         fetchMock.deleteOnce("/api/rest/users/2", 500);

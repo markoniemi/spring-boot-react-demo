@@ -1,5 +1,4 @@
 import * as dotenv from "dotenv";
-import * as React from "react";
 import UserRow from "../../src/components/UserRow";
 import User from "../../src/domain/User";
 import { user1 } from "../users";
@@ -22,7 +21,7 @@ describe("UserRow component", () => {
         assert.equal((await screen.findByTestId("email")).textContent, "email1");
     });
     test("creates no error with empty user", async () => {
-        const emptyUser = new User();
+        const emptyUser = new User("");
         await renderUserRow(emptyUser, null);
         assert.equal((await screen.findByTestId("username")).textContent, "");
         assert.equal((await screen.findByTestId("email")).textContent, "");
@@ -37,7 +36,7 @@ describe("UserRow component", () => {
     });
 });
 
-async function renderUserRow(user: User, deleteUser: (id: number) => void): Promise<void> {
+async function renderUserRow(user: User, deleteUser: ((id: number) => void)|null): Promise<void> {
     await act(async () => {
         render(
             <Table>

@@ -1,20 +1,20 @@
 import * as dotenv from "dotenv";
-import { users } from "../users";
+import {users} from "../users";
 import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
-import { configure, screen } from "@testing-library/react";
+import {configure, screen} from "@testing-library/react";
 import UsersPage from "../pages/UsersPage";
 import User from "../../src/domain/User";
-import { navigate, setLocation } from "../RouterMock";
-import sleep from "es7-sleep";
+import {navigate, setLocation} from "../RouterMock";
+import {sleep} from "../time";
 import {afterEach, assert, beforeEach, describe, expect, test, vi} from "vitest";
 
 describe("UsersContainer component", () => {
     beforeEach(() => {
-        configure({ testIdAttribute: "id" });
+        configure({testIdAttribute: "id"});
         fetchMock.mockGlobal();
         fetchMock.postOnce("/api/rest/time", "message");
-        dotenv.config({ path: ".env" });
+        dotenv.config({path: ".env"});
     });
     afterEach(() => {
         fetchMock.hardReset();
@@ -28,7 +28,7 @@ describe("UsersContainer component", () => {
         await UsersPage.assertUser("user2");
     });
     test("creates no error with empty user", async () => {
-        const emptyUser = new User();
+        const emptyUser = new User("");
         fetchMock.getOnce("/api/rest/users/", [emptyUser]);
         setLocation("/users");
         await UsersPage.render();

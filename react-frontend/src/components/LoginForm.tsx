@@ -7,10 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import Jwt from "../api/Jwt";
 import Message, { MessageType } from "../domain/Message";
-import { Form as FormikForm, Formik, FormikProps } from "formik";
+import { Form as FormikForm, Formik, type FormikProps } from "formik";
 import * as Yup from "yup";
 import InputField from "./InputField";
-import withRouter, { WithRouter } from "./withRouter";
+import withRouter, { type WithRouter } from "./withRouter";
 
 export interface ILoginForm {
     username: string;
@@ -87,8 +87,10 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
             const token = await LoginService.login(loginForm);
             Jwt.setToken(token);
             this.props.router.navigate("/users");
-        } catch (error) {
-            this.setState({ messages: [{ text: error.message, type: MessageType.ERROR }] });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                this.setState({messages: [{text: error.message, type: MessageType.ERROR}]});
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ import { act, configure, fireEvent, render, screen } from "@testing-library/reac
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
 import InputField from "../../src/components/InputField";
-import { Formik, FormikProps } from "formik";
+import { Formik, type FormikProps } from "formik";
 import * as Yup from "yup";
 import { ObjectSchema } from "yup";
 import { assert, beforeEach, describe, test, vi } from "vitest";
@@ -31,7 +31,7 @@ describe("InputField component", () => {
         });
         await renderInputField(user1, schema, onSubmit);
         const input = (await screen.findByTestId("username")) as HTMLInputElement;
-        await setValue(input, null);
+        await setValue(input, "");
         assert.isTrue(((await screen.findByTestId("username")) as HTMLInputElement).classList.contains("is-invalid"));
         await setValue(input, "text");
         assert.isFalse(((await screen.findByTestId("username")) as HTMLInputElement).classList.contains("is-invalid"));
@@ -54,7 +54,7 @@ function renderForm(form: FormikProps<User>): React.ReactNode {
     return <InputField name="username" formik={form} />;
 }
 
-async function setValue(input: HTMLInputElement, value: string) {
+async function setValue(input: HTMLInputElement, value?: string) {
     await act(async () => {
         fireEvent.change(input, { target: { value: value } });
     });

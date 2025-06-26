@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Alert, Toast, ToastBody, ToastHeader } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
-import Message, { MessageType, MessageVariant } from "../domain/Message";
+import Message, { MessageType, type MessageVariant } from "../domain/Message";
 
 export interface MessageProps {
     messages?: ReadonlyArray<Message>;
@@ -50,7 +50,7 @@ export class Messages extends React.Component<MessageProps, MessageState> {
         );
     }
 
-    private static mapTypeToStyle(type: MessageType): MessageVariant {
+    private static mapTypeToStyle(type: MessageType|undefined): MessageVariant {
         if (type === MessageType.ERROR) {
             return "danger";
         }

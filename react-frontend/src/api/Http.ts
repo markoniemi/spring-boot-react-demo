@@ -17,7 +17,7 @@ export default class Http {
         return fetch(url, Http.createRequest("DELETE", body));
     }
 
-    private static createRequest(method: string, body: BodyInit): RequestInit {
+    private static createRequest(method: string, body?: BodyInit): RequestInit {
         return {
             method: method,
             headers: Jwt.getHeaders(),

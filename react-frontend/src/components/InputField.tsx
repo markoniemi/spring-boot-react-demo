@@ -1,8 +1,8 @@
 import * as React from "react";
-import Empty from "../domain/Empty";
-import { Col, Form, FormControlProps, Row } from "react-bootstrap";
-import { FormattedMessage } from "react-intl";
-import { ErrorMessage, FormikProps, FormikValues } from "formik";
+import type {Empty} from "../domain/Empty";
+import {Col, Form, type FormControlProps, Row} from "react-bootstrap";
+import {FormattedMessage} from "react-intl";
+import {ErrorMessage, type FormikProps, type FormikValues} from "formik";
 
 interface InputProps extends FormControlProps {
     name: string;
@@ -16,7 +16,7 @@ export default class InputField extends React.Component<InputProps, Empty> {
     }
 
     public override render(): React.ReactNode {
-        const { name, formik, children } = this.props;
+        const {name, formik, children} = this.props;
         return (
             <Row className="mt-2">
                 <Col sm={1}>
@@ -40,7 +40,7 @@ export default class InputField extends React.Component<InputProps, Empty> {
                 </Col>
                 <Col>
                     <ErrorMessage name={name}>
-                        {(message) => <FormattedMessage id={message} defaultMessage={message} />}
+                        {(message) => <FormattedMessage id={message} defaultMessage={message}/>}
                     </ErrorMessage>
                 </Col>
             </Row>

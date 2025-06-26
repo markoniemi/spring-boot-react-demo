@@ -1,6 +1,6 @@
 import AbstractPage from "./AbstractPage";
 import { act, fireEvent, screen } from "@testing-library/react";
-import sleep from "es7-sleep";
+import {sleep} from "../time";
 import { users } from "../users";
 import fetchMock from "fetch-mock";
 import { assert } from "vitest";
