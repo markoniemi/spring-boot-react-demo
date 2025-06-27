@@ -1,6 +1,6 @@
 import * as React from "react";
 import User from "../domain/User";
-import {NavLink} from "react-router-dom";
+import {NavLink} from "react-router";
 import {Button} from "react-bootstrap";
 import {FormattedMessage} from "react-intl";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";

@@ -1,7 +1,7 @@
 import * as React from "react";
 import UserContainer from "./UsersContainer";
 import EditUser from "./EditUser";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router";
 import {IntlProvider} from "react-intl";
 import i18nConfig from "../messages/messages";
 import LoginForm from "./LoginForm";

@@ -5,9 +5,20 @@ import "isomorphic-fetch";
 import {configure, screen} from "@testing-library/react";
 import UsersPage from "../pages/UsersPage";
 import User from "../../src/domain/User";
-import {navigate, setLocation} from "../RouterMock";
+import {setLocation} from "../RouterMock";
 import {sleep} from "../time";
 import {afterEach, assert, beforeEach, describe, expect, test, vi} from "vitest";
+
+export const navigate = vi.fn();
+vi.mock("react-router", async () => {
+    const mod = await vi.importActual<typeof import("react-router")>(
+        "react-router"
+    );
+    return {
+        ...mod,
+        useNavigate: () => navigate,
+    };
+});
 
 describe("UsersContainer component", () => {
     beforeEach(() => {

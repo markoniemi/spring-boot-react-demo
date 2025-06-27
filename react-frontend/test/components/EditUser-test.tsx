@@ -4,10 +4,20 @@ import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
 import {configure, screen} from "@testing-library/react";
 import EditUserPage from "../pages/EditUserPage";
-import {navigate, setLocation} from "../RouterMock";
+import { setLocation} from "../RouterMock";
 import LoginPage from "../pages/LoginPage";
-import {afterEach, assert, beforeEach, describe, expect, test} from "vitest";
+import {afterEach, assert, beforeEach, describe, expect, test, vi} from "vitest";
 import Role from "../../src/domain/Role.ts";
+export const navigate = vi.fn();
+vi.mock("react-router", async () => {
+    const mod = await vi.importActual<typeof import("react-router")>(
+        "react-router"
+    );
+    return {
+        ...mod,
+        useNavigate: () => navigate,
+    };
+});
 
 describe("EditUser component", () => {
     beforeEach(() => {

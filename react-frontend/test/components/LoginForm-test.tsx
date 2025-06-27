@@ -1,15 +1,26 @@
 import * as dotenv from "dotenv";
 import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
-import { configure, screen } from "@testing-library/react";
+import {configure, screen} from "@testing-library/react";
 import LoginPage from "../pages/LoginPage";
-import { navigate, setLocation } from "../RouterMock";
-import { afterEach, assert, beforeEach, describe, expect, test } from "vitest";
+import {setLocation} from "../RouterMock";
+import {afterEach, assert, beforeEach, describe, expect, test, vi} from "vitest";
+
+export const navigate = vi.fn();
+vi.mock("react-router", async () => {
+    const mod = await vi.importActual<typeof import("react-router")>(
+        "react-router"
+    );
+    return {
+        ...mod,
+        useNavigate: () => navigate,
+    };
+});
 
 describe("LoginForm component", () => {
     beforeEach(() => {
-        configure({ testIdAttribute: "id" });
-        dotenv.config({ path: ".env" });
+        configure({testIdAttribute: "id"});
+        dotenv.config({path: ".env"});
         fetchMock.mockGlobal();
         fetchMock.postOnce("/api/rest/time", "message");
         fetchMock.get("/api/rest/users/", 200);

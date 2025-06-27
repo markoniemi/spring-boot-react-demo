@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 import UserRow from "../../src/components/UserRow";
 import User from "../../src/domain/User";
 import { user1 } from "../users";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";

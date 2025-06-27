@@ -1,4 +1,4 @@
-import { type Location, type NavigateFunction, type Params, useLocation, useNavigate, useParams } from "react-router-dom";
+import { type Location, type NavigateFunction, type Params, useLocation, useNavigate, useParams } from "react-router";
 
 export interface RouterProps {
     location: Location;
