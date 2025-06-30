@@ -1,7 +1,7 @@
 import AbstractPage from "./AbstractPage";
-import { act, fireEvent, screen } from "@testing-library/react";
+import {act, fireEvent, screen} from "@testing-library/react";
 import {sleep} from "../time";
-import { assert } from "vitest";
+import {assert} from "vitest";
 import type Role from "../../src/domain/Role.ts";
 
 export default class EditUserPage extends AbstractPage {
@@ -10,10 +10,10 @@ export default class EditUserPage extends AbstractPage {
     }
 
     public static async assertUser(id?: number, username?: string, email?: string, role?: Role): Promise<void> {
-        assert.equal(await this.getValueById("id"), id==undefined?"":id);
+        assert.equal(await this.getValueById("id"), id == undefined ? "" : id);
         assert.equal(await this.getValueById("username"), username);
         assert.equal(await this.getValueById("email"), email);
-        assert.equal(await this.getValueById("role"), role==undefined?"":role);
+        assert.equal(await this.getValueById("role"), role == undefined ? "" : role);
     }
 
     public static async setUser(username: string, password: string, email: string, role: string): Promise<void> {
@@ -27,7 +27,7 @@ export default class EditUserPage extends AbstractPage {
 
     public static async pressEnter(): Promise<void> {
         await act(async () => {
-            fireEvent.keyPress(await screen.findByTestId("email"), { key: "Enter", code: "Enter", charCode: 13 });
+            fireEvent.keyPress(await screen.findByTestId("email"), {key: "Enter", code: "Enter", charCode: 13});
             await sleep(100);
         });
     }

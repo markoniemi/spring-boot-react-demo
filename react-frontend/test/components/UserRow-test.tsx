@@ -1,19 +1,19 @@
 import * as dotenv from "dotenv";
 import UserRow from "../../src/components/UserRow";
 import User from "../../src/domain/User";
-import { user1 } from "../users";
-import { BrowserRouter } from "react-router";
-import { act, configure, fireEvent, render, screen } from "@testing-library/react";
+import {user1} from "../users";
+import {BrowserRouter} from "react-router";
+import {act, configure, fireEvent, render, screen} from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
-import { IntlProvider } from "react-intl";
-import { Table } from "react-bootstrap";
+import {IntlProvider} from "react-intl";
+import {Table} from "react-bootstrap";
 import AbstractPage from "../pages/AbstractPage";
-import { assert, beforeEach, describe, expect, test, vi } from "vitest";
+import {assert, beforeEach, describe, expect, test, vi} from "vitest";
 
 describe("UserRow component", () => {
     beforeEach(() => {
-        configure({ testIdAttribute: "id" });
-        dotenv.config({ path: ".env" });
+        configure({testIdAttribute: "id"});
+        dotenv.config({path: ".env"});
     });
     test("renders a user", async () => {
         await renderUserRow(user1, null);
@@ -36,16 +36,16 @@ describe("UserRow component", () => {
     });
 });
 
-async function renderUserRow(user: User, deleteUser: ((id: number) => void)|null): Promise<void> {
+async function renderUserRow(user: User, deleteUser: ((id: number) => void) | null): Promise<void> {
     await act(async () => {
         render(
             <Table>
                 <tbody>
-                    <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
-                        <BrowserRouter>
-                            <UserRow user={user} deleteUser={deleteUser} />
-                        </BrowserRouter>
-                    </IntlProvider>
+                <IntlProvider locale={i18nConfig.locale} messages={i18nConfig.messages}>
+                    <BrowserRouter>
+                        <UserRow user={user} deleteUser={deleteUser}/>
+                    </BrowserRouter>
+                </IntlProvider>
                 </tbody>
             </Table>,
         );

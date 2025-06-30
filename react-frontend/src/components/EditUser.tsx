@@ -83,10 +83,10 @@ class EditUser extends React.Component<RouteParam, EditUserState> {
                         disabled={true}
                         value={form.values.id ? form.values.id.toString() : ""}
                     />
-                    <InputField name="username" />
-                    <InputField name="email" />
-                    <InputField name="password" type="password" />
-                    <InputField name="role" type="select" as="select" >
+                    <InputField name="username"/>
+                    <InputField name="email"/>
+                    <InputField name="password" type="password"/>
+                    <InputField name="role" type="select" as="select">
                         <option value={""}/>
                         <FormattedMessage id="role.ROLE_ADMIN">
                             {(message) => <option value="ROLE_ADMIN">{message}</option>}

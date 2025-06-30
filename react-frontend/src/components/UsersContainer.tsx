@@ -21,7 +21,7 @@ export interface UsersContainerState {
 class UsersContainer extends React.Component<WithRouter, UsersContainerState> {
     private userService: UserService = new UserServiceImpl();
 
-    constructor(props:WithRouter) {
+    constructor(props: WithRouter) {
         super(props);
         this.state = {users: []};
         this.deleteUser = this.deleteUser.bind(this);
@@ -44,7 +44,7 @@ class UsersContainer extends React.Component<WithRouter, UsersContainerState> {
     }
 
     public async deleteUser(id: number): Promise<void> {
-        if (window.confirm("Do you want to delete this item") === true) {
+        if (window.confirm("Do you want to delete this item")) {
             try {
                 await this.userService.delete(id);
             } catch (error: unknown) {

@@ -1,9 +1,9 @@
 import AbstractPage from "./AbstractPage";
-import { act, fireEvent, screen } from "@testing-library/react";
+import {act, fireEvent, screen} from "@testing-library/react";
 import {sleep} from "../time";
-import { users } from "../users";
+import {users} from "../users";
 import fetchMock from "fetch-mock";
-import { assert } from "vitest";
+import {assert} from "vitest";
 
 export default class LoginPage extends AbstractPage {
     public static async login(username: string, password: string) {
@@ -34,7 +34,7 @@ export default class LoginPage extends AbstractPage {
 
     public static async pressEnter(): Promise<void> {
         await act(async () => {
-            fireEvent.keyPress(await screen.findByTestId("password"), { key: "Enter", code: "Enter", charCode: 13 });
+            fireEvent.keyPress(await screen.findByTestId("password"), {key: "Enter", code: "Enter", charCode: 13});
             await sleep(100);
         });
     }

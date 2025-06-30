@@ -32,7 +32,7 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
         this.onSubmit = this.onSubmit.bind(this);
         this.login = this.login.bind(this);
         this.renderForm = this.renderForm.bind(this);
-        this.state = { username: "", password: "" };
+        this.state = {username: "", password: ""};
         Jwt.clearToken();
     }
 
@@ -40,12 +40,12 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
         return (
             <Card id="LoginForm">
                 <Row>
-                    <Col md={{ span: 10, offset: 4 }}>
+                    <Col md={{span: 10, offset: 4}}>
                         <Card.Body>
                             <Card.Title>
-                                <FormattedMessage id="login" />
+                                <FormattedMessage id="login"/>
                             </Card.Title>
-                            <Messages messages={this.state.messages} />
+                            <Messages messages={this.state.messages}/>
                             <Formik
                                 initialValues={this.state}
                                 onSubmit={this.onSubmit}
@@ -69,7 +69,7 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
                     <InputField name="password" type="password"/>
                     <Col sm={5}>
                         <Button id="login" size="sm" className="pull-right" type="submit">
-                            <FontAwesomeIcon icon={Icons.faCheckSquare} />
+                            <FontAwesomeIcon icon={Icons.faCheckSquare}/>
                         </Button>
                     </Col>
                 </Form.Group>
@@ -78,8 +78,8 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
     }
 
     public async onSubmit(values: ILoginForm) {
-        this.setState({ ...values });
-        await this.login({ ...values });
+        this.setState({...values});
+        await this.login({...values});
     }
 
     private async login(loginForm: ILoginForm): Promise<void> {

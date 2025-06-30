@@ -11,7 +11,7 @@ export const InputField: React.FC<PropsWithChildren & FieldAttributes<{}>> = ({.
         <Row className="mt-2">
             <Col sm={1}>
                 <Form.Label>
-                    <FormattedMessage id={field.name+"_label"}/>:
+                    <FormattedMessage id={field.name + "_label"}/>:
                 </Form.Label>
             </Col>
             <Col sm={4}>

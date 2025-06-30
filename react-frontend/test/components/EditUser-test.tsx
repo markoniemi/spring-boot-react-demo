@@ -4,10 +4,11 @@ import fetchMock from "fetch-mock";
 import "isomorphic-fetch";
 import {configure, screen} from "@testing-library/react";
 import EditUserPage from "../pages/EditUserPage";
-import { setLocation} from "../RouterMock";
+import {setLocation} from "../RouterMock";
 import LoginPage from "../pages/LoginPage";
 import {afterEach, assert, beforeEach, describe, expect, test, vi} from "vitest";
 import Role from "../../src/domain/Role.ts";
+
 export const navigate = vi.fn();
 vi.mock("react-router", async () => {
     const mod = await vi.importActual<typeof import("react-router")>(
@@ -21,8 +22,8 @@ vi.mock("react-router", async () => {
 
 describe("EditUser component", () => {
     beforeEach(() => {
-        configure({ testIdAttribute: "id" });
-        dotenv.config({ path: ".env" });
+        configure({testIdAttribute: "id"});
+        dotenv.config({path: ".env"});
         fetchMock.mockGlobal();
     });
     afterEach(() => {
@@ -63,7 +64,7 @@ describe("EditUser component", () => {
         await EditUserPage.render();
         await EditUserPage.assertUser(undefined, "", "", undefined);
         await EditUserPage.setUser("user", "password", "email", "ROLE_USER");
-        fetchMock.postOnce("/api/rest/users/", { username: "user", email: "email" });
+        fetchMock.postOnce("/api/rest/users/", {username: "user", email: "email"});
         await EditUserPage.clickSaveUser();
         expect(navigate).toBeCalledWith("/users");
         // expect(history.push).toBeCalledWith("/users");
@@ -76,7 +77,7 @@ describe("EditUser component", () => {
         await EditUserPage.assertUser(user1.id, user1.username, user1.email, user1.role);
         await EditUserPage.setUser("newUsername", "newPassword", "newEmail", "ROLE_USER");
         await EditUserPage.assertUser(1, "newUsername", "newEmail", Role.ROLE_USER);
-        fetchMock.putOnce("/api/rest/users/1", { username: "newUsername", email: "newEmail" });
+        fetchMock.putOnce("/api/rest/users/1", {username: "newUsername", email: "newEmail"});
         // TODO how to test pressing enter on field?
         // await EditUserPage.pressEnter();
         await EditUserPage.clickSaveUser();
