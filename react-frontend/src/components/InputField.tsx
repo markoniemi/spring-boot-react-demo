@@ -1,55 +1,34 @@
-import * as React from "react";
-import type {Empty} from "../domain/Empty";
-import {Col, Form, type FormControlProps, Row} from "react-bootstrap";
-import {FormattedMessage} from "react-intl";
-import {ErrorMessage, type FormikProps, type FormikValues} from "formik";
+import {type FieldProps, type FormikProps, useField} from 'formik';
+import type {PropsWithChildren} from 'react';
+import {Col, Form, Row} from 'react-bootstrap';
+import {FormattedMessage} from 'react-intl';
 
-interface InputProps extends FormControlProps {
-    name: string;
-    formik: FormikProps<FormikValues>;
-}
+export const InputField: React.FC<FormikProps<FieldProps> & PropsWithChildren> = ({...props}) => {
+    const [field, meta] = useField(props);
 
-export default class InputField extends React.Component<InputProps, Empty> {
-    constructor(props: InputProps) {
-        super(props);
-        this.onKeyPress = this.onKeyPress.bind(this);
-    }
-
-    public override render(): React.ReactNode {
-        const {name, formik, children} = this.props;
-        return (
-            <Row className="mt-2">
-                <Col sm={1}>
-                    <Form.Label>
-                        <FormattedMessage id={name}/>:
-                    </Form.Label>
-                </Col>
-                <Col sm={4}>
-                    <Form.Control
-                        id={name}
-                        name={name}
-                        size="sm"
-                        onChange={formik.handleChange}
-                        value={formik.values[name]}
-                        onKeyPress={this.onKeyPress}
-                        isInvalid={formik.errors[name] != null}
-                        {...this.props}
-                    >
-                        {children}
-                    </Form.Control>
-                </Col>
-                <Col>
-                    <ErrorMessage name={name}>
-                        {(message) => <FormattedMessage id={message} defaultMessage={message}/>}
-                    </ErrorMessage>
-                </Col>
-            </Row>
-        );
-    }
-
-    private async onKeyPress(event: React.KeyboardEvent<HTMLInputElement>): Promise<void> {
-        if ("Enter" === event.key) {
-            await this.props.formik.submitForm();
-        }
-    }
-}
+    return (
+        <Row className="mt-2">
+            <Col sm={1}>
+                <Form.Label>
+                    <FormattedMessage id={field.name+"_label"}/>:
+                </Form.Label>
+            </Col>
+            <Col sm={4}>
+                <Form.Control
+                    id={field.name}
+                    size="sm"
+                    isInvalid={meta.error != null}
+                    {...field}
+                    {...props}
+                >
+                    {props.children}
+                </Form.Control>
+            </Col>
+            <Col>
+                {meta.touched && meta.error ? (
+                    <FormattedMessage id={meta.error} defaultMessage={meta.error}/>
+                ) : null}
+            </Col>
+        </Row>
+    );
+};

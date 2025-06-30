@@ -5,7 +5,7 @@ import { user1 } from "../users";
 import { act, configure, fireEvent, render, screen } from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
 import { IntlProvider } from "react-intl";
-import InputField from "../../src/components/InputField";
+import {InputField} from "../../src/components/InputField";
 import { Formik, type FormikProps } from "formik";
 import * as Yup from "yup";
 import { ObjectSchema } from "yup";

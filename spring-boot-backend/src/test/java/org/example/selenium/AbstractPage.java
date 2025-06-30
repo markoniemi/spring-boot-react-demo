@@ -1,10 +1,11 @@
 package org.example.selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
-
 
 public abstract class AbstractPage {
   protected WebDriver webDriver;
@@ -19,6 +20,10 @@ public abstract class AbstractPage {
 
   protected void setText(By by, String value) {
     webDriver.findElement(by).clear();
+    // workaround for clearing formik field 
+    if (StringUtils.isNotBlank(webDriver.findElement(by).getAttribute("value"))) {
+      webDriver.findElement(by).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+    }
     webDriver.findElement(by).sendKeys(value);
   }
 
@@ -37,7 +42,8 @@ public abstract class AbstractPage {
   protected void selectByText(By by, String value) {
     new Select(webDriver.findElement(by)).selectByVisibleText(value);
   }
+
   protected void assertByText(String text) {
-    assertEquals(text, webDriver.findElement(By.xpath("//*[text()=\""+text+"\"]")).getText());
+    assertEquals(text, webDriver.findElement(By.xpath("//*[text()=\"" + text + "\"]")).getText());
   }
 }

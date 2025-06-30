@@ -1,16 +1,16 @@
 import * as React from "react";
-import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { FormattedMessage } from "react-intl";
+import {Button, Card, Col, Form, Row} from "react-bootstrap";
+import {FormattedMessage} from "react-intl";
 import Messages from "./Messages";
 import LoginService from "../api/LoginService";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import Jwt from "../api/Jwt";
-import Message, { MessageType } from "../domain/Message";
-import { Form as FormikForm, Formik, type FormikProps } from "formik";
+import Message, {MessageType} from "../domain/Message";
+import {Form as FormikForm, Formik} from "formik";
 import * as Yup from "yup";
-import InputField from "./InputField";
-import withRouter, { type WithRouter } from "./withRouter";
+import withRouter, {type WithRouter} from "./withRouter";
+import {InputField} from "./InputField.tsx";
 
 export interface ILoginForm {
     username: string;
@@ -61,12 +61,12 @@ class LoginForm extends React.Component<WithRouter, ILoginState> {
         );
     }
 
-    private renderForm(form: FormikProps<ILoginForm>): React.ReactNode {
+    private renderForm(): React.ReactNode {
         return (
             <FormikForm>
                 <Form.Group>
-                    <InputField name="username" formik={form} />
-                    <InputField name="password" type="password" formik={form} />
+                    <InputField name="username"/>
+                    <InputField name="password" type="password"/>
                     <Col sm={5}>
                         <Button id="login" size="sm" className="pull-right" type="submit">
                             <FontAwesomeIcon icon={Icons.faCheckSquare} />

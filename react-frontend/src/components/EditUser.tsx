@@ -10,8 +10,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import {Form as FormikForm, Formik, type FormikProps} from "formik";
 import * as Yup from "yup";
-import InputField from "./InputField";
 import withRouter, {type WithRouter} from "./withRouter";
+import {InputField} from "./InputField.tsx";
 
 export interface RouteParam extends WithRouter {
     id: string;
@@ -82,12 +82,11 @@ class EditUser extends React.Component<RouteParam, EditUserState> {
                         name="id"
                         disabled={true}
                         value={form.values.id ? form.values.id.toString() : ""}
-                        formik={form}
                     />
-                    <InputField name="username" formik={form}/>
-                    <InputField name="email" formik={form}/>
-                    <InputField name="password" type="password" formik={form}/>
-                    <InputField name="role" type="select" as="select" formik={form}>
+                    <InputField name="username" />
+                    <InputField name="email" />
+                    <InputField name="password" type="password" />
+                    <InputField name="role" type="select" as="select" >
                         <option value={""}/>
                         <FormattedMessage id="role.ROLE_ADMIN">
                             {(message) => <option value="ROLE_ADMIN">{message}</option>}
