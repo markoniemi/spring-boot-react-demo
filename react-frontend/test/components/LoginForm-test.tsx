@@ -35,9 +35,7 @@ describe("LoginForm component", () => {
         fetchMock.postOnce("/api/rest/auth/login/", 200);
         await LoginPage.setLogin("user1", "user1");
         await LoginPage.assertLogin("user1", "user1");
-        // TODO how to test pressing enter on field?
-        // await LoginPage.pressEnter();
-        await LoginPage.clickLogin();
+        await LoginPage.pressEnter();
         // expect(history.push).toBeCalledWith("/users");
         expect(navigate).toBeCalledWith("/users");
     });

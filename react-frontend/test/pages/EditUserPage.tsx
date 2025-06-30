@@ -3,6 +3,7 @@ import {act, fireEvent, screen} from "@testing-library/react";
 import {sleep} from "../time";
 import {assert} from "vitest";
 import type Role from "../../src/domain/Role.ts";
+import userEvent from "@testing-library/user-event";
 
 export default class EditUserPage extends AbstractPage {
     public static async assertPageLoaded() {
@@ -27,7 +28,7 @@ export default class EditUserPage extends AbstractPage {
 
     public static async pressEnter(): Promise<void> {
         await act(async () => {
-            fireEvent.keyPress(await screen.findByTestId("email"), {key: "Enter", code: "Enter", charCode: 13});
+            await userEvent.type(await screen.findByTestId("email"), `[Enter]`);
             await sleep(100);
         });
     }
