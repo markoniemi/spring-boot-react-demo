@@ -1,9 +1,10 @@
-import {type FieldProps, type FormikProps, useField} from 'formik';
+import {useField} from 'formik';
 import type {PropsWithChildren} from 'react';
 import {Col, Form, Row} from 'react-bootstrap';
 import {FormattedMessage} from 'react-intl';
+import type {FieldAttributes} from "formik/dist/Field";
 
-export const InputField: React.FC<FormikProps<FieldProps> & PropsWithChildren> = ({...props}) => {
+export const InputField: React.FC<PropsWithChildren & FieldAttributes<{}>> = ({...props}) => {
     const [field, meta] = useField(props);
 
     return (

@@ -1,20 +1,20 @@
 import * as dotenv from "dotenv";
 import * as React from "react";
 import User from "../../src/domain/User";
-import { user1 } from "../users";
-import { act, configure, fireEvent, render, screen } from "@testing-library/react";
+import {user1} from "../users";
+import {act, configure, fireEvent, render, screen} from "@testing-library/react";
 import i18nConfig from "../../src/messages/messages";
-import { IntlProvider } from "react-intl";
+import {IntlProvider} from "react-intl";
 import {InputField} from "../../src/components/InputField";
-import { Formik, type FormikProps } from "formik";
+import {Formik} from "formik";
 import * as Yup from "yup";
-import { ObjectSchema } from "yup";
-import { assert, beforeEach, describe, test, vi } from "vitest";
+import {ObjectSchema} from "yup";
+import {assert, beforeEach, describe, test, vi} from "vitest";
 
 describe("InputField component", () => {
     beforeEach(() => {
-        configure({ testIdAttribute: "id" });
-        dotenv.config({ path: ".env" });
+        configure({testIdAttribute: "id"});
+        dotenv.config({path: ".env"});
     });
     test("renders an input field", async () => {
         const onSubmit = vi.fn();
@@ -50,12 +50,12 @@ async function renderInputField(user: User, schema: ObjectSchema<any>, onSubmit:
     });
 }
 
-function renderForm(form: FormikProps<User>): React.ReactNode {
-    return <InputField name="username" formik={form} />;
+function renderForm(): React.ReactNode {
+    return <InputField name="username"/>;
 }
 
 async function setValue(input: HTMLInputElement, value?: string) {
     await act(async () => {
-        fireEvent.change(input, { target: { value: value } });
+        fireEvent.change(input, {target: {value: value}});
     });
 }
