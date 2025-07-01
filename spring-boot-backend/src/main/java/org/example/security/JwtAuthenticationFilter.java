@@ -22,15 +22,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   }
 
   @Override
-  public Authentication attemptAuthentication(HttpServletRequest request,
-      HttpServletResponse response) throws AuthenticationException {
+  public Authentication attemptAuthentication(
+      HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
     return authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(obtainUsername(request), obtainPassword(request)));
   }
 
   @Override
-  protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res,
-      FilterChain chain, Authentication auth) throws IOException, ServletException {
+  protected void successfulAuthentication(
+      HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth)
+      throws IOException, ServletException {
     String token = JwtToken.createToken(((User) auth.getPrincipal()).getUsername());
     res.addHeader(JwtToken.AUTHORIZATION_HEADER, JwtToken.TOKEN_PREFIX + token);
   }

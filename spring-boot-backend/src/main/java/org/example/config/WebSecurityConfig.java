@@ -24,19 +24,20 @@ import jakarta.annotation.Resource;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
-  @Resource
-  UserRepositoryAuthenticationProvider userRepositoryAuthenticationProvider;
-  @Resource
-  UserDetailsService userDetailsService;
+  @Resource UserRepositoryAuthenticationProvider userRepositoryAuthenticationProvider;
+  @Resource UserDetailsService userDetailsService;
   AuthenticationManager authenticationManager;
-  String[] ignoredPaths =
-      {"/*", "/login", "/api/rest/auth/login/**", "/h2-console/**", "/users/**","/assets/**"};
+  String[] ignoredPaths = {
+    "/*", "/login", "/api/rest/auth/login/**", "/h2-console/**", "/users/**", "/assets/**"
+  };
 
   @Bean
-  public AuthenticationManager authenticationManager(HttpSecurity http,
-      UserDetailsService userDetailsService) throws Exception {
+  public AuthenticationManager authenticationManager(
+      HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
     AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
-    builder.userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+    builder
+        .userDetailsService(userDetailsService)
+        .passwordEncoder(NoOpPasswordEncoder.getInstance());
     authenticationManager = builder.build();
     return authenticationManager;
   }
@@ -45,12 +46,13 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable);
-    http.authorizeHttpRequests((auth)->auth.requestMatchers(RegexRequestMatcher.regexMatcher(".*\\?wsdl")).permitAll());
-    http.authorizeHttpRequests((auth)->auth.requestMatchers(ignoredPaths).permitAll());
-    http.authorizeHttpRequests((auth)->auth.anyRequest().authenticated());
+    http.authorizeHttpRequests(
+        (auth) -> auth.requestMatchers(RegexRequestMatcher.regexMatcher(".*\\?wsdl")).permitAll());
+    http.authorizeHttpRequests((auth) -> auth.requestMatchers(ignoredPaths).permitAll());
+    http.authorizeHttpRequests((auth) -> auth.anyRequest().authenticated());
     http.addFilter(new JwtAuthenticationFilter(authenticationManager));
     http.addFilter(new JwtAuthorizationFilter(authenticationManager));
-    http.sessionManagement((auth)->auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+    http.sessionManagement((auth) -> auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     return http.build();
   }
 }
