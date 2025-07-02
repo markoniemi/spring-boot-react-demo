@@ -35,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
     }
     if (user.getPassword().equals(userToLogin.getPassword())) {
       log.debug("Username: {} logged in.", user.getUsername());
-      return JwtToken.createToken(user.getUsername());
+      return JwtToken.create(user.getUsername());
     } else {
       throw new AuthenticationException("Login error");
     }

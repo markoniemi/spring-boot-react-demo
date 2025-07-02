@@ -24,6 +24,7 @@ public class EditUserPage extends AbstractPage {
   }
 
   public void validateUser() {
+	  sleep(100);
     setText(By.id("username"), "");
     setText(By.id("password"), "");
     setText(By.id("email"), "");

@@ -32,7 +32,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   protected void successfulAuthentication(
       HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth)
       throws IOException, ServletException {
-    String token = JwtToken.createToken(((User) auth.getPrincipal()).getUsername());
+    String token = JwtToken.create(((User) auth.getPrincipal()).getUsername());
     res.addHeader(JwtToken.AUTHORIZATION_HEADER, JwtToken.TOKEN_PREFIX + token);
   }
 }

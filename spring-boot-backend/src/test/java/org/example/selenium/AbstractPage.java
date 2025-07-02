@@ -46,4 +46,12 @@ public abstract class AbstractPage {
   protected void assertByText(String text) {
     assertEquals(text, webDriver.findElement(By.xpath("//*[text()=\"" + text + "\"]")).getText());
   }
+
+  protected void sleep(int ms) {
+    try {
+      Thread.sleep(ms);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 }
