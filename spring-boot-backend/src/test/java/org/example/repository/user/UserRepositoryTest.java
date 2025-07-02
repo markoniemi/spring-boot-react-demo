@@ -25,10 +25,8 @@ import jakarta.persistence.PersistenceContext;
 @EntityScan("org.example.model.user")
 @PropertySource("datasource.properties")
 class UserRepositoryTest {
-  @Autowired
-  UserRepository userRepository;
-  @PersistenceContext
-  EntityManager entityManager;
+  @Autowired UserRepository userRepository;
+  @PersistenceContext EntityManager entityManager;
 
   @Test
   void test() {

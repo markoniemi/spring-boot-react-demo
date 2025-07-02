@@ -20,7 +20,7 @@ public abstract class AbstractPage {
 
   protected void setText(By by, String value) {
     webDriver.findElement(by).clear();
-    // workaround for clearing formik field 
+    // workaround for clearing formik field
     if (StringUtils.isNotBlank(webDriver.findElement(by).getAttribute("value"))) {
       webDriver.findElement(by).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
     }
