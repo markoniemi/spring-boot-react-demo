@@ -4,6 +4,7 @@ const i18nConfig = {
         user: "User",
         users: "Users",
         id: "Id",
+        id_label: "Id",
         login: "Login",
         username: "Username",
         username_label: "Username",
