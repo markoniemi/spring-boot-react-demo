@@ -2,7 +2,6 @@ package org.example.service.user;
 
 import java.util.List;
 import org.example.model.user.User;
-import org.springframework.validation.BindException;
 import org.springframework.validation.annotation.Validated;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
@@ -32,19 +31,12 @@ public interface UserService {
 
   /**
    * Creates a user to repository.
-   *
-   * @throws BindException
-   * @throws NullPointerException if the username is null
-   * @throws IllegalArgumentException if the username is blank
-   * @throws IllegalArgumentException if username already exists
    */
   @POST
-  User create(@WebParam(name = "user") User user) throws BindException;
+  User create(@WebParam(name = "user") User user);
 
   /**
    * Updates a user in repository.
-   *
-   * @throws NullPointerException if the user does not exist
    */
   @PUT
   @Path("/{id}")

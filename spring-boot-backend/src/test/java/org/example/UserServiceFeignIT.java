@@ -9,13 +9,13 @@ import org.example.model.user.Role;
 import org.example.model.user.User;
 import org.example.service.user.UserService;
 import org.junit.jupiter.api.Test;
-import org.springframework.validation.BindException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import jakarta.annotation.Resource;
 
 public class UserServiceFeignIT extends AbstractIntegrationTestBase {
-  @Resource private UserService userService;
+  @Resource
+  private UserService userService;
 
   @Test
   public void findAll() throws JsonParseException, JsonMappingException, IOException {
@@ -25,13 +25,12 @@ public class UserServiceFeignIT extends AbstractIntegrationTestBase {
   }
 
   @Test
-  public void create() throws BindException {
+  public void create() {
     User user = new User("username", "password", "email", Role.ROLE_USER);
     userService.create(user);
     User savedUser = userService.findByUsername("username");
     assertEquals("username", savedUser.getUsername());
     assertEquals("email", savedUser.getEmail());
-    //        assertTrue(userService.exists(savedUser.getId()));
     savedUser = userService.findById(savedUser.getId());
     assertEquals("username", user.getUsername());
     userService.delete(savedUser.getId());

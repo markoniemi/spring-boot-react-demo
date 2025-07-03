@@ -6,11 +6,11 @@ import java.util.Set;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.example.model.user.User;
 import org.example.repository.user.UserRepository;
 import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
-import org.springframework.validation.BindException;
+import org.springframework.stereotype.Service;
 import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
 import jakarta.transaction.Transactional;
@@ -19,16 +19,15 @@ import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.NotFoundException;
-import jakarta.xml.ws.WebServiceContext;
 import lombok.extern.log4j.Log4j2;
 
 @Primary
 @Log4j2
-@Component(value = "userService")
+@Service(value = "userService")
 @WebService(endpointInterface = "org.example.service.user.UserService", serviceName = "UserService")
 public class UserServiceImpl implements UserService {
-  @Resource private UserRepository userRepository;
-  @Resource WebServiceContext context;
+  @Resource UserRepository userRepository;
+//  @Resource WebServiceContext context;
   @Resource UserValidator userValidator;
   @Resource Validator validator;
 
@@ -56,21 +55,26 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public User create(User user) throws BindException {
-    BindException errors = new BindException(user, "user");
-    userValidator.validate(user, errors);
-    if (userRepository.findByUsername(user.getUsername()) != null)
-      errors.reject("exist.user.username");
-    if (errors.hasErrors()) {
-      throw errors;
+  public User create(User user) throws ConstraintViolationException {
+    Set<ConstraintViolation<User>> violations = validator.validate(user);
+    if (CollectionUtils.isNotEmpty(violations)) {
+      throw new ConstraintViolationException(violations);
     }
+    
+//    BindException errors = new BindException(user, "user");
+//    userValidator.validate(user, errors);
+//    if (userRepository.findByUsername(user.getUsername()) != null)
+//      errors.reject("exist.user.username");
+//    if (errors.hasErrors()) {
+//      throw new ValidationException(errors);
+//    }
     log.trace("create: {}", user);
     return userRepository.save(user);
   }
 
   @Override
   @Transactional
-  public User update(User user) {
+  public User update(User user) throws ConstraintViolationException{
     User databaseUser = userRepository.findById(user.getId()).get();
     if (databaseUser == null) {
       throw new NotFoundException("User does not exist.");
