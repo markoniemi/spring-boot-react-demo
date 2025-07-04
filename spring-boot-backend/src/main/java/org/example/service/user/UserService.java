@@ -33,7 +33,7 @@ public interface UserService {
    * Creates a user to repository.
    */
   @POST
-  User create(@WebParam(name = "user") User user);
+  User create(@Valid @WebParam(name = "user") User user);
 
   /**
    * Updates a user in repository.

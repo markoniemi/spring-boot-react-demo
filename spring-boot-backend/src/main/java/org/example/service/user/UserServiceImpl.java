@@ -2,8 +2,6 @@ package org.example.service.user;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -14,11 +12,7 @@ import org.springframework.stereotype.Service;
 import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
 import jakarta.transaction.Transactional;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Validator;
-import jakarta.ws.rs.BadRequestException;
-import jakarta.ws.rs.NotFoundException;
 import lombok.extern.log4j.Log4j2;
 
 @Primary
@@ -27,9 +21,6 @@ import lombok.extern.log4j.Log4j2;
 @WebService(endpointInterface = "org.example.service.user.UserService", serviceName = "UserService")
 public class UserServiceImpl implements UserService {
   @Resource UserRepository userRepository;
-//  @Resource WebServiceContext context;
-  @Resource UserValidator userValidator;
-  @Resource Validator validator;
 
   @Override
   @Transactional
@@ -40,8 +31,10 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
+  // TODO rename to search
   public List<User> find(UserSearchForm userSearchForm) {
-    log.info("search: {}", userSearchForm);
+    log.trace("search: {}", userSearchForm);
+    // TODO use findByUsernameOrEmail
     if (userSearchForm != null) {
       if (StringUtils.isNotBlank(userSearchForm.getEmail())) {
         return Arrays.asList(userRepository.findByEmail(userSearchForm.getEmail()));
@@ -56,34 +49,17 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public User create(User user) throws ConstraintViolationException {
-    Set<ConstraintViolation<User>> violations = validator.validate(user);
-    if (CollectionUtils.isNotEmpty(violations)) {
-      throw new ConstraintViolationException(violations);
-    }
-    
-//    BindException errors = new BindException(user, "user");
-//    userValidator.validate(user, errors);
-//    if (userRepository.findByUsername(user.getUsername()) != null)
-//      errors.reject("exist.user.username");
-//    if (errors.hasErrors()) {
-//      throw new ValidationException(errors);
-//    }
+    Validate.notNull(user, "invalid.user");
+    Validate.isTrue(userRepository.findByUsername(user.getUsername()) == null, "existing.username");
     log.trace("create: {}", user);
     return userRepository.save(user);
   }
 
   @Override
   @Transactional
-  public User update(User user) throws ConstraintViolationException{
-    User databaseUser = userRepository.findById(user.getId()).get();
-    if (databaseUser == null) {
-      throw new NotFoundException("User does not exist.");
-    }
-    Set<ConstraintViolation<User>> violations = validator.validate(user);
-    if (CollectionUtils.isNotEmpty(violations)) {
-      throw new ConstraintViolationException(violations);
-    }
-    user.setId(databaseUser.getId());
+  public User update(User user) throws ConstraintViolationException {
+    Validate.notNull(user, "invalid.user");
+    Validate.isTrue(userRepository.findById(user.getId()).isPresent(), "nonexistent.user");
     log.trace("update: {}", user);
     return userRepository.save(user);
   }
@@ -92,9 +68,7 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public User findById(Long id) {
     log.trace("findById: {}", id);
-    if (id == null) {
-      throw new BadRequestException();
-    }
+    Validate.notNull(id, "null.id");
     return userRepository.findById(id).get();
   }
 
@@ -102,9 +76,6 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public User findByUsername(String username) {
     log.trace("findByUsername: {}", username);
-    if (StringUtils.isBlank(username)) {
-      throw new BadRequestException();
-    }
     return userRepository.findByUsername(username);
   }
 
@@ -118,6 +89,7 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public boolean exists(Long id) {
+    log.trace("exists: {}", id);
     return userRepository.findById(id) != null;
   }
 

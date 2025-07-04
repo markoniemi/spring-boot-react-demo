@@ -33,7 +33,6 @@ import lombok.ToString;
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 @XmlRootElement(name = "User")
 @XmlAccessorType(XmlAccessType.FIELD)
-@SuppressWarnings("PMD.UnusedPrivateField")
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +46,9 @@ public class User {
   @NotBlank(message = "field.required")
   private String password;
 
-  @NonNull private String email;
+  @NonNull 
+  @NotBlank(message = "field.required")
+  private String email;
 
   @NonNull
   @Enumerated(EnumType.STRING)
