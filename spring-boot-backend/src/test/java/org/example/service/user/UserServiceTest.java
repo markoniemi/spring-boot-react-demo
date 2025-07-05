@@ -2,7 +2,7 @@ package org.example.service.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import java.util.List;
 import org.example.config.TestConfig;
 import org.example.config.TestDatabaseConfig;
 import org.example.model.user.Role;
@@ -102,5 +102,23 @@ class UserServiceTest {
     IllegalArgumentException exception =
         assertThrows(IllegalArgumentException.class, () -> userService.update(user));
     assertEquals("nonexistent.user", exception.getMessage());
+  }
+
+  @Test
+  void search() {
+    userService.create(new User("username", "password", "email", Role.ROLE_USER));
+    userService.create(new User("username1", "password", "email", Role.ROLE_USER));
+    UserSearchForm form = new UserSearchForm("username", null, null);
+    List<User> users = userService.search(form);
+    assertEquals(1, users.size());
+    form = new UserSearchForm(null, "email", null);
+    users = userService.search(form);
+    assertEquals(2, users.size());
+    form = new UserSearchForm(null, null, Role.ROLE_USER);
+    users = userService.search(form);
+    assertEquals(2, users.size());
+    form = new UserSearchForm(null, null, null);
+    users = userService.search(form);
+    assertEquals(2, users.size());
   }
 }

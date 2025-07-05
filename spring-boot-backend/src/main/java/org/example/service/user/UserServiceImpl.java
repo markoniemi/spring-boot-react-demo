@@ -1,9 +1,7 @@
 package org.example.service.user;
 
-import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.collections4.IterableUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.example.model.user.User;
 import org.example.repository.user.UserRepository;
@@ -31,26 +29,21 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  // TODO rename to search
-  public List<User> find(UserSearchForm userSearchForm) {
-    log.trace("search: {}", userSearchForm);
-    // TODO use findByUsernameOrEmail
-    if (userSearchForm != null) {
-      if (StringUtils.isNotBlank(userSearchForm.getEmail())) {
-        return Arrays.asList(userRepository.findByEmail(userSearchForm.getEmail()));
-      }
-      if (StringUtils.isNotBlank(userSearchForm.getUsername())) {
-        return Arrays.asList(userRepository.findByUsername(userSearchForm.getUsername()));
-      }
+  public List<User> search(UserSearchForm searchForm) {
+    log.trace("search: {}", searchForm);
+    // findByUsernameOrEmailOrRole returns nothing if searchForm is empty
+    if (searchForm.isEmpty()) {
+      return IterableUtils.toList(userRepository.findAll());
     }
-    return IterableUtils.toList(userRepository.findAll());
+    return userRepository.findByUsernameOrEmailOrRole(
+        searchForm.getUsername(), searchForm.getEmail(), searchForm.getRole());
   }
 
   @Override
   @Transactional
   public User create(User user) throws ConstraintViolationException {
     Validate.notNull(user, "invalid.user");
-    Validate.isTrue(userRepository.findByUsername(user.getUsername()) == null, "existing.username");
+    Validate.isTrue(!userRepository.existsByUsername(user.getUsername()), "existing.username");
     log.trace("create: {}", user);
     return userRepository.save(user);
   }
@@ -59,7 +52,7 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public User update(User user) throws ConstraintViolationException {
     Validate.notNull(user, "invalid.user");
-    Validate.isTrue(userRepository.findById(user.getId()).isPresent(), "nonexistent.user");
+    Validate.isTrue(userRepository.existsById(user.getId()), "nonexistent.user");
     log.trace("update: {}", user);
     return userRepository.save(user);
   }
@@ -77,13 +70,6 @@ public class UserServiceImpl implements UserService {
   public User findByUsername(String username) {
     log.trace("findByUsername: {}", username);
     return userRepository.findByUsername(username);
-  }
-
-  @Override
-  @Transactional
-  public User findByEmail(String email) {
-    log.trace("findByEmail: {}", email);
-    return userRepository.findByEmail(email);
   }
 
   @Override

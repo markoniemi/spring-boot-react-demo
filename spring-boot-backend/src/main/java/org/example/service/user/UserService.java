@@ -27,7 +27,7 @@ public interface UserService {
   List<User> findAll();
 
   @GET
-  List<User> find(@BeanParam UserSearchForm userSearchForm);
+  List<User> search(@BeanParam UserSearchForm userSearchForm);
 
   /**
    * Creates a user to repository.
@@ -52,13 +52,6 @@ public interface UserService {
   @GET
   @Path("/username/{username}")
   User findByUsername(@PathParam("username") @WebParam(name = "username") String username);
-
-  /**
-   * @return user by email, or null if user does not exist
-   */
-  @GET
-  @Path("/email/{email}")
-  User findByEmail(@PathParam("email") @WebParam(name = "email") String email);
 
   /**
    * @return true if a user by username exists.
