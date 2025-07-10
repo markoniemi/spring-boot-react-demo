@@ -3,6 +3,7 @@ package org.example.service.user;
 import java.util.List;
 import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.Validate;
+import org.example.log.InterfaceLog;
 import org.example.model.user.User;
 import org.example.repository.user.UserRepository;
 import org.springframework.context.annotation.Primary;
@@ -17,11 +18,13 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Service(value = "userService")
 @WebService(endpointInterface = "org.example.service.user.UserService", serviceName = "UserService")
+@InterfaceLog
 public class UserServiceImpl implements UserService {
   @Resource UserRepository userRepository;
 
   @Override
   @Transactional
+  @InterfaceLog
   public List<User> findAll() {
     log.trace("findAll");
     return IterableUtils.toList(userRepository.findAll());
@@ -29,6 +32,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
+  @InterfaceLog
   public List<User> search(UserSearchForm searchForm) {
     log.trace("search: {}", searchForm);
     // findByUsernameOrEmailOrRole returns nothing if searchForm is empty
@@ -41,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
+  @InterfaceLog
   public User create(User user) throws ConstraintViolationException {
     Validate.notNull(user, "invalid.user");
     Validate.isTrue(!userRepository.existsByUsername(user.getUsername()), "existing.username");
@@ -50,6 +55,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
+  @InterfaceLog
   public User update(User user) throws ConstraintViolationException {
     Validate.notNull(user, "invalid.user");
     Validate.isTrue(userRepository.existsById(user.getId()), "nonexistent.user");
@@ -59,6 +65,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
+  @InterfaceLog
   public User findById(Long id) {
     log.trace("findById: {}", id);
     Validate.notNull(id, "null.id");
@@ -67,6 +74,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
+  @InterfaceLog
   public User findByUsername(String username) {
     log.trace("findByUsername: {}", username);
     return userRepository.findByUsername(username);
@@ -74,6 +82,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
+  @InterfaceLog
   public boolean exists(Long id) {
     log.trace("exists: {}", id);
     return userRepository.findById(id) != null;
@@ -81,6 +90,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
+  @InterfaceLog
   /** If the entity is not found in the persistence store it is silently ignored. */
   public void delete(Long id) {
     log.trace("delete: {}", id);
@@ -89,6 +99,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
+  @InterfaceLog
   public long count() {
     return userRepository.count();
   }
