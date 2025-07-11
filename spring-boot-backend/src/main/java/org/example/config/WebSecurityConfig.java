@@ -2,7 +2,6 @@ package org.example.config;
 
 import org.example.security.JwtAuthenticationFilter;
 import org.example.security.JwtAuthorizationFilter;
-import org.example.security.UserRepositoryAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -12,7 +11,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -24,7 +22,6 @@ import jakarta.annotation.Resource;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
-  @Resource UserRepositoryAuthenticationProvider userRepositoryAuthenticationProvider;
   @Resource UserDetailsService userDetailsService;
   AuthenticationManager authenticationManager;
   String[] ignoredPaths = {

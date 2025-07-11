@@ -65,6 +65,15 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
 //    assertEquals("password", validationError.getField());
     assertEquals("field.required", validationError.getCode());
   }
+  
+  @Test
+  public void createWithExistingUser() {
+    User user = new User("username", "password", "email", Role.ROLE_USER);
+    user = userService.create(user);
+    String userJson = "{\"username\":\"username\"}";
+    userService.create(userJson, BAD_REQUEST);
+    userService.delete(user.getId(), NO_CONTENT);
+  }
 
   @Test
   public void updateWithInvalidUser() throws JsonProcessingException {
@@ -76,6 +85,11 @@ public class UserServiceRestIT extends AbstractIntegrationTestBase {
     assertEquals("User", validationError.getObjectName());
 //    assertEquals("password", validationError.getField());
     assertEquals("field.required", validationError.getCode());
+  }
+  @Test
+  public void updateWithNonexistingUser() throws JsonProcessingException {
+    String userJson = "{\"id\":555, \"username\":\"username\"}";
+    userService.update(userJson,555, BAD_REQUEST);
   }
 
   @Test
