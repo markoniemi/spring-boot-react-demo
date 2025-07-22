@@ -43,6 +43,7 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable);
+    http.headers((customize) -> customize.frameOptions((options) -> options.disable()));
     http.authorizeHttpRequests(
         (auth) -> auth.requestMatchers(RegexRequestMatcher.regexMatcher(".*\\?wsdl")).permitAll());
     http.authorizeHttpRequests((auth) -> auth.requestMatchers(ignoredPaths).permitAll());
