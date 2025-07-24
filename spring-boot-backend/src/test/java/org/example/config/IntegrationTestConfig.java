@@ -4,12 +4,14 @@ import org.example.security.JwtToken;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 
 import feign.RequestInterceptor;
 
 @Configuration
 @Import({SeleniumConfig.class})
+@PropertySource("datasource-it.properties")
 public class IntegrationTestConfig {
 
   @Bean
