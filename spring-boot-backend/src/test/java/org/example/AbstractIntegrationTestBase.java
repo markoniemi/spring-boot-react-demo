@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.config.IntegrationTestConfig;
+import org.example.config.HsqldbIntegrationTestConfig;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -14,7 +14,8 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 /** Base class for integration tests, enables running multiple tests with @SpringBootTest */
 @SpringBootTest(classes = ReactDemoApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @ExtendWith(SpringExtension.class)
-@ContextHierarchy(@ContextConfiguration(classes = IntegrationTestConfig.class))
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-  DbUnitTestExecutionListener.class })
-public abstract class AbstractIntegrationTestBase {}
+@ContextHierarchy(@ContextConfiguration(classes = HsqldbIntegrationTestConfig.class))
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
+    DbUnitTestExecutionListener.class})
+public abstract class AbstractIntegrationTestBase {
+}
