@@ -11,11 +11,13 @@ import org.example.service.user.UserService;
 import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import jakarta.annotation.Resource;
 
 public class UserServiceFeignIT extends AbstractIntegrationTestBase {
-  @Resource
-  private UserService userService;
+  @Resource private UserService userService;
 
   @Test
   public void findAll() throws JsonParseException, JsonMappingException, IOException {
@@ -25,6 +27,8 @@ public class UserServiceFeignIT extends AbstractIntegrationTestBase {
   }
 
   @Test
+  @DatabaseSetup(value = "classpath:users.xml", type = DatabaseOperation.REFRESH)
+  @DatabaseTearDown(value = "classpath:users.xml", type = DatabaseOperation.DELETE)
   public void create() {
     User user = new User("username", "password", "email", Role.ROLE_USER);
     userService.create(user);
